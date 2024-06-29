@@ -1,0 +1,208 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Livelihood.master.cs" Inherits="Livelihood" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Women Empowerment</title>
+
+    <!-- Vendor CSS Files -->
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Template Main CSS File -->
+    <link href="../assets/css/style.css" rel="stylesheet" />
+    <link href="../assets/vendor/bootstrap/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="../assets/vendor/bootstrap/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="../assets/vendor/bootstrap/css/dataTables.min.css" rel="stylesheet" />
+
+    <!-- Vendor JS Files -->
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../assets/vendor/bootstrap/js/jquery-3.6.3.js"></script>
+    <script src="../assets/vendor/bootstrap/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/dataTables.bootstrap.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/dataTables.buttons.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/jszip.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/pdfmake.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/vfs_fonts.js"></script>
+    <script src="../assets/vendor/bootstrap/js/buttons.html5.min.js"></script>
+
+    <script type="text/javascript">
+        function bindTopProductsTable() {
+            var topProductsTable = $('#example').dataTable(
+                {
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'excelHtml5',
+                        'pdfHtml5'
+                    ]
+                });
+
+        };
+
+        $(function () {
+            bindTopProductsTable(); // bind data table on first page load
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(bindTopProductsTable); // bind data table on every UpdatePanel refresh
+        });
+    </script>
+    <script type="text/javascript">
+        function bindTopProductsTable1() {
+            var topProductsTable1 = $('#example1').dataTable(
+                {
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'excelHtml5'
+                    ]
+                });
+        };
+
+        $(function () {
+            bindTopProductsTable1(); // bind data table on first page load
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(bindTopProductsTable1); // bind data table on every UpdatePanel refresh
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            function disableBack() {
+                window.history.forward()
+            }
+            window.onload = disableBack();
+            window.onpageshow = function (e) {
+                if (e.persisted)
+                    disableBack();
+            }
+        });
+    </script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- ======= Header ======= -->
+        <header id="header" class="header fixed-top d-flex align-items-center">
+            <div class="d-flex align-items-center justify-content-between">
+                <a href="#" class="logo d-flex align-items-center">
+                    <img src="../assets/img/Org_Humana-logo-new.jpg" alt="" />
+                    <%-- <span class="d-none d-lg-block">Admin</span> --%>
+                </a><i class="bi bi-list toggle-sidebar-btn"></i>
+            </div>
+            <!-- End Logo -->
+            <nav class="header-nav ms-auto">
+                <ul class="d-flex align-items-center">
+                    <li class="nav-item dropdown pe-3"><a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <img src="../assets/img/profile-img.png" alt="Profile" class="rounded-circle" />
+                        <asp:Label ID="lblUserName" runat="server" class="d-none d-md-block dropdown-toggle ps-2"></asp:Label>
+
+                    </a>
+                        <!-- End Profile Iamge Icon -->
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                            <li class="dropdown-header">
+                                <h6>
+                                    <asp:Label ID="lblDropUser" runat="server"></asp:Label></h6>
+                                <span>
+                                    <asp:Label ID="lblUserType" runat="server"></asp:Label></span> </li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li><a class="dropdown-item d-flex align-items-center" href="UserProfile.aspx"><i class="bi bi-person"></i><span>My Profile</span> </a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li>
+                                <asp:LinkButton ID="lnkbtn_SignOut" runat="server" CssClass="dropdown-item d-flex align-items-center" OnClick="lnkbtn_SignOut_Click"><i class="bi bi-box-arrow-right"></i><span>Sign Out</span></asp:LinkButton></li>
+                        </ul>
+                        <!-- End Profile Dropdown Items -->
+                    </li>
+                    <!-- End Profile Nav -->
+
+                </ul>
+            </nav>
+            <!-- End Icons Navigation -->
+        </header>
+        <!-- ======= Sidebar ======= -->
+        <aside id="sidebar" class="sidebar">
+            <ul class="sidebar-nav" id="sidebar-nav">
+                <li class="nav-item"><a class="nav-link " href="Dashboard.aspx"><i class="bi bi-grid"></i><span>Dashboard</span> </a></li>
+                <!-- End Dashboard Nav -->
+
+                <li id="li_Master" runat="server" visible="false" class="nav-item"><a class="nav-link collapsed" data-bs-target="#master-nav" data-bs-toggle="collapse" href="#"><i class="bi bi-menu-button-wide"></i><span>Masters</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+                    <ul id="master-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li><a href="States.aspx"><i class="bi bi-circle"></i><span>State</span> </a></li>
+                        <li><a href="District.aspx"><i class="bi bi-circle"></i><span>District</span> </a></li>
+                        <li><a href="Block.aspx"><i class="bi bi-circle"></i><span>Block</span> </a></li>
+                        <li><a href="VillageList.aspx"><i class="bi bi-circle"></i><span>Village</span> </a></li>
+                        <li><a href="Partner.aspx"><i class="bi bi-circle"></i><span>Partner</span> </a></li>
+                        <li><a href="Project.aspx"><i class="bi bi-circle"></i><span>Project</span> </a></li>
+                        <li><a href="ProjectLocation.aspx"><i class="bi bi-circle"></i><span>Location</span> </a></li>
+                        <li><a href="SHG.aspx"><i class="bi bi-circle"></i><span>SHG</span> </a></li>
+                        <li><a href="Cast.aspx"><i class="bi bi-circle"></i><span>Caste/Social</span> </a></li>
+                        <li><a href="EconomicStatus.aspx"><i class="bi bi-circle"></i><span>Economic Status</span> </a></li>
+                        <li><a href="Education.aspx"><i class="bi bi-circle"></i><span>Education</span> </a></li>
+                        <li><a href="Scheme.aspx"><i class="bi bi-circle"></i><span>Scheme</span> </a></li>
+                        <li><a href="Theme.aspx"><i class="bi bi-circle"></i><span>Theme</span> </a></li>
+                        <li><a href="UserCategory.aspx"><i class="bi bi-circle"></i><span>User Category</span> </a></li>
+                        <li><a href="DigitalCategory.aspx"><i class="bi bi-circle"></i><span>Digital Category</span> </a></li>
+                        <li><a href="DigitalService.aspx"><i class="bi bi-circle"></i><span>Digital Service Line</span> </a></li>
+                        <li><a href="CreateUser.aspx"><i class="bi bi-circle"></i><span>Create User</span> </a></li>
+                        <li><a href="FormAccess.aspx"><i class="bi bi-circle"></i><span>Form Access</span> </a></li>
+                    </ul>
+                </li>
+                <!-- End Components Nav -->
+
+                <li class="nav-item"><a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#"><i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+                    <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li id="li_1" runat="server" visible="false"><a href="Enrollment.aspx"><i class="bi bi-circle"></i><span>Enrollment</span> </a></li>
+                        <li id="li_2" runat="server" visible="false"><a href="EnrollmentList.aspx"><i class="bi bi-circle"></i><span>Enrollment List</span> </a></li>
+                        <li id="li_3" runat="server" visible="false"><a href="TrainingList.aspx"><i class="bi bi-circle"></i><span>EDP Training</span> </a></li>
+                        <li id="li_4" runat="server" visible="false"><a href="EnterpriesSetup.aspx"><i class="bi bi-circle"></i><span>Enterprise Setup</span> </a></li>
+                        <li id="li_5" runat="server" visible="false"><a href="BusinessProgressList.aspx"><i class="bi bi-circle"></i><span>Business Progress</span> </a></li>
+                    </ul>
+                </li>
+                <!-- End Forms Nav -->
+
+                <li class="nav-heading">Pages</li>
+                <li class="nav-item"><a class="nav-link collapsed" data-bs-target="#forms-rept" data-bs-toggle="collapse" href="#"><i class="bi bi-journal-text"></i><span>Reports</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+                    <ul id="forms-rept" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li id="li_R1" runat="server" visible="false"><a href="RptEnrollment.aspx"><i class="bi bi-circle"></i><span>Enrollment</span> </a></li>
+                        <li id="li_R2" runat="server" visible="false"><a href="RptTraining.aspx"><i class="bi bi-circle"></i><span>EDP Training</span> </a></li>
+                        <li id="li_R3" runat="server" visible="false"><a href="RptEnterpriesSetup.aspx"><i class="bi bi-circle"></i><span>Enterprise Setup</span> </a></li>
+                        <li id="li_R4" runat="server" visible="false"><a href="RptBusinessProgress.aspx"><i class="bi bi-circle"></i><span>Business Progress</span> </a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link collapsed" href="UserProfile.aspx"><i class="bi bi-person"></i><span>User Profile</span> </a></li>
+                <li class="nav-item">
+                    <asp:LinkButton ID="lnkbtn_LogOut" runat="server" CssClass="nav-link collapsed" OnClick="lnkbtn_LogOut_Click"><i class="bi bi-question-circle"></i><span>LogOut</span></asp:LinkButton></li>
+                <%--<li class="nav-item"><a class="nav-link collapsed" href="pages-contact.html"><i class="bi bi-envelope"></i><span>Contact</span> </a></li>
+                <li class="nav-item"><a class="nav-link collapsed" href="pages-register.html"><i class="bi bi-card-list"></i><span>Register</span> </a></li>
+                <li class="nav-item"><a class="nav-link collapsed" href="pages-login.html"><i class="bi bi-box-arrow-in-right"></i><span>Login</span> </a></li>
+                <li class="nav-item"><a class="nav-link collapsed" href="pages-error-404.html"><i class="bi bi-dash-circle"></i><span>Error 404</span> </a></li>
+                <li class="nav-item"><a class="nav-link collapsed" href="pages-blank.html"><i class="bi bi-file-earmark"></i><span>Blank</span> </a></li>
+                --%>
+            </ul>
+        </aside>
+        <!-- End Sidebar-->
+        <!-- End #main -->
+        <main id="main" class="main" style="min-height: calc(100vh - 60px - 62px);">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </main>
+        <!-- ======= Footer ======= -->
+        <footer id="footer" class="footer py-2" st yle="background: darkturquoise;">
+            <div class="container">
+                <div class="row d-flex justify-content-between align-items-center">
+                    <div class="col-md-12 lh-1">
+                        <div class="copyright">&copy; Copyright <strong><span>HUMANA</span></strong> <span style="font-size: 9px;">PEOPLE TO PEOPLE INDIA</span></div>
+                        <div class="credits">Designed by <a target="_blank" href="#">HUMANA</a> <span style="font-size: 9px;">PEOPLE TO PEOPLE INDIA</span></div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer -->
+
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+        <!-- Template Main JS File -->
+        <script src="../assets/js/main.js"></script>
+    </form>
+</body>
+</html>

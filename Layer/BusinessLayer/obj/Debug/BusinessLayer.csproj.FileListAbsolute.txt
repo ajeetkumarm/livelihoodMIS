@@ -1,0 +1,34 @@
+E:\Humana NGO\Working\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\BusinessLayer.dll
+E:\Humana NGO\Working\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\BusinessLayer.pdb
+E:\Humana NGO\Working\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\DataLayer.dll
+E:\Humana NGO\Working\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\ModelLayer.dll
+E:\Humana NGO\Working\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\Microsoft.ApplicationBlocks.Data.dll
+E:\Humana NGO\Working\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\DataLayer.pdb
+E:\Humana NGO\Working\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\ModelLayer.pdb
+E:\Humana NGO\Working\LivelihoodMIS\Layer\BusinessLayer\obj\Debug\BusinessLayer.dll
+E:\Humana NGO\Working\LivelihoodMIS\Layer\BusinessLayer\obj\Debug\BusinessLayer.pdb
+E:\Application\Pawan\LivelihoodMIS\Layer\BusinessLayer\obj\Debug\BusinessLayer.csprojResolveAssemblyReference.cache
+E:\Application\Pawan\LivelihoodMIS\Layer\BusinessLayer\obj\Debug\BusinessLayer.dll
+E:\Application\Pawan\LivelihoodMIS\Layer\BusinessLayer\obj\Debug\BusinessLayer.pdb
+E:\Application\Pawan\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\BusinessLayer.dll
+E:\Application\Pawan\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\BusinessLayer.pdb
+E:\Application\Pawan\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\DataLayer.dll
+E:\Application\Pawan\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\ModelLayer.dll
+E:\Application\Pawan\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\Microsoft.ApplicationBlocks.Data.dll
+E:\Application\Pawan\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\DataLayer.pdb
+E:\Application\Pawan\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\ModelLayer.pdb
+E:\Humana NGO\Working\LivelihoodMIS\Layer\BusinessLayer\obj\Debug\BusinessLayer.csproj.AssemblyReference.cache
+E:\Humana NGO\Working\LivelihoodMIS\Layer\BusinessLayer\obj\Debug\BusinessLayer.csproj.CoreCompileInputs.cache
+E:\Humana NGO\Working\LivelihoodMIS\Layer\BusinessLayer\obj\Debug\BusinessLayer.csproj.CopyComplete
+E:\Projects\Argosinfotech\2024\Dotnet\Humana\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\BusinessLayer.dll
+E:\Projects\Argosinfotech\2024\Dotnet\Humana\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\BusinessLayer.pdb
+E:\Projects\Argosinfotech\2024\Dotnet\Humana\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\DataLayer.dll
+E:\Projects\Argosinfotech\2024\Dotnet\Humana\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\ModelLayer.dll
+E:\Projects\Argosinfotech\2024\Dotnet\Humana\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\Microsoft.ApplicationBlocks.Data.dll
+E:\Projects\Argosinfotech\2024\Dotnet\Humana\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\DataLayer.pdb
+E:\Projects\Argosinfotech\2024\Dotnet\Humana\LivelihoodMIS\Layer\BusinessLayer\bin\Debug\ModelLayer.pdb
+E:\Projects\Argosinfotech\2024\Dotnet\Humana\LivelihoodMIS\Layer\BusinessLayer\obj\Debug\BusinessLayer.csproj.AssemblyReference.cache
+E:\Projects\Argosinfotech\2024\Dotnet\Humana\LivelihoodMIS\Layer\BusinessLayer\obj\Debug\BusinessLayer.csproj.CoreCompileInputs.cache
+E:\Projects\Argosinfotech\2024\Dotnet\Humana\LivelihoodMIS\Layer\BusinessLayer\obj\Debug\Business.EA331CBA.Up2Date
+E:\Projects\Argosinfotech\2024\Dotnet\Humana\LivelihoodMIS\Layer\BusinessLayer\obj\Debug\BusinessLayer.dll
+E:\Projects\Argosinfotech\2024\Dotnet\Humana\LivelihoodMIS\Layer\BusinessLayer\obj\Debug\BusinessLayer.pdb
