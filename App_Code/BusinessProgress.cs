@@ -16,9 +16,6 @@ using ModelLayer;
 [ScriptService]
 public class BusinessProgress : WebService
 {
-
-    
-
     [WebMethod(EnableSession = true)]
     public BusinessProgressCustomer GetBusinessProgressDetail()
     {
@@ -26,6 +23,21 @@ public class BusinessProgress : WebService
         businessProgressCustomer.DigitalCategories = BusinessLayer.BusinessProgressCustomerRepository.GetCategoryAndServiceLineList();
         return businessProgressCustomer;
     }
+
+    [WebMethod(EnableSession = true)]
+    public object SaveBusinessProgress(BusinessProgressCustomer model)
+    {
+        var dbResponse = BusinessLayer.BusinessProgressCustomerRepository.SaveBusinessProgressCustomer(model);
+        if (dbResponse)
+        {
+            return new { success = true, message = "Data saved successfully", businessProgressId = model.BusinessProgressId };
+        }
+        else
+        {
+            return new { success = false, message = "Failed to save data", businessProgressId = model.BusinessProgressId };
+        }
+    }
+
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]

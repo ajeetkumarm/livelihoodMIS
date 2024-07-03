@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataLayer;
+﻿using DataLayer;
 using ModelLayer;
+using System.Collections.Generic;
 using System.Data;
 
 namespace BusinessLayer
@@ -27,6 +23,14 @@ namespace BusinessLayer
         public int BL_DeleteEnrollmentForm(ML_Enrollment obj_ML_Enrollment)
         {
             return obj_DL_Enrollment.DL_DeleteEnrollmentForm(obj_ML_Enrollment);
+        }
+        public DataTable BL_EnterpriseDetails(ML_Enrollment obj_ML_Enrollment)
+        {
+            return obj_DL_Enrollment.DL_EnterpriseDetails(obj_ML_Enrollment);
+        }
+        public IList<EnterpriesSetupList> GetEnterpriseSetupList(int createdUser, int projectId, int pageNumber, int pageSize, string search)
+        {
+            return obj_DL_Enrollment.GetEnterpriseSetupList(createdUser, projectId, pageNumber, pageSize, search);
         }
     }
 }

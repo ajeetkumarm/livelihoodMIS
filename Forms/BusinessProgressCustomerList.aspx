@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Forms/Livelihood.master" AutoEventWireup="true" CodeFile="BusinessProgressCustomer.aspx.cs" Inherits="Forms_BusinessProgressCustomer" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Forms/Livelihood.master" AutoEventWireup="true" CodeFile="BusinessProgressCustomerList.aspx.cs" Inherits="Forms_BusinessProgressCustomer" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
@@ -70,7 +70,8 @@
 
     <section class="section">
         <div class="card">
-            <div id="divTab" class="card-body" style="" ng-app="businessProgressApp" ng-controller="businessProgressController" ng-init="LoadDetail(<%= EnrollmentId %>);">
+            <div id="divTab" class="card-body" style="" ng-app="businessProgressApp" ng-controller="businessProgressController" ng-init="LoadDetail();">
+
                 <div id="tabs">
                     <ul>
                         <li><a href="#tab1" ng-click="loadTabContent(1)">Reporting Period</a></li>
@@ -83,13 +84,13 @@
                         <div class="mb-3 row m-1" visible="false">
                             <label class="col-sm-3 col-form-label">Date of Starting of Business</label>
                             <div class="col-sm-3">
-                                <input id="txtBusinessStartingDate" name="txtBusinessStartingDate" ng-model="BusinessProgressModel.BusinessStartingDate" class="form-control" type="date" />
+                                <input id="txtBusinessStartingDate" name="txtBusinessStartingDate" ng-model="BusinessStartingDate" class="form-control" type="date" />
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">Months</label>
                             <div class="col-sm-3">
-                                <select id="ddlMonths" name="ddlMonths" ng-model="BusinessProgressModel.Months" class="form-select">
+                                <select id="ddlMonths" name="ddlMonths" ng-model="Months" class="form-select">
                                     <option value="">--Select--</option>
                                     <option value="Jan">Jan</option>
                                     <option value="Feb">Feb</option>
@@ -107,7 +108,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
-                            <label class="col-sm-3 col-form-label">BusinessProgressModel.Year</label>
+                            <label class="col-sm-3 col-form-label">Year</label>
                             <div class="col-sm-3">
                                 <select id="ddlYear" name="ddlYear" ng-model="Year" class="form-select">
                                     <option value="">--Select--</option>
@@ -127,13 +128,15 @@
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">No. of New customer</label>
                             <div class="col-sm-6">
-                                <input id="txtNewCustomer" name="txtNewCustomer" type="text" class="form-control" maxlength="9" ng-model="BusinessProgressModel.NoNewCustomer" onkeypress="return isNumberKey(event)" />
+                                <input id="txtNewCustomer" name="txtNewCustomer" type="text" class="form-control" maxlength="9" ng-model="NoOfNewCustomer" onkeypress="return isNumberKey(event)" />
+                                <%--<asp:TextBox ID="txtNewCustomer" runat="server" class="form-control" AutoComplete="off" onkeypress="return isNumberKey(event)"></asp:TextBox>--%>
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">No. of Repeated Customer</label>
                             <div class="col-sm-6">
-                                <input id="txtRepeatedCustomer" name="txtRepeatedCustomer" type="text" class="form-control" maxlength="9" ng-model="BusinessProgressModel.NoRepeatedCustomer" onkeypress="return isNumberKey(event)" />
+                                <input id="txtRepeatedCustomer" name="txtRepeatedCustomer" type="text" class="form-control" maxlength="9" ng-model="NoOfRepeatedCustomer" onkeypress="return isNumberKey(event)" />
+                                <%--<asp:TextBox ID="txtRepeatedCustomer" runat="server" class="form-control" AutoComplete="off" onkeypress="return isNumberKey(event)"></asp:TextBox>--%>
                             </div>
                         </div>
                         <div class="tab-buttons">
@@ -173,9 +176,9 @@
                                             </div>
 
                                             <div class="col-md-4">
-                                                <input class="form-control form-control-sm" type="file" id="serviceFileUpload" ngf-select="UploadFile($files,parentIndex,$index)" />
+                                                 <input class="form-control form-control-sm" type="file" id="serviceFileUpload" ngf-select="UploadFile($files,parentIndex,$index)" />
 
-                                                <a ng-show="_surviceLine.DisplayView" href="/UploadedFile/BusinessProgress/{{_surviceLine.UplodedFileName}}" target="_blank"><i class="fa fa-eyes"></i>View</a>
+                                                <a ng-show="_surviceLine.DisplayView" href="/UploadedFile/BusinessProgress/{{_surviceLine.UplodedFileName}}" target="_blank"><i class="fa fa-eyes"></i> View</a>
                                             </div>
                                         </div>
                                     </div>
@@ -185,13 +188,13 @@
                         <div class="mb-3 row m-1" ng-show="BusinessProgressModel.ServicesOfferedType=='Non-Digital' || BusinessProgressModel.ServicesOfferedType=='Both'">
                             <label class="col-sm-3 col-form-label">Kindly provide details of services provided</label>
                             <div class="col-sm-6">
-                                <input type="text" id="txtServicesDetails" class="form-control" ng-model="BusinessProgressModel.ServicesProvidedDetails" maxlength="150" />
+                                <input type="text" id="txtServicesDetails" class="form-control" ng-model="BusinessProgressModel.ServicesDetails" maxlength="150" />
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">If related to government to customer services mention the number</label>
                             <div class="col-sm-6">
-                                <input type="text" id="txtGovCustServices" class="form-control" ng-model="BusinessProgressModel.GovCustomerServices" onkeypress="return isNumberKey(event)" maxlength="9" />
+                                <input type="text" id="txtGovCustServices" class="form-control" ng-model="BusinessProgressModel.GovCustServices" onkeypress="return isNumberKey(event)" maxlength="9" />
                             </div>
                         </div>
                         <div class="tab-buttons">
@@ -204,13 +207,13 @@
                             <label class="col-sm-3 col-form-label">Income from Sell</label>
                             <div class="col-sm-6">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="chkIncomeSellCash" ng-model="BusinessProgressModel.IncomeSellCash" ng-change="calculateIncome()" />
+                                    <input class="form-check-input" type="checkbox" id="chkIncomeSellCash" ng-model="BusinessProgressModel.IncomeSellCash" />
                                     <label class="form-check-label" for="chkIncomeSellCash">
                                         Cash Sell
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="chkIncomeCreditSell" ng-model="BusinessProgressModel.IncomeCreditSell" ng-change="calculateIncome()" />
+                                    <input class="form-check-input" type="checkbox" id="chkIncomeCreditSell" ng-model="BusinessProgressModel.IncomeCreditSell" />
                                     <label class="form-check-label" for="chkIncomeCreditSell">
                                         Cash Sell
                                     </label>
@@ -221,19 +224,13 @@
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">Cash Sell Amount(Rs.)</label>
                             <div class="col-sm-6">
-                                <input type="text" id="txtCashSellAmount" class="form-control" ng-model="BusinessProgressModel.CashSellAmount"
-                                    ng-disabled="!BusinessProgressModel.IncomeSellCash"
-                                    ng-change="calculateIncome()"
-                                    onkeypress="return isNumberKey(event)" maxlength="9" />
+                                <input type="text" id="txtCashSellAmount" class="form-control" ng-model="BusinessProgressModel.CashSellAmount" disabled="disabled" onkeypress="return isNumberKey(event)" maxlength="9" />
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">Credit Sell Amount(Rs.)</label>
                             <div class="col-sm-6">
-                                <input type="text" id="txtCreditSellAmount" class="form-control" ng-model="BusinessProgressModel.CreditSellAmount"
-                                    ng-disabled="!BusinessProgressModel.IncomeCreditSell"
-                                    ng-change="calculateIncome()"
-                                    onkeypress="return isNumberKey(event)" maxlength="9" />
+                                <input type="text" id="txtCreditSellAmount" class="form-control" ng-model="BusinessProgressModel.CreditSellAmount" disabled="disabled" onkeypress="return isNumberKey(event)" maxlength="9" />
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
@@ -245,21 +242,20 @@
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">Investment</label>
                             <div class="col-sm-6">
-                                <input type="text" id="txtInvestment" class="form-control" ng-model="BusinessProgressModel.Investment" onkeypress="return isNumberKey(event)" maxlength="9"
-                                    ng-change="calculateMonthlyProfitLoss()" />
+                                <input type="text" id="txtInvestment" class="form-control" ng-model="BusinessProgressModel.Investment" disabled="disabled" onkeypress="return isNumberKey(event)" maxlength="9" />
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">Expenditure from Purchase</label>
                             <div class="col-sm-6">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="chkCashExpenditure" ng-model="BusinessProgressModel.CheckCashExpenditure" ng-change="calculateMonthlyProfitLoss()" />
+                                    <input class="form-check-input" type="checkbox" id="chkCashExpenditure" ng-model="BusinessProgressModel.CashExpenditure" />
                                     <label class="form-check-label" for="chkCashExpenditure">
                                         Cash Expenditure
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="chkCreditExpenditure" ng-model="BusinessProgressModel.CheckCreditExpenditure" ng-change="calculateMonthlyProfitLoss()" />
+                                    <input class="form-check-input" type="checkbox" id="chkCreditExpenditure" ng-model="BusinessProgressModel.CreditExpenditure" />
                                     <label class="form-check-label" for="chkCreditExpenditure">
                                         Credit Expenditure
                                     </label>
@@ -270,50 +266,43 @@
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">Cash Expenditure Amount(Rs.)</label>
                             <div class="col-sm-6">
-                                <input type="text" id="txtCashExpenditureAmount" class="form-control" ng-model="BusinessProgressModel.CashExpenditure"
-                                    ng-disabled="!BusinessProgressModel.CheckCashExpenditure"
-                                    ng-change="calculateMonthlyProfitLoss()"
-                                    onkeypress="return isNumberKey(event)" maxlength="9" />
+                                <%--<asp:TextBox ID="txtCashExpenditureAmount" runat="server" class="form-control" AutoComplete="off" onkeypress="return isNumberKey(event)" ReadOnly="true" AutoPostBack="true" OnTextChanged="txtCashExpenditureAmount_TextChanged"></asp:TextBox>--%>
+                                <input type="text" id="txtCashExpenditureAmount" class="form-control" ng-model="BusinessProgressModel.CashExpenditureAmount" disabled="disabled" onkeypress="return isNumberKey(event)" maxlength="9" />
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">Credit Expenditure Amount(Rs.)</label>
                             <div class="col-sm-6">
-                                <input type="text" id="txtCreditExpenditureAmount" class="form-control" ng-model="BusinessProgressModel.CreditExpenditure"
-                                    ng-disabled="!BusinessProgressModel.CheckCreditExpenditure"
-                                    ng-change="calculateMonthlyProfitLoss()"
-                                    onkeypress="return isNumberKey(event)" maxlength="9" />
+                                <%--<asp:TextBox ID="txtCreditExpenditureAmount" runat="server" class="form-control" AutoComplete="off" onkeypress="return isNumberKey(event)" ReadOnly="true" AutoPostBack="true" OnTextChanged="txtCreditExpenditureAmount_TextChanged"></asp:TextBox>--%>
+                                <input type="text" id="txtCreditExpenditureAmount" class="form-control" ng-model="BusinessProgressModel.CreditExpenditureAmount" disabled="disabled" onkeypress="return isNumberKey(event)" maxlength="9" />
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">Total Expenditure</label>
                             <div class="col-sm-6">
+                                <%--<asp:TextBox ID="txtTotalExpenditure" runat="server" class="form-control" AutoComplete="off" onkeypress="return isNumberKey(event)" ReadOnly="true"></asp:TextBox>--%>
                                 <input type="text" id="txtTotalExpenditure" class="form-control" ng-model="BusinessProgressModel.TotalExpenditure" disabled="disabled" onkeypress="return isNumberKey(event)" maxlength="9" />
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">Last Month Credit</label>
                             <div class="col-sm-6">
-                                <input type="text" id="txtLastMonthCredit" class="form-control" ng-model="BusinessProgressModel.LastMonthCredit"
-                                    ng-change="calculateMonthlyProfitLoss()"
-                                    onkeypress="return isNumberKey(event)" maxlength="9" />
+                                <%--<asp:TextBox ID="txtLastMonthCredit" runat="server" class="form-control" AutoComplete="off" onkeypress="return isNumberKey(event)"></asp:TextBox>--%>
+                                <input type="text" id="txtLastMonthCredit" class="form-control" ng-model="BusinessProgressModel.LastMonthCredit" disabled="disabled" onkeypress="return isNumberKey(event)" maxlength="9" />
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">Credit Settlement</label>
                             <div class="col-sm-6">
-                                <input type="text" id="txtCreditSettlement" class="form-control" ng-model="BusinessProgressModel.CreditSettlement"
-                                    ng-change="calculateMonthlyProfitLoss()"
-                                    onkeypress="return isNumberKey(event)" maxlength="9" />
+                                <%--<asp:TextBox ID="txtCreditSettlement" runat="server" class="form-control" AutoComplete="off" onkeypress="return isNumberKey(event)" AutoPostBack="true" OnTextChanged="txtCreditSettlement_TextChanged"></asp:TextBox>--%>
+                                <input type="text" id="txtCreditSettlement" class="form-control" ng-model="BusinessProgressModel.CreditSettlement" disabled="disabled" onkeypress="return isNumberKey(event)" maxlength="9" />
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">Net Monthly Profit/Loss</label>
                             <div class="col-sm-6">
-                                <input type="text" id="txtMonthlyProfitLoss" class="form-control"
-                                    ng-class="{'text-danger': BusinessProgressModel.MonthlyProfitLoss < 0, 'text-success': BusinessProgressModel.MonthlyProfitLoss > 0}"
-                                    ng-model="BusinessProgressModel.MonthlyProfitLoss" 
-                                    disabled="disabled" onkeypress="return isNumberKey(event)" maxlength="9" />
+                                <%--<asp:TextBox ID="txtMonthlyProfitLoss" runat="server" class="form-control" AutoComplete="off" ReadOnly="true"></asp:TextBox>--%>
+                                <input type="text" id="txtMonthlyProfitLoss" class="form-control" ng-model="BusinessProgressModel.txtMonthlyProfitLoss" disabled="disabled" onkeypress="return isNumberKey(event)" maxlength="9" />
                             </div>
                         </div>
 
@@ -345,12 +334,13 @@
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">Please specify % of payment received for each mode</label>
                             <div class="col-sm-6">
+                                <%--<asp:TextBox ID="txtPaymentRecivedMode" runat="server" class="form-control" AutoComplete="off"></asp:TextBox>--%>
                                 <input type="text" id="txtPaymentRecivedMode" class="form-control" ng-model="BusinessProgressModel.PaymentRecivedMode" disabled="disabled" onkeypress="return isNumberKey(event)" maxlength="9" />
                             </div>
                         </div>
                         <div class="tab-buttons">
                             <button type="button" ng-click="prevTab()" class="btn btn-secondary">Previous</button>
-                            <button type="button" ng-click="SaveBusinessProgress()" class="btn btn-primary">Save</button>
+                            <button type="button" ng-click="nextTab()" class="btn btn-primary">Next</button>
                         </div>
                     </div>
                 </div>

@@ -30,6 +30,8 @@ namespace ModelLayer
         public string TotalIncome { get; set; }
         public string Investment { get; set; }
         public string ExpenditurefromPurchase { get; set; }
+        public bool CheckCashExpenditure { get; set; }
+        public bool CheckCreditExpenditure { get; set; }
         public string CashExpenditure { get; set; }
         public string CreditExpenditure { get; set; }
         public string TotalExpenditure { get; set; }
@@ -43,6 +45,8 @@ namespace ModelLayer
         public string SameTypeBusinessDistance { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
+        public bool IncomeSellCash { get; set; }
+        public bool IncomeCreditSell { get; set; }
         public List<BPCDigitalCategory> DigitalCategories { get; set; }
     }
     [Serializable]

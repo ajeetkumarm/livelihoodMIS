@@ -47,5 +47,9 @@ namespace BusinessLayer
             }
             return list;
         }
+        public static bool SaveBusinessProgressCustomer(BusinessProgressCustomer obj_ML_BusinessProgress)
+        {
+            return SqlBusinessProgressCustomer.SaveBusinessProgressCustomer(obj_ML_BusinessProgress);
+        }
     }
 }

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ModelLayer;
 using Microsoft.ApplicationBlocks.Data;
+using System.Collections.Generic;
+using System;
 
 namespace DataLayer
 {
@@ -89,6 +86,92 @@ namespace DataLayer
         {
             SqlParameter[] par ={ new SqlParameter("@EnrollmentId", obj_ML_Enrollment.EnrollmentId)};
             return SqlHelper.ExecuteNonQuery(con, "USP_DeleteEnrollmentForm", par);
+        }
+        public DataTable DL_EnterpriseDetails(ML_Enrollment obj_ML_Enrollment)
+        {
+            SqlParameter[] par = { 
+                                   new SqlParameter("@QueryType", obj_ML_Enrollment.QType),
+                                   new SqlParameter("@CreatedUser", obj_ML_Enrollment.CreatedUser),
+                                   new SqlParameter("@Project", obj_ML_Enrollment.ProjectCode),
+                                   new SqlParameter("@Stateid", obj_ML_Enrollment.State),
+                                   new SqlParameter("@DistrictId", obj_ML_Enrollment.District)
+                                 };
+            return SqlHelper.ExecuteDataset(con, "USP_Enrollment_with_filter", par).Tables[0];
+        }
+
+
+        public IList<EnterpriesSetupList> GetEnterpriseSetupList(int createdUser, int projectId, int pageNumber, int pageSize, string search)
+        {
+            List<EnterpriesSetupList> enterpriesSetupList = new List<EnterpriesSetupList>();
+            using (SqlConnection con = new SqlConnection(DB_Connection.Livelihood_Connection))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("usp_EnterpriesSetupList", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@CreatedUser", createdUser);
+                    cmd.Parameters.AddWithValue("@Project", projectId);
+                    cmd.Parameters.AddWithValue("@PageNumber", pageNumber);
+                    cmd.Parameters.AddWithValue("@PageSize", pageSize);
+                    if (!string.IsNullOrEmpty(search))
+                    {
+                        cmd.Parameters.AddWithValue("@Search", search);
+                    }
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            EnterpriesSetupList objModel = new EnterpriesSetupList();
+                            
+                            objModel.RowNum = Convert.ToInt32(dr["RowNum"]);
+                            objModel.EnrollmentId = TypeConversionUtility.ToInteger(dr["EnrollmentId"]);
+                            objModel.TotalCount = TypeConversionUtility.ToInteger(dr["TotalCount"]);
+                            objModel.BeneficiaryCode = TypeConversionUtility.ToStringWithNull(dr["BeneficiaryCode"]);
+                            objModel.WomenName = TypeConversionUtility.ToStringWithNull(dr["WomenName"]);
+                            objModel.HusbandFatherName = TypeConversionUtility.ToStringWithNull(dr["HusbandFatherName"]);
+                            objModel.MotherName = TypeConversionUtility.ToStringWithNull(dr["MotherName"]);
+                            objModel.PhoneNo = TypeConversionUtility.ToStringWithNull(dr["PhoneNo"]);
+                            objModel.ThemeCode = TypeConversionUtility.ToStringWithNull(dr["ThemeCode"]);
+                            objModel.Cast = TypeConversionUtility.ToInteger(dr["Cast"]);
+                            objModel.EconomicStatus = TypeConversionUtility.ToInteger(dr["EconomicStatus"]);
+                            objModel.MaritalStatus = TypeConversionUtility.ToStringWithNull(dr["MaritalStatus"]);
+                            objModel.BirthDate = TypeConversionUtility.ToStringWithNull(dr["BirthDate"]);
+                            objModel.Age = TypeConversionUtility.ToInteger(dr["Age"]);
+                            objModel.RegistrationDate = TypeConversionUtility.ToStringWithNull(dr["RegistrationDate"]);
+                            objModel.State = TypeConversionUtility.ToInteger(dr["State"]);
+                            objModel.StateName = TypeConversionUtility.ToStringWithNull(dr["StateName"]);
+                            objModel.District = TypeConversionUtility.ToInteger(dr["District"]);
+                            objModel.DistrictName = TypeConversionUtility.ToStringWithNull(dr["DistrictName"]);
+                            objModel.Block = TypeConversionUtility.ToInteger(dr["Block"]);
+                            objModel.BlockName = TypeConversionUtility.ToStringWithNull(dr["BlockName"]);
+                            objModel.Village = TypeConversionUtility.ToInteger(dr["Village"]);
+                            objModel.VillageName = TypeConversionUtility.ToStringWithNull(dr["VillageName"]);
+                            objModel.PartSHG = TypeConversionUtility.ToStringWithNull(dr["PartSHG"]);
+                            objModel.SHGName = TypeConversionUtility.ToStringWithNull(dr["SHGName"]);
+                            objModel.SHGDate = TypeConversionUtility.ToStringWithNull(dr["SHGDate"]);
+                            objModel.SHGType = TypeConversionUtility.ToInteger(dr["SHGType"]);
+                            objModel.Education = TypeConversionUtility.ToInteger(dr["Education"]);
+                            // obj_VillageList.PwD = TypeConversionUtility.ToStringWithNull(dr["PwD"]);
+                            // obj_VillageList.PwDSpecify = TypeConversionUtility.ToStringWithNull(dr["PwDSpecify"]);
+                            objModel.AadhaarrCard = TypeConversionUtility.ToStringWithNull(dr["AadhaarrCard"]);
+                            objModel.AadhaarCardDetails = TypeConversionUtility.ToStringWithNull(dr["AadhaarCardDetails"]);
+                            objModel.AadhaarNo = TypeConversionUtility.ToStringWithNull(dr["AadhaarNo"]);
+                            objModel.AnyIDProofDetails = TypeConversionUtility.ToStringWithNull(dr["AnyIDProofDetails"]);
+                            objModel.IDProofNo = TypeConversionUtility.ToStringWithNull(dr["IDProofNo"]);
+                            objModel.IssuingAuthority = TypeConversionUtility.ToStringWithNull(dr["IssuingAuthority"]);
+                            objModel.RationCard = TypeConversionUtility.ToStringWithNull(dr["RationCard"]);
+                            objModel.RationCardlinkedPDS = TypeConversionUtility.ToStringWithNull(dr["RationCardlinkedPDS"]);
+                            objModel.BankAccountNo = TypeConversionUtility.ToStringWithNull(dr["BankAccountNo"]);
+                            objModel.LinkedSocialSecuritySchemes = TypeConversionUtility.ToStringWithNull(dr["LinkedSocialSecuritySchemes"]);
+                            objModel.Scheme = TypeConversionUtility.ToInteger(dr["Scheme"]);
+                            objModel.IntrestedEDPTraining = TypeConversionUtility.ToInteger(dr["IntrestedEDPTraining"]);
+                            enterpriesSetupList.Add(objModel);
+                        }
+                    }
+                }
+            }
+            return enterpriesSetupList;
         }
     }
 }

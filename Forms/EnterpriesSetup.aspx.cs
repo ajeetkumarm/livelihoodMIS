@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -10,6 +8,8 @@ using ModelLayer;
 
 public partial class Forms_EnterpriesSetup : System.Web.UI.Page
 {
+    ML_Masters obj_ML_Masters = new ML_Masters();
+    BL_Masters obj_BL_Masters = new BL_Masters();
     ML_Enrollment obj_ML_Enrollment = new ML_Enrollment();
     BL_Enrollment obj_BL_Enrollment = new BL_Enrollment();
     string CreatedUser, projectCode;
@@ -24,12 +24,13 @@ public partial class Forms_EnterpriesSetup : System.Web.UI.Page
                 projectCode = DT.Rows[0]["ProjectCode"].ToString();
                 if (CreatedUser == "1")
                 {
-                    BindTrainingList(CreatedUser, "");
+                  //  BindTrainingList(CreatedUser, "");
                 }
                 else
                 {
-                    BindTrainingList(CreatedUser, projectCode);
+                    //BindTrainingList(CreatedUser, projectCode);
                 }
+                //FetchState(0);
             }
         }
         else
@@ -47,10 +48,15 @@ public partial class Forms_EnterpriesSetup : System.Web.UI.Page
     {
         try
         {
+            DataTable DT1 = Session["UserDetails"] as DataTable;
+            CreatedUser = DT1.Rows[0]["UserCode"].ToString();
+            projectCode = DT1.Rows[0]["ProjectCode"].ToString();
             obj_ML_Enrollment.QType = "EntSetup";
             obj_ML_Enrollment.CreatedUser = Convert.ToInt32(CreatedUser);
-            obj_ML_Enrollment.ProjectCode = projectid;
-            DataTable DT = obj_BL_Enrollment.BL_EnrollmentDetails(obj_ML_Enrollment);
+            obj_ML_Enrollment.ProjectCode = projectCode;
+            //obj_ML_Enrollment.State = Convert.ToInt32(ddlState.SelectedValue.Trim());
+            //obj_ML_Enrollment.District = Convert.ToInt32(ddlDistrict.SelectedValue.Trim());
+            DataTable DT = obj_BL_Enrollment.BL_EnterpriseDetails(obj_ML_Enrollment);
             if (DT.Rows.Count > 0)
             {
                 rpt_EntSetupList.DataSource = DT;
@@ -65,6 +71,31 @@ public partial class Forms_EnterpriesSetup : System.Web.UI.Page
         catch (Exception ex)
         {
             Response.Redirect(ex.Message);
+        }
+    }
+    private void FetchState(int StateId)
+    {
+        try
+        {
+            obj_ML_Masters.QueryType = "State";
+            obj_ML_Masters.StateId = StateId;
+            obj_ML_Masters.DistrictId = 0;
+            obj_ML_Masters.BlockId = 0;
+            obj_ML_Masters.VillageId = 0;
+            obj_ML_Masters.DigitalCategoryId = 0;
+            DataTable DT = obj_BL_Masters.BL_AllMasters(obj_ML_Masters);
+            if (DT.Rows.Count > 0)
+            {
+                //ddlState.DataSource = DT;
+                //ddlState.DataValueField = "StateId";
+                //ddlState.DataTextField = "StateName";
+                //ddlState.DataBind();
+                //ddlState.Items.Insert(0, new ListItem("--Select State--", "0"));
+            }
+        }
+        catch (Exception)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Message", "alert('System Error !');", true);
         }
     }
 
@@ -87,6 +118,44 @@ public partial class Forms_EnterpriesSetup : System.Web.UI.Page
         catch (Exception ex)
         {
             Response.Redirect(ex.Message);
+        }
+    }
+
+    protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            //obj_ML_Masters.QueryType = "District";
+            //obj_ML_Masters.StateId = Convert.ToInt32(ddlState.SelectedValue);
+            //obj_ML_Masters.DistrictId = 0;
+            //obj_ML_Masters.BlockId = 0;
+            //obj_ML_Masters.VillageId = 0;
+            //obj_ML_Masters.DigitalCategoryId = 0;
+            //DataTable DT = obj_BL_Masters.BL_AllMasters(obj_ML_Masters);
+            //if (DT.Rows.Count > 0)
+            //{
+            //    ddlDistrict.DataSource = DT;
+            //    ddlDistrict.DataValueField = "DistrictId";
+            //    ddlDistrict.DataTextField = "DistrictName";
+            //    ddlDistrict.DataBind();
+            //    ddlDistrict.Items.Insert(0, new ListItem("--Select District--", "0"));
+            //}
+        }
+        catch (Exception)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Message", "alert('System Error !');", true);
+        }
+    }
+
+    protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (CreatedUser == "1")
+        {
+             BindTrainingList(CreatedUser, "");
+        }
+        else
+        {
+            BindTrainingList(CreatedUser, projectCode);
         }
     }
 }
