@@ -64,6 +64,13 @@ app.controller('enterpriesSetupController', function ($scope, $http) {
             [25, 50, 100, -1],
             [25, 50, 100, 'All'],
         ],
+        language: {
+            searchPlaceholder: "Search by Women Name",
+            info: "Showing _START_ to _END_ of _TOTAL_ records.",
+            lengthMenu: "Show _MENU_ records.",
+            infoEmpty: "Showing 0 to 0 of 0 records",
+            "emptyTable": "No Record Found!",
+        },
         "bStateSave": true,
         "fnStateSave": function (oSettings, oData) {
             localStorage.setItem('DataTables_' + window.location.pathname, JSON.stringify(oData));

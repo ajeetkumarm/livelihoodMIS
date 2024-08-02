@@ -11,11 +11,15 @@
             background-color: #4154f1; /* Change this to your desired color */
             color: white; /* Text color */
         }
+
+        .text-danger {
+            color: red;
+        }
     </style>
     <script type="text/javascript">
         /* VALIDATION */
         function isNumberKey(evt) {
-            var charCode = (evt.which) ? evt.which : event.keyCode
+            var charCode = (evt.which) ? evt.which : evt.keyCode
             if (charCode > 31 && (charCode < 48 || charCode > 57)) {
                 alert("Please Enter Only Numeric Value:");
                 return false;
@@ -41,6 +45,7 @@
     <script src="/assets/js/angular/businessProgressCustomer.js"></script>
 
     <script>
+        // app.value("enrollmentId", <%= EnrollmentId %>);
         $(document).ready(function () {
             $("#tabs").tabs({
                 activate: function (event, ui) {
@@ -70,7 +75,7 @@
 
     <section class="section">
         <div class="card">
-            <div id="divTab" class="card-body" style="" ng-app="businessProgressApp" ng-controller="businessProgressController" ng-init="LoadDetail(<%= EnrollmentId %>);">
+            <div id="divTab" class="card-body" style="" ng-app="businessProgressApp" ng-controller="businessProgressController" ng-init="LoadDetail(<%= EnrollmentId %>, <%= UserCategory %>);">
                 <div id="tabs">
                     <ul>
                         <li><a href="#tab1" ng-click="loadTabContent(1)">Reporting Period</a></li>
@@ -81,15 +86,18 @@
                     </ul>
                     <div id="tab1">
                         <div class="mb-3 row m-1" visible="false">
-                            <label class="col-sm-3 col-form-label">Date of Starting of Business</label>
+                            <label class="col-sm-3 col-form-label">Date of Starting of Business <span class="text-danger">*</span></label>
                             <div class="col-sm-3">
-                                <input id="txtBusinessStartingDate" name="txtBusinessStartingDate" ng-model="BusinessProgressModel.BusinessStartingDate" class="form-control" type="date" />
+                                <input id="txtBusinessStartingDate" name="txtBusinessStartingDate" ng-model="BusinessProgressModel.StartingBusinessDate"
+                                     ng-disabled="StartingBusinessDateEnable"
+                                    class="form-control" type="date" />
+                                <span class="text-danger" ng-show="IsSubmittedTab1 && !BusinessProgressModel.StartingBusinessDate">Required.</span>
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
-                            <label class="col-sm-3 col-form-label">Months</label>
+                            <label class="col-sm-3 col-form-label">Months <span class="text-danger">*</span></label>
                             <div class="col-sm-3">
-                                <select id="ddlMonths" name="ddlMonths" ng-model="BusinessProgressModel.Months" class="form-select">
+                                <select id="ddlMonths" name="ddlMonths" ng-model="BusinessProgressModel.Month" class="form-select">
                                     <option value="">--Select--</option>
                                     <option value="Jan">Jan</option>
                                     <option value="Feb">Feb</option>
@@ -104,19 +112,24 @@
                                     <option value="Nov">Nov</option>
                                     <option value="Dec">Dec</option>
                                 </select>
+                                <span class="text-danger" ng-show="IsSubmittedTab1 && !BusinessProgressModel.Month">Required.</span>
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
-                            <label class="col-sm-3 col-form-label">BusinessProgressModel.Year</label>
+                            <label class="col-sm-3 col-form-label">Year <span class="text-danger">*</span></label>
                             <div class="col-sm-3">
-                                <select id="ddlYear" name="ddlYear" ng-model="Year" class="form-select">
+                                <select id="ddlYear" name="ddlYear" ng-model="BusinessProgressModel.Year" class="form-select">
                                     <option value="">--Select--</option>
                                     <option value="2022">2022</option>
                                     <option value="2023">2023</option>
                                     <option value="2024">2024</option>
                                     <option value="2025">2025</option>
                                 </select>
+                                <span class="text-danger" ng-show="IsSubmittedTab1 && !BusinessProgressModel.Year">Required.</span>
                             </div>
+                        </div>
+                        <div class="mb-3 row m-1" ng-show="DisplayMonthYearDataExist">
+                             <label class="col-sm-12 col-form-label text-danger">You alreay entered data for Month({{BusinessProgressModel.Month}}) & Year({{BusinessProgressModel.Year}}).</label>
                         </div>
                         <div class="tab-buttons">
                             <button type="button" ng-click="prevTab()" class="btn btn-secondary">Previous</button>
@@ -125,15 +138,17 @@
                     </div>
                     <div id="tab2">
                         <div class="mb-3 row m-1">
-                            <label class="col-sm-3 col-form-label">No. of New customer</label>
+                            <label class="col-sm-3 col-form-label">No. of New customer <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
                                 <input id="txtNewCustomer" name="txtNewCustomer" type="text" class="form-control" maxlength="9" ng-model="BusinessProgressModel.NoNewCustomer" onkeypress="return isNumberKey(event)" />
+                                <span class="text-danger" ng-show="IsSubmittedTab2 && !BusinessProgressModel.NoNewCustomer">Required.</span>
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
-                            <label class="col-sm-3 col-form-label">No. of Repeated Customer</label>
+                            <label class="col-sm-3 col-form-label">No. of Repeated Customer <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
                                 <input id="txtRepeatedCustomer" name="txtRepeatedCustomer" type="text" class="form-control" maxlength="9" ng-model="BusinessProgressModel.NoRepeatedCustomer" onkeypress="return isNumberKey(event)" />
+                                <span class="text-danger" ng-show="IsSubmittedTab2 && !BusinessProgressModel.NoRepeatedCustomer">Required.</span>
                             </div>
                         </div>
                         <div class="tab-buttons">
@@ -143,7 +158,7 @@
                     </div>
                     <div id="tab3">
                         <div class="mb-3 row m-1">
-                            <label class="col-sm-3 col-form-label">Type of services offered</label>
+                            <label class="col-sm-3 col-form-label">Type of services offered <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
                                 <select id="ddlServicesOfferedType" name="ddlServicesOfferedType" ng-model="BusinessProgressModel.ServicesOfferedType" class="form-select">
                                     <option value="">--Select--</option>
@@ -151,7 +166,7 @@
                                     <option value="Non-Digital">Non-Digital</option>
                                     <option value="Both">Both</option>
                                 </select>
-
+                                <span class="text-danger" ng-show="IsSubmittedTab3 && !BusinessProgressModel.ServicesOfferedType">Required.</span>
 
                             </div>
                         </div>
@@ -166,16 +181,30 @@
                                                 <strong>{{_category.Category}}</strong>
                                             </label>
                                         </div>
-                                        <div ng-show="_category.IsSelected" style="padding-left: 25px;" class="row m-2" ng-repeat="_surviceLine in _category.ServiceLines">
-                                            <div class="col-md-6">{{_surviceLine.ServiceLine}}</div>
-                                            <div class="col-md-2">
-                                                <input type="text" class="form-control" ng-model="_surviceLine.CustomersNo" onkeypress="return isNumberKey(event)" />
+                                        <div ng-show="_category.IsSelected" style="border: 1px solid #ccc; margin-left: 25px;" class="row p-1" ng-repeat="_surviceLine in _category.ServiceLines">
+                                            <div class="col-md-12 mb-1">
+                                                <div class="row">
+                                                    <div class="col-md-6">{{_surviceLine.ServiceLine}}</div>
+                                                    <div class="col-md-6">
+                                                        <a href="{{_surviceLine}}" target="_blank" ng-repeat="_surviceLine in _surviceLine.ServiceURLs">
+                                                            <img src="/assets/img/link-solid.svg" style="color: blue;" />
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
+                                            <div class="col-md-12 pb-1">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <input type="text" class="form-control" ng-model="_surviceLine.CustomersNo" onkeypress="return isNumberKey(event)" />
+                                                    </div>
 
-                                            <div class="col-md-4">
-                                                <input class="form-control form-control-sm" type="file" id="serviceFileUpload" ngf-select="UploadFile($files,parentIndex,$index)" />
+                                                    <div class="col-md-9">
+                                                        <input class="form-control form-control-sm" type="file" id="serviceFileUpload" ngf-select="UploadFile($files,parentIndex,$index)" />
 
-                                                <a ng-show="_surviceLine.DisplayView" href="/UploadedFile/BusinessProgress/{{_surviceLine.UplodedFileName}}" target="_blank"><i class="fa fa-eyes"></i>View</a>
+                                                        <a ng-show="_surviceLine.DisplayView" href="/UploadedFile/BusinessProgress/{{_surviceLine.UplodedFileName}}" target="_blank"><i class="fa fa-eyes"></i>View</a>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -212,7 +241,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="chkIncomeCreditSell" ng-model="BusinessProgressModel.IncomeCreditSell" ng-change="calculateIncome()" />
                                     <label class="form-check-label" for="chkIncomeCreditSell">
-                                        Cash Sell
+                                        Credit Sell
                                     </label>
                                 </div>
                             </div>
@@ -312,7 +341,7 @@
                             <div class="col-sm-6">
                                 <input type="text" id="txtMonthlyProfitLoss" class="form-control"
                                     ng-class="{'text-danger': BusinessProgressModel.MonthlyProfitLoss < 0, 'text-success': BusinessProgressModel.MonthlyProfitLoss > 0}"
-                                    ng-model="BusinessProgressModel.MonthlyProfitLoss" 
+                                    ng-model="BusinessProgressModel.MonthlyProfitLoss"
                                     disabled="disabled" onkeypress="return isNumberKey(event)" maxlength="9" />
                             </div>
                         </div>
@@ -329,13 +358,13 @@
 
 
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="chkPaymentModeDigital" ng-model="BusinessProgressModel.PaymentModeDigital" />
+                                    <input class="form-check-input" type="checkbox" id="chkPaymentModeDigital" ng-model="BusinessProgressModel.PaymentModeDigital" ng-change="OTherPaymentReceived()" />
                                     <label class="form-check-label" for="chkPaymentModeDigital">
                                         Digital
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="chkPaymentModeNoneDigital" ng-model="BusinessProgressModel.PaymentModeNoneDigital" />
+                                    <input class="form-check-input" type="checkbox" id="chkPaymentModeNoneDigital" ng-model="BusinessProgressModel.PaymentModeNoneDigital" ng-change="OTherPaymentReceived()" />
                                     <label class="form-check-label" for="chkPaymentModeNoneDigital">
                                         Non-Digital
                                     </label>
@@ -345,7 +374,9 @@
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">Please specify % of payment received for each mode</label>
                             <div class="col-sm-6">
-                                <input type="text" id="txtPaymentRecivedMode" class="form-control" ng-model="BusinessProgressModel.PaymentRecivedMode" disabled="disabled" onkeypress="return isNumberKey(event)" maxlength="9" />
+                                <input type="text" id="txtPaymentRecivedMode" class="form-control" ng-model="BusinessProgressModel.PaymentRecivedMode"
+                                    ng-disabled="(BusinessProgressModel.PaymentModeDigital && !BusinessProgressModel.PaymentModeNoneDigital) || (!BusinessProgressModel.PaymentModeDigital && BusinessProgressModel.PaymentModeNoneDigital)"
+                                    onkeypress="return isNumberKey(event)" maxlength="9" />
                             </div>
                         </div>
                         <div class="tab-buttons">

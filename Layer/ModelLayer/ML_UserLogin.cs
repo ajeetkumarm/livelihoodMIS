@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ModelLayer
+﻿namespace ModelLayer
 {
     public class ML_UserLogin
     {
@@ -15,7 +9,6 @@ namespace ModelLayer
         public string LoginLogout { get; set; }
         public string IP { get; set; }
         public string PageName { get; set; }
-
         public string QType { get; set; }
         public int UserCode { get; set; }
         public int StateCode { get; set; }
@@ -36,6 +29,6 @@ namespace ModelLayer
         public string CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public string UpdatedOn { get; set; }
-
+        public int? EnrollmentId { get; set; }
     }
 }

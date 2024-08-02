@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ModelLayer
+﻿namespace ModelLayer
 {
     public class ML_DigitalCategory
     {
@@ -13,5 +7,6 @@ namespace ModelLayer
         public string Category { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
+        public int? DisplayOrder { get; set; } = null;
     }
 }

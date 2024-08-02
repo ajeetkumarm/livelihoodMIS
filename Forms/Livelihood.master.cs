@@ -83,6 +83,12 @@ public partial class Livelihood : System.Web.UI.MasterPage
             li_R4.Visible = true;
         }
 
+        if (UserCategory == 8)
+        {
+            liFormSection.Visible = liReportSection.Visible = liDashboard.Visible= false;
+            liBusinessProgresss.Visible = true;
+        }
+
     }
 
     protected void lnkbtn_LogOut_Click(object sender, EventArgs e)

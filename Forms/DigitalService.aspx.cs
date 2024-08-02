@@ -81,6 +81,10 @@ public partial class Forms_DigitalService : System.Web.UI.Page
         {
             DataTable DT = Session["UserDetails"] as DataTable;
             string UserCode = DT.Rows[0]["UserCode"].ToString();
+
+            obj_ML_DigitalService.ServiceURL = TypeConversionUtility.ToStringWithNull(txtServiceURL.Text);
+            obj_ML_DigitalService.DisplayOrder = TypeConversionUtility.ToInteger(txtDisplayOrder.Text);
+
             if (Btn_Submit.Text == "Submit")
             {
                 obj_ML_DigitalService.Qstring = "Insert";
@@ -131,6 +135,8 @@ public partial class Forms_DigitalService : System.Web.UI.Page
         DigitalServiceDetails();
         ddlDigitalService.SelectedIndex = 0;
         txtServiceLine.Text = "";
+        txtServiceURL.Text = "";
+        txtDisplayOrder.Text = "";
         Btn_Submit.Text = "Submit";
     }
     protected void Btn_Edit_Click(object sender, EventArgs e)
@@ -155,6 +161,8 @@ public partial class Forms_DigitalService : System.Web.UI.Page
                     ViewState["ServiceId"] = DT.Rows[0]["ServiceId"].ToString();
                     ddlDigitalService.SelectedValue = DT.Rows[0]["DigitalCategoryId"].ToString();                    
                     txtServiceLine.Text = DT.Rows[0]["ServiceLine"].ToString();
+                    txtServiceURL.Text = TypeConversionUtility.ToStringWithNull(DT.Rows[0]["ServiceURL"]);
+                    txtDisplayOrder.Text = TypeConversionUtility.ToStringWithNull(DT.Rows[0]["DisplayOrder"]);
                     Btn_Submit.Text = "Update";
                 }
                 else

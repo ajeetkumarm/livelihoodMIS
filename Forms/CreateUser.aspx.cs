@@ -402,7 +402,7 @@ public partial class Forms_CreateUser : System.Web.UI.Page
             }
             else
             {
-                //string NewPwd = SHAValidator.SHAValid(txtMobileNo.Text);
+                string NewPwd = SHAValidator.SHAValid(txtMobileNo.Text);
                 obj_ML_UserLogin.UserCode = Convert.ToInt32(ViewState["UserCode"]);
                 obj_ML_UserLogin.StateCode = Convert.ToInt32(ddlState.SelectedIndex > 0 ? ddlState.SelectedValue : "0");
                 obj_ML_UserLogin.DistrictCode = Convert.ToInt32(ddlDistrict.SelectedIndex > 0 ? ddlDistrict.SelectedValue : "0");
@@ -416,7 +416,7 @@ public partial class Forms_CreateUser : System.Web.UI.Page
                 obj_ML_UserLogin.ContactNo = txtMobileNo.Text != "" ? txtMobileNo.Text : "";
                 obj_ML_UserLogin.UserEmail = txtEmail.Text != "" ? txtEmail.Text : "";
                 obj_ML_UserLogin.LoginName = txtEmail.Text != "" ? txtEmail.Text : "";
-                //obj_ML_UserLogin.PwdHash = NewPwd;
+                obj_ML_UserLogin.PwdHash = NewPwd;
                 obj_ML_UserLogin.UserCategory = ddlUserCategory.SelectedIndex > 0 ? ddlUserCategory.SelectedValue : "0";
                 obj_ML_UserLogin.CreatedBy = "";
                 obj_ML_UserLogin.UpdatedBy = UserCode;

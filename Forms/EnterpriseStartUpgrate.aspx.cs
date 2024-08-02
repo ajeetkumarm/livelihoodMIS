@@ -128,6 +128,10 @@ public partial class Forms_EnterpriseStartUpgrate : System.Web.UI.Page
                 int x = obj_BL_EnterprisesTraining.BL_InsUpdEntTraining(obj_ML_EnterprisesTraining);
                 if (x > 0)
                 {
+                    // Add Entrepreneur as User
+                    BL_UserLogin obj_BL_UserLogin = new BL_UserLogin();
+                    obj_BL_UserLogin.EntrepreneurRegisterAsUser(obj_ML_EnterprisesTraining.EnrollmentId);
+
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "message", "alert('Submit Successfully !'); window.location.href = 'EnterpriesSetup.aspx'", true);
                     //Response.Redirect("~/Forms/EnterpriesSetup.aspx");
                 }

@@ -125,7 +125,7 @@
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">Theme Code <span style="color: red;">*</span></label>
                             <div class="col-sm-6">
-                                <asp:DropDownList ID="ddlTheme" runat="server" CssClass="form-select" AutoPostBack="true" Enabled="false" OnSelectedIndexChanged="ddlTheme_SelectedIndexChanged"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlTheme" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlTheme_SelectedIndexChanged"></asp:DropDownList>
                                 <asp:RequiredFieldValidator ID="rfv_Theme" runat="server" ErrorMessage="Please select Theme !" ControlToValidate="ddlTheme"
                                     ValidationGroup="Submit" ForeColor="Red" InitialValue="--Select Theme--" Display="Dynamic" SetFocusOnError="true"></asp:RequiredFieldValidator>
                             </div>

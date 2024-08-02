@@ -37,7 +37,8 @@ namespace DataLayer
                                   new SqlParameter("@PwdHash", obj_ML_UserLogin.PwdHash),
                                   new SqlParameter("@UserCategory", obj_ML_UserLogin.UserCategory),
                                   new SqlParameter("@CreatedBy", obj_ML_UserLogin.CreatedBy),
-                                  new SqlParameter("@UpdatedBy", obj_ML_UserLogin.UpdatedBy)
+                                  new SqlParameter("@UpdatedBy", obj_ML_UserLogin.UpdatedBy),
+                                  new SqlParameter("@EnrollmentId", obj_ML_UserLogin.EnrollmentId),
                                };
             return SqlHelper.ExecuteNonQuery(con, "USP_InsUpdUser", par);
         }

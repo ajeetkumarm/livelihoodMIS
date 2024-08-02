@@ -54,17 +54,6 @@ namespace DataLayer
                                };
             return SqlHelper.ExecuteNonQuery(con, "USP_InsEnrollmentForm", par);
         }
-        //public DataTable DL_EnrollmentDetails(ML_Enrollment obj_ML_Enrollment)
-        //{
-        //    SqlParameter[] par = {new SqlParameter("@QString", obj_ML_Economic.Qstring),
-        //                          new SqlParameter("@EcoStatusId", obj_ML_Economic.EconomicId),
-        //                          new SqlParameter("@EcoStatusName", obj_ML_Economic.EconomicStatus),
-        //                          new SqlParameter("@CreatedBy", obj_ML_Economic.CreatedBy),
-        //                          new SqlParameter("@UpdatedBy", obj_ML_Economic.UpdatedBy)
-        //    };
-        //    return SqlHelper.ExecuteDataset(con, "USP_Enrollment", par).Tables[0];
-        //}
-        
         public DataTable DL_EnrollmentDetails(ML_Enrollment obj_ML_Enrollment)
         {
             SqlParameter[] par = { new SqlParameter("@QueryType", obj_ML_Enrollment.QType),
@@ -81,7 +70,6 @@ namespace DataLayer
                                };
             return SqlHelper.ExecuteNonQuery(con, "USP_UpdateEDPTraning", par);
         }
-
         public int DL_DeleteEnrollmentForm(ML_Enrollment obj_ML_Enrollment)
         {
             SqlParameter[] par ={ new SqlParameter("@EnrollmentId", obj_ML_Enrollment.EnrollmentId)};
@@ -98,8 +86,6 @@ namespace DataLayer
                                  };
             return SqlHelper.ExecuteDataset(con, "USP_Enrollment_with_filter", par).Tables[0];
         }
-
-
         public IList<EnterpriesSetupList> GetEnterpriseSetupList(int createdUser, int projectId, int pageNumber, int pageSize, string search)
         {
             List<EnterpriesSetupList> enterpriesSetupList = new List<EnterpriesSetupList>();
@@ -172,6 +158,11 @@ namespace DataLayer
                 }
             }
             return enterpriesSetupList;
+        }
+        public DataTable GetEnrollmentDetailById(int enrollmentId)
+        {
+            SqlParameter[] par = { new SqlParameter("@EnrollmentId", enrollmentId) };
+            return SqlHelper.ExecuteDataset(con, "usp_GetEnrollmentFormById", par).Tables[0];
         }
     }
 }

@@ -76,7 +76,8 @@ public partial class Forms_BusinessProgressList : System.Web.UI.Page
             if (btn.CommandArgument != null)
             {
                 int EnrollmentId = Convert.ToInt32(btn.CommandArgument);
-                Response.Redirect("BusinessProgress.aspx?EnrolId=" + EnrollmentId + "", false);
+                //Response.Redirect("BusinessProgress.aspx?EnrolId=" + EnrollmentId + "", false);
+                Response.Redirect("BusinessProgressCustomerList.aspx?EnrolId=" + EnrollmentId + "", false);
             }
             else
             {

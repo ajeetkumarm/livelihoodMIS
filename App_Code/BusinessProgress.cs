@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Script.Services;
 using System.Web.Services;
+using BusinessLayer;
 using ModelLayer;
 
 /// <summary>
@@ -17,10 +18,19 @@ using ModelLayer;
 public class BusinessProgress : WebService
 {
     [WebMethod(EnableSession = true)]
-    public BusinessProgressCustomer GetBusinessProgressDetail()
+    public BusinessProgressCustomer GetBusinessProgressDetail(int enrollmentId)
     {
         BusinessProgressCustomer businessProgressCustomer = new BusinessProgressCustomer();
-        businessProgressCustomer.DigitalCategories = BusinessLayer.BusinessProgressCustomerRepository.GetCategoryAndServiceLineList();
+        businessProgressCustomer.DigitalCategories = BusinessProgressCustomerRepository.GetCategoryAndServiceLineList();
+        businessProgressCustomer.EnrollMentId = enrollmentId;
+        string startingBusinessDate= BusinessProgressCustomerRepository.GetBusinessProgressStartingBusinessDate(enrollmentId);
+        if (!string.IsNullOrEmpty(startingBusinessDate))
+        {
+            businessProgressCustomer.StartingBusinessDate = TypeConversionUtility.ToDateTime(startingBusinessDate).ToString();
+        }
+        
+
+
         return businessProgressCustomer;
     }
 
@@ -64,5 +74,26 @@ public class BusinessProgress : WebService
         HttpContext.Current.Response.ContentType = "application/json";
         HttpContext.Current.Response.Write(jsonResponse);
         // return fileUploadResponses.FirstOrDefault();
+    }
+
+    [WebMethod(EnableSession = true)]
+    public BusinessProgessCustomerResponse GetBusinessProgressCustomerList(int enrollmentId, int draw, int pageNumber, int pageSize, string search)
+    {
+
+        var data = BusinessProgressCustomerRepository.GetBusinessProgressCustomerList(enrollmentId, pageNumber, pageSize, search).ToList();
+
+        var resData = new BusinessProgessCustomerResponse()
+        {
+            draw = draw,
+            recordsTotal = data.Count > 0 ? data[0].TotalCount : 0,
+            recordsFiltered = data.Count,
+            data = data
+        };
+        return resData;
+    }
+    [WebMethod(EnableSession = true)]
+    public bool CheckBusinessProgressCustomerDataExist(int businessProgressId, int enrollmentId, int year, string month)
+    {
+        return BusinessProgressCustomerRepository.CheckBusinessProgressCustomerDataExist(businessProgressId, enrollmentId, year, month);
     }
 }

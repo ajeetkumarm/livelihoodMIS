@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using ModelLayer;
 using DataLayer;
+using System.Linq;
 
 namespace BusinessLayer
 {
@@ -31,11 +32,19 @@ namespace BusinessLayer
                     {
                         if (item.CategoryId == Convert.ToInt32(row["DigitalCategoryId"]))
                         {
+                            string serviceUrl = TypeConversionUtility.ToStringWithNull(row["ServiceURL"]);
+                            List<string> serviceURLs = new List<string>();
+
+                            if(!string.IsNullOrEmpty(serviceUrl))
+                            {
+                                serviceURLs = serviceUrl.Split(',').ToList();
+                            }
                             item.ServiceLines.Add(new BPCServiceLine
                             {
                                 ServiceId = Convert.ToInt32(row["ServiceId"]),
                                 DigitalCategoryId = Convert.ToInt32(row["DigitalCategoryId"]),
-                                ServiceLine = row["ServiceLine"].ToString()
+                                ServiceLine = row["ServiceLine"].ToString(),
+                                ServiceURLs = serviceURLs,
                             });
                         }
                     }
@@ -49,7 +58,39 @@ namespace BusinessLayer
         }
         public static bool SaveBusinessProgressCustomer(BusinessProgressCustomer obj_ML_BusinessProgress)
         {
+
+            obj_ML_BusinessProgress.IncomefromSell = obj_ML_BusinessProgress.IncomeSellCash ? "Cash Sell" : "";
+            if (obj_ML_BusinessProgress.IncomeCreditSell)
+            {
+                obj_ML_BusinessProgress.IncomefromSell = obj_ML_BusinessProgress.IncomefromSell + (string.IsNullOrEmpty(obj_ML_BusinessProgress.IncomefromSell) ? "Credit Sell" : ", Credit Sell");
+            }
+
+            obj_ML_BusinessProgress.ExpenditurefromPurchase = obj_ML_BusinessProgress.CheckCashExpenditure ? "Cash Expenditure" : "";
+            if (obj_ML_BusinessProgress.CheckCreditExpenditure)
+            {
+                obj_ML_BusinessProgress.ExpenditurefromPurchase = obj_ML_BusinessProgress.ExpenditurefromPurchase + (string.IsNullOrEmpty(obj_ML_BusinessProgress.ExpenditurefromPurchase) ? "Credit Expenditure" : ", Credit Expenditure");
+            }
+            obj_ML_BusinessProgress.PaymentReceived = obj_ML_BusinessProgress.PaymentModeDigital ? "Digital" : "";
+            if (obj_ML_BusinessProgress.PaymentModeNoneDigital)
+            {
+                obj_ML_BusinessProgress.PaymentReceived = obj_ML_BusinessProgress.PaymentReceived + (string.IsNullOrEmpty(obj_ML_BusinessProgress.PaymentReceived) ? "Non-Digital" : ", Non-Digital");
+            }
+
+            obj_ML_BusinessProgress.StartingBusinessDate= TypeConversionUtility.ToDateTime(obj_ML_BusinessProgress.StartingBusinessDate).ToString();
+
             return SqlBusinessProgressCustomer.SaveBusinessProgressCustomer(obj_ML_BusinessProgress);
+        }
+        public static List<BusinessProgessCustomerList> GetBusinessProgressCustomerList(int enrollmentId, int PageNumber, int PageSize, string SearchText)
+        {
+            return SqlBusinessProgressCustomer.GetBusinessProgressCustomerList(enrollmentId, PageNumber, PageSize, SearchText);
+        }
+        public static string GetBusinessProgressStartingBusinessDate(int enrollmentId)
+        {
+            return SqlBusinessProgressCustomer.GetBusinessProgressStartingBusinessDate(enrollmentId);
+        }
+        public static bool CheckBusinessProgressCustomerDataExist(int businessProgressId, int enrollmentId, int year, string month)
+        {
+            return SqlBusinessProgressCustomer.CheckBusinessProgressCustomerDataExist(businessProgressId, enrollmentId, year, month);
         }
     }
 }

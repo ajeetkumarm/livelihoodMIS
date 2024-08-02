@@ -16,8 +16,8 @@ namespace ModelLayer
         public string StartingBusinessDate { get; set; }
         public string Year { get; set; }
         public string Month { get; set; }
-        public int NoNewCustomer { get; set; }
-        public int NoRepeatedCustomer { get; set; }
+        public int? NoNewCustomer { get; set; }= null;
+        public int? NoRepeatedCustomer { get; set; } = null;
         public string ServicesOfferedType { get; set; }
         public int DigitalCategory { get; set; }
         public int ServiceLine { get; set; }
@@ -47,6 +47,8 @@ namespace ModelLayer
         public string UpdatedBy { get; set; }
         public bool IncomeSellCash { get; set; }
         public bool IncomeCreditSell { get; set; }
+        public bool PaymentModeDigital { get; set; }
+        public bool PaymentModeNoneDigital { get; set; }
         public List<BPCDigitalCategory> DigitalCategories { get; set; }
     }
     [Serializable]
@@ -64,6 +66,10 @@ namespace ModelLayer
     [Serializable]
     public class BPCServiceLine
     {
+        public BPCServiceLine()
+        {
+            ServiceURLs = new List<string>();
+        }
         public int ServiceId { get; set; }
         public int DigitalCategoryId { get; set; }
         public string ServiceLine { get; set; }
@@ -71,5 +77,7 @@ namespace ModelLayer
         public string UplodedFileName { get; set; }
         public bool IsSelected { get; set; }
         public bool DisplayView => !string.IsNullOrEmpty(UplodedFileName);
+
+        public List<string> ServiceURLs { get; set; }
     }
 }

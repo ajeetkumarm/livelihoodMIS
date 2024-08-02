@@ -70,7 +70,7 @@ AS
 					FROM                                                     
 					OPENJSON(@JsonDigitalCategory) WITH                                                    
 					(                                                    
-						DigitalCategoryId	INT
+						DigitalCategoryId	Varchar(100)
 					)
 			END
 
@@ -80,11 +80,11 @@ AS
 		   BEGIN
 				INSERT INTO BusinessProgressServiceLine 
 			   (BusinessProgressId,ServiceLineId,CustomersNo,FilePath,UplodedFileName)
-				SELECT @BusinessProgressId,ServiceLineId,CustomersNo,FilePath,UplodedFileName
+				SELECT @BusinessProgressId,ServiceId,CustomersNo,FilePath,UplodedFileName
 					FROM                                                     
 					OPENJSON(@JsonServiceLine) WITH                                                    
 					(                                                    
-						ServiceLineId	INT,
+						ServiceId	INT,
 						CustomersNo		INT,
 						FilePath		Varchar(200),
 						UplodedFileName	Varchar(200)

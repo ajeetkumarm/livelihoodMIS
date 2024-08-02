@@ -61,4 +61,16 @@ namespace ModelLayer
         public int recordsFiltered { get; set; }
         public List<EnterpriesSetupList> data { get; set; }
     }
+
+    public class CustomListResponse<T>
+    {
+        public CustomListResponse()
+        {
+            data = new List<T>();
+        }
+        public int draw { get; set; }
+        public int recordsTotal { get; set; }
+        public int recordsFiltered { get; set; }
+        public List<T> data { get; set; }
+    }
 }

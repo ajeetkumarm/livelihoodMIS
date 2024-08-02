@@ -122,7 +122,7 @@
         <!-- ======= Sidebar ======= -->
         <aside id="sidebar" class="sidebar">
             <ul class="sidebar-nav" id="sidebar-nav">
-                <li class="nav-item"><a class="nav-link " href="Dashboard.aspx"><i class="bi bi-grid"></i><span>Dashboard</span> </a></li>
+                <li class="nav-item" id="liDashboard" runat="server"><a class="nav-link " href="Dashboard.aspx"><i class="bi bi-grid"></i><span>Dashboard</span> </a></li>
                 <!-- End Dashboard Nav -->
 
                 <li id="li_Master" runat="server" visible="false" class="nav-item"><a class="nav-link collapsed" data-bs-target="#master-nav" data-bs-toggle="collapse" href="#"><i class="bi bi-menu-button-wide"></i><span>Masters</span><i class="bi bi-chevron-down ms-auto"></i> </a>
@@ -149,7 +149,7 @@
                 </li>
                 <!-- End Components Nav -->
 
-                <li class="nav-item"><a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#"><i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+                <li class="nav-item" id="liFormSection" runat="server"><a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#"><i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i> </a>
                     <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li id="li_1" runat="server" visible="false"><a href="Enrollment.aspx"><i class="bi bi-circle"></i><span>Enrollment</span> </a></li>
                         <li id="li_2" runat="server" visible="false"><a href="EnrollmentList.aspx"><i class="bi bi-circle"></i><span>Enrollment List</span> </a></li>
@@ -161,7 +161,7 @@
                 <!-- End Forms Nav -->
 
                 <li class="nav-heading">Pages</li>
-                <li class="nav-item"><a class="nav-link collapsed" data-bs-target="#forms-rept" data-bs-toggle="collapse" href="#"><i class="bi bi-journal-text"></i><span>Reports</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+                <li class="nav-item" id="liReportSection" runat="server"><a class="nav-link collapsed" data-bs-target="#forms-rept" data-bs-toggle="collapse" href="#"><i class="bi bi-journal-text"></i><span>Reports</span><i class="bi bi-chevron-down ms-auto"></i> </a>
                     <ul id="forms-rept" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li id="li_R1" runat="server" visible="false"><a href="RptEnrollment.aspx"><i class="bi bi-circle"></i><span>Enrollment</span> </a></li>
                         <li id="li_R2" runat="server" visible="false"><a href="RptTraining.aspx"><i class="bi bi-circle"></i><span>EDP Training</span> </a></li>
@@ -169,15 +169,11 @@
                         <li id="li_R4" runat="server" visible="false"><a href="RptBusinessProgress.aspx"><i class="bi bi-circle"></i><span>Business Progress</span> </a></li>
                     </ul>
                 </li>
+                <li id="liBusinessProgresss" runat="server" visible="false" class="nav-item"><a class="nav-link collapsed" href="BusinessProgressCustomerList.aspx"><i class="bi bi-circle"></i><span>Business Progress</span> </a></li>
                 <li class="nav-item"><a class="nav-link collapsed" href="UserProfile.aspx"><i class="bi bi-person"></i><span>User Profile</span> </a></li>
                 <li class="nav-item">
                     <asp:LinkButton ID="lnkbtn_LogOut" runat="server" CssClass="nav-link collapsed" OnClick="lnkbtn_LogOut_Click"><i class="bi bi-question-circle"></i><span>LogOut</span></asp:LinkButton></li>
-                <%--<li class="nav-item"><a class="nav-link collapsed" href="pages-contact.html"><i class="bi bi-envelope"></i><span>Contact</span> </a></li>
-                <li class="nav-item"><a class="nav-link collapsed" href="pages-register.html"><i class="bi bi-card-list"></i><span>Register</span> </a></li>
-                <li class="nav-item"><a class="nav-link collapsed" href="pages-login.html"><i class="bi bi-box-arrow-in-right"></i><span>Login</span> </a></li>
-                <li class="nav-item"><a class="nav-link collapsed" href="pages-error-404.html"><i class="bi bi-dash-circle"></i><span>Error 404</span> </a></li>
-                <li class="nav-item"><a class="nav-link collapsed" href="pages-blank.html"><i class="bi bi-file-earmark"></i><span>Blank</span> </a></li>
-                --%>
+
             </ul>
         </aside>
         <!-- End Sidebar-->
@@ -187,7 +183,7 @@
             </asp:ContentPlaceHolder>
         </main>
         <!-- ======= Footer ======= -->
-        <footer id="footer" class="footer py-2" st yle="background: darkturquoise;">
+        <footer id="footer" class="footer py-2" style="background: darkturquoise;">
             <div class="container">
                 <div class="row d-flex justify-content-between align-items-center">
                     <div class="col-md-12 lh-1">

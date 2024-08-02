@@ -1,9 +1,32 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Forms/Livelihood.master" AutoEventWireup="true" CodeFile="DigitalCategory.aspx.cs" Inherits="Forms_DigitalCategory" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <script type="text/javascript">
+    /* VALIDATION */
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            alert("Please Enter Only Numeric Value:");
+            return false;
+        }
+        return true;
+    }
+
+    function onlyAlpha(e) {
+        var k = e.charCode;
+        if (k == 0) {
+            e.returnValue = true;
+            return true;
+        }
+        else if ((k < 65 || k > 90) && (k < 97 || k > 122) && (k < 32 || k >= 33)) {
+            e.returnValue = false;
+            return false;
+        }
+    }
+    </script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-     <div class="pagetitle">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div class="pagetitle">
         <h1>Digital Category Master</h1>
         <nav>
             <ol class="breadcrumb">
@@ -23,6 +46,10 @@
                     <div class="col-md-6 mb-3">
                         <label class="col-form-label">Digital Category</label>
                         <asp:TextBox ID="txtDigitalCategory" runat="server" CssClass="form-control" AutoComplete="off"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="col-form-label">Display Order</label>
+                        <asp:TextBox ID="txtDisplayOrder" runat="server" CssClass="form-control" AutoComplete="off" onkeypress="return isNumberKey(event)"></asp:TextBox>
                     </div>
                 </div>
                 <div class="row">

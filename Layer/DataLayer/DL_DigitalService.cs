@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ModelLayer;
 using Microsoft.ApplicationBlocks.Data;
 
@@ -20,18 +15,23 @@ namespace DataLayer
                                  new SqlParameter("@DigitalCategoryId", obj_ML_DigitalService.DigitalCategoryId),
                                  new SqlParameter("@ServiceLine", obj_ML_DigitalService.ServiceLine),
                                  new SqlParameter("@CreatedBy", obj_ML_DigitalService.CreatedBy),
-                                 new SqlParameter("@UpdatedBy", obj_ML_DigitalService.UpdatedBy)
+                                 new SqlParameter("@UpdatedBy", obj_ML_DigitalService.UpdatedBy),
+                                 new SqlParameter("@ServiceURL", obj_ML_DigitalService.ServiceURL),
+                                 new SqlParameter("@DisplayOrder", obj_ML_DigitalService.DisplayOrder),
                                };
             return SqlHelper.ExecuteNonQuery(con, "USP_DigitalServiceM", par);
         }
         public DataTable DL_DigitalServiceDetails(ML_DigitalService obj_ML_DigitalService)
         {
-            SqlParameter[] par = {new SqlParameter("@QString", obj_ML_DigitalService.Qstring),
+            SqlParameter[] par = {
+                                 new SqlParameter("@QString", obj_ML_DigitalService.Qstring),
                                  new SqlParameter("@ServiceId", obj_ML_DigitalService.ServiceId),
                                  new SqlParameter("@DigitalCategoryId", obj_ML_DigitalService.DigitalCategoryId),
                                  new SqlParameter("@ServiceLine", obj_ML_DigitalService.ServiceLine),
                                  new SqlParameter("@CreatedBy", obj_ML_DigitalService.CreatedBy),
-                                 new SqlParameter("@UpdatedBy", obj_ML_DigitalService.UpdatedBy)
+                                 new SqlParameter("@UpdatedBy", obj_ML_DigitalService.UpdatedBy),
+                                 new SqlParameter("@ServiceURL", obj_ML_DigitalService.ServiceURL),
+                                 new SqlParameter("@DisplayOrder", obj_ML_DigitalService.DisplayOrder),
             };
             return SqlHelper.ExecuteDataset(con, "USP_DigitalServiceM", par).Tables[0];
         }

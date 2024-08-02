@@ -58,6 +58,7 @@ public partial class Forms_DigitalCategory : System.Web.UI.Page
                 obj_ML_DigitalCategory.Category = txtDigitalCategory.Text != "" ? txtDigitalCategory.Text : "";
                 obj_ML_DigitalCategory.CreatedBy = UserCode;
                 obj_ML_DigitalCategory.UpdatedBy = "";
+                obj_ML_DigitalCategory.DisplayOrder = TypeConversionUtility.ToInteger(txtDisplayOrder.Text);
                 int x = obj_BL_DigitalCategory.BL_InsUpdDelDigitalCategory(obj_ML_DigitalCategory);
                 if (x > 0)
                 {
@@ -76,6 +77,7 @@ public partial class Forms_DigitalCategory : System.Web.UI.Page
                 obj_ML_DigitalCategory.Category = txtDigitalCategory.Text != "" ? txtDigitalCategory.Text : "";
                 obj_ML_DigitalCategory.CreatedBy = "";
                 obj_ML_DigitalCategory.UpdatedBy = UserCode;
+                obj_ML_DigitalCategory.DisplayOrder = TypeConversionUtility.ToInteger(txtDisplayOrder.Text);
                 int x = obj_BL_DigitalCategory.BL_InsUpdDelDigitalCategory(obj_ML_DigitalCategory);
                 if (x > 0)
                 {
@@ -111,6 +113,7 @@ public partial class Forms_DigitalCategory : System.Web.UI.Page
                 {
                     ViewState["CategoryId"] = DT.Rows[0]["CategoryId"].ToString();
                     txtDigitalCategory.Text = DT.Rows[0]["Category"].ToString();
+                    txtDisplayOrder.Text = TypeConversionUtility.ToStringWithNull(DT.Rows[0]["DisplayOrder"]);
                     Btn_Submit.Text = "Update";
                 }
                 else
@@ -166,6 +169,7 @@ public partial class Forms_DigitalCategory : System.Web.UI.Page
     {
         DigitalCategoryDetails();
         txtDigitalCategory.Text = "";
+        txtDisplayOrder.Text = "";
         Btn_Submit.Text = "Submit";
     }
 }

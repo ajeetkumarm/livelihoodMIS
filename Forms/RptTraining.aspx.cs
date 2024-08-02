@@ -19,7 +19,7 @@ public partial class Forms_RptTraining : System.Web.UI.Page
         {
             if (!IsPostBack)
             {
-                BindTrainingList();
+                //BindTrainingList();
             }
         }
         else
@@ -33,31 +33,31 @@ public partial class Forms_RptTraining : System.Web.UI.Page
             Response.Cache.SetNoStore();
         }
     }
-    private void BindTrainingList()
-    {
-        try
-        {
-            DataTable DTuser = Session["UserDetails"] as DataTable;
-            string UserCode = DTuser.Rows[0]["UserCode"].ToString();
-            string ProjectCode = DTuser.Rows[0]["ProjectCode"].ToString();
+    //private void BindTrainingList()
+    //{
+    //    try
+    //    {
+    //        DataTable DTuser = Session["UserDetails"] as DataTable;
+    //        string UserCode = DTuser.Rows[0]["UserCode"].ToString();
+    //        string ProjectCode = DTuser.Rows[0]["ProjectCode"].ToString();
 
-            obj_ML_Reports.CreatedUser = UserCode;
-            obj_ML_Reports.ProjectCode = ProjectCode;
-            DataTable DT = obj_BL_Reports.BL_RptTrainingDetails(obj_ML_Reports);
-            if (DT.Rows.Count > 0)
-            {
-                rpt_Training.DataSource = DT;
-                rpt_Training.DataBind();
-            }
-            else
-            {
-                rpt_Training.DataSource = null;
-                rpt_Training.DataBind();
-            }
-        }
-        catch (Exception ex)
-        {
-            Response.Redirect(ex.Message);
-        }
-    }
+    //        obj_ML_Reports.CreatedUser = UserCode;
+    //        obj_ML_Reports.ProjectCode = ProjectCode;
+    //        DataTable DT = obj_BL_Reports.BL_RptTrainingDetails(obj_ML_Reports);
+    //        if (DT.Rows.Count > 0)
+    //        {
+    //            rpt_Training.DataSource = DT;
+    //            rpt_Training.DataBind();
+    //        }
+    //        else
+    //        {
+    //            rpt_Training.DataSource = null;
+    //            rpt_Training.DataBind();
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Response.Redirect(ex.Message);
+    //    }
+    //}
 }

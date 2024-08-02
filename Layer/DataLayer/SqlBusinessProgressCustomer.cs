@@ -1,5 +1,6 @@
 ﻿using ModelLayer;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -35,7 +36,7 @@ namespace DataLayer
             if(selectedDigitalCategories.Count > 0)
             {
                 isCategoryAdded = true;
-                jsonDigitalCategory = Newtonsoft.Json.JsonConvert.SerializeObject(selectedDigitalCategories.Select(x => new { CategoryId = x.CategoryId }).ToList());
+                jsonDigitalCategory = Newtonsoft.Json.JsonConvert.SerializeObject(selectedDigitalCategories.Select(x => new { DigitalCategoryId = x.CategoryId }).ToList());
             }
 
             var serviceLine = obj_ML_BusinessProgress.DigitalCategories.FindAll(x => x.IsSelected == true).SelectMany(x => x.ServiceLines).ToList().FindAll(x=> x.CustomersNo>0);
@@ -88,6 +89,110 @@ namespace DataLayer
                     return obj_ML_BusinessProgress.BusinessProgressId > 0;
                 }
             }
+        }
+
+        public static List<BusinessProgessCustomerList> GetBusinessProgressCustomerList(int enrollmentId, int PageNumber, int PageSize, string SearchText)
+        {
+
+            List<BusinessProgessCustomerList> lstBusinessProgressCustomer = new List<BusinessProgessCustomerList>();
+            using (SqlConnection con = new SqlConnection(DB_Connection.Livelihood_Connection))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("usp_GetBusinessProgressFormByEnrollmentId", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@EnrollmentId", enrollmentId);
+                    cmd.Parameters.AddWithValue("@PageNumber", PageNumber);
+                    cmd.Parameters.AddWithValue("@PageSize", PageSize);
+                    cmd.Parameters.AddWithValue("@SearchText", SearchText);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            BusinessProgessCustomerList objBusinessProgressCustomer = new BusinessProgessCustomerList();
+                            objBusinessProgressCustomer.BusinessProgressId = TypeConversionUtility.ToInteger(dr["BusinessProgressId"]);
+                            objBusinessProgressCustomer.EnrollmentId = TypeConversionUtility.ToInteger(dr["EnrollmentId"]);
+                            objBusinessProgressCustomer.BeneficiaryCode = TypeConversionUtility.ToStringWithNull(dr["BeneficiaryCode"]);
+                            objBusinessProgressCustomer.StateName = TypeConversionUtility.ToStringWithNull(dr["StateName"]);
+                            objBusinessProgressCustomer.DistrictName = TypeConversionUtility.ToStringWithNull(dr["DistrictName"]);
+                            objBusinessProgressCustomer.BlockName = TypeConversionUtility.ToStringWithNull(dr["BlockName"]);
+                            objBusinessProgressCustomer.VillageName = TypeConversionUtility.ToStringWithNull(dr["VillageName"]);
+                            objBusinessProgressCustomer.ProjectName = TypeConversionUtility.ToStringWithNull(dr["ProjectName"]);
+                            objBusinessProgressCustomer.UserName = TypeConversionUtility.ToStringWithNull(dr["UserName"]);
+                            objBusinessProgressCustomer.WomenName = TypeConversionUtility.ToStringWithNull(dr["WomenName"]);
+
+                            string startingBusinessDate = TypeConversionUtility.ToStringWithNull(dr["StartingBusinessDate"]);
+                            if (!string.IsNullOrEmpty(startingBusinessDate))
+                            {
+                                objBusinessProgressCustomer.StartingBusinessDate = startingBusinessDate != null ? Convert.ToDateTime(startingBusinessDate).ToString("dd/MM/yyyy") : "";
+                            }
+                            objBusinessProgressCustomer.Year = TypeConversionUtility.ToStringWithNull(dr["Year"]);
+                            objBusinessProgressCustomer.Month = TypeConversionUtility.ToStringWithNull(dr["Month"]);
+                            objBusinessProgressCustomer.NoNewCustomer = TypeConversionUtility.ToInteger(dr["NoNewCustomer"]);
+                            objBusinessProgressCustomer.NoRepeatedCustomer = TypeConversionUtility.ToInteger(dr["NoRepeatedCustomer"]);
+                            objBusinessProgressCustomer.ServicesOfferedType = TypeConversionUtility.ToStringWithNull(dr["ServicesOfferedType"]);
+                            objBusinessProgressCustomer.ServicesProvidedDetails = TypeConversionUtility.ToStringWithNull(dr["ServicesProvidedDetails"]);
+                            objBusinessProgressCustomer.GovCustomerServices = TypeConversionUtility.ToInteger(dr["GovCustomerServices"]);
+                            objBusinessProgressCustomer.G2CServices = TypeConversionUtility.ToStringWithNull(dr["G2CServices"]);
+                            objBusinessProgressCustomer.IncomefromSell = TypeConversionUtility.ToStringWithNull(dr["IncomefromSell"]);
+                            objBusinessProgressCustomer.CashSellAmount = TypeConversionUtility.ToStringWithNull(dr["CashSellAmount"]);
+                            objBusinessProgressCustomer.CreditSellAmount = TypeConversionUtility.ToStringWithNull(dr["CreditSellAmount"]);
+                            objBusinessProgressCustomer.TotalIncome = TypeConversionUtility.ToStringWithNull(dr["TotalIncome"]);
+                            objBusinessProgressCustomer.Investment = TypeConversionUtility.ToStringWithNull(dr["Investment"]);
+                            objBusinessProgressCustomer.ExpenditurefromPurchase = TypeConversionUtility.ToStringWithNull(dr["ExpenditurefromPurchase"]);
+                            objBusinessProgressCustomer.CashExpenditure = TypeConversionUtility.ToStringWithNull(dr["CashExpenditure"]);
+                            objBusinessProgressCustomer.CreditExpenditure = TypeConversionUtility.ToStringWithNull(dr["CreditExpenditure"]);
+                            objBusinessProgressCustomer.TotalExpenditure = TypeConversionUtility.ToStringWithNull(dr["TotalExpenditure"]);
+                            objBusinessProgressCustomer.LastMonthCredit = TypeConversionUtility.ToStringWithNull(dr["LastMonthCredit"]);
+                            objBusinessProgressCustomer.CreditSettlement = TypeConversionUtility.ToStringWithNull(dr["CreditSettlement"]);
+                            objBusinessProgressCustomer.MonthlyProfitLoss = TypeConversionUtility.ToStringWithNull(dr["MonthlyProfitLoss"]);
+                            objBusinessProgressCustomer.PaymentReceived = TypeConversionUtility.ToStringWithNull(dr["PaymentReceived"]);
+                            objBusinessProgressCustomer.PaymentReceivedMode = TypeConversionUtility.ToStringWithNull(dr["PaymentReceivedMode"]);
+                            objBusinessProgressCustomer.CreatedOn = TypeConversionUtility.ToDateTime(dr["CreatedOn"]);
+                            objBusinessProgressCustomer.UpdatedOn = TypeConversionUtility.ToDateTime(dr["UpdatedOn"]);
+                            objBusinessProgressCustomer.TotalCount = TypeConversionUtility.ToInteger(dr["TotalCount"]);
+                            objBusinessProgressCustomer.RowNum = TypeConversionUtility.ToInteger(dr["RowNum"]);
+                            lstBusinessProgressCustomer.Add(objBusinessProgressCustomer);
+
+                        }
+                    }
+                }
+            }
+            return lstBusinessProgressCustomer;
+        }
+
+        public static string GetBusinessProgressStartingBusinessDate(int enrollmentId)
+        {
+            string startingBusinessDate = string.Empty;
+            using (SqlConnection con = new SqlConnection(DB_Connection.Livelihood_Connection))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("usp_GetBusinessProgressForm_StartingBusinessDate", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@EnrollmentId", enrollmentId);
+                    startingBusinessDate = Convert.ToString(cmd.ExecuteScalar());
+                }
+            }
+            return startingBusinessDate;
+        }
+        public static bool CheckBusinessProgressCustomerDataExist(int businessProgressId, int enrollmentId, int year, string month)
+        {
+            bool isExist = false;
+            using (SqlConnection con = new SqlConnection(DB_Connection.Livelihood_Connection))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("usp_CheckBusinessProgressCustomerDataExist", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@BusinessProgressId", businessProgressId);
+                    cmd.Parameters.AddWithValue("@EnrollmentId", enrollmentId);
+                    cmd.Parameters.AddWithValue("@Year", year);
+                    cmd.Parameters.AddWithValue("@Month", month);
+                    isExist = TypeConversionUtility.ToInteger(cmd.ExecuteScalar()) > 0;
+                }
+            }
+            return isExist;
         }
     }
 }
