@@ -232,5 +232,159 @@ namespace DataLayer
             return trainingList;
         }
 
+
+        public List<EnterpriesTrainingReportList> RptEnterpriesTrainingDetails(int createdUser, int projectCode, int PageNumber, int PageSize, string SearchText)
+        {
+            List<EnterpriesTrainingReportList> enterpriesTrainingList = new List<EnterpriesTrainingReportList>();
+            using (SqlConnection con = new SqlConnection(DB_Connection.Livelihood_Connection))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("Rpt_EnterpriesTrainingForm_List", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@CreatedUser", createdUser);
+                    cmd.Parameters.AddWithValue("@Project", projectCode);
+                    cmd.Parameters.AddWithValue("@PageNumber", PageNumber);
+                    cmd.Parameters.AddWithValue("@PageSize", PageSize);
+                    cmd.Parameters.AddWithValue("@Search", SearchText);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            EnterpriesTrainingReportList enterpriesTrainingInfo = new EnterpriesTrainingReportList();
+                            enterpriesTrainingInfo.RowNum = TypeConversionUtility.ToInteger(dr["RowNum"]);
+                            enterpriesTrainingInfo.TotalCount = TypeConversionUtility.ToInteger(dr["TotalCount"]);
+                            enterpriesTrainingInfo.EnrollmentId = TypeConversionUtility.ToInteger(dr["EnrollmentId"]);
+                            enterpriesTrainingInfo.BeneficiaryCode = TypeConversionUtility.ToStringWithNull(dr["BeneficiaryCode"]);
+                            enterpriesTrainingInfo.StateName = TypeConversionUtility.ToStringWithNull(dr["StateName"]);
+                            enterpriesTrainingInfo.DistrictName = TypeConversionUtility.ToStringWithNull(dr["DistrictName"]);
+                            enterpriesTrainingInfo.BlockName = TypeConversionUtility.ToStringWithNull(dr["BlockName"]);
+                            enterpriesTrainingInfo.VillageName = TypeConversionUtility.ToStringWithNull(dr["VillageName"]);
+                            enterpriesTrainingInfo.ProjectCode = TypeConversionUtility.ToInteger(dr["ProjectCode"]);
+                            enterpriesTrainingInfo.ProjectName = TypeConversionUtility.ToStringWithNull(dr["ProjectName"]);
+                            enterpriesTrainingInfo.UserName = TypeConversionUtility.ToStringWithNull(dr["UserName"]);
+                            enterpriesTrainingInfo.WomenName = TypeConversionUtility.ToStringWithNull(dr["WomenName"]);
+                            enterpriesTrainingInfo.StartBusiness = TypeConversionUtility.ToStringWithNull(dr["StartBusiness"]);
+                            enterpriesTrainingInfo.BusinessReasons = TypeConversionUtility.ToStringWithNull(dr["BusinessReasons"]);
+                            enterpriesTrainingInfo.Business = TypeConversionUtility.ToStringWithNull(dr["Business"]);
+                            enterpriesTrainingInfo.BusinessWhen = TypeConversionUtility.ToStringWithNull(dr["BusinessWhen"]);
+                            enterpriesTrainingInfo.StatusBusiness = TypeConversionUtility.ToStringWithNull(dr["StatusBusiness"]);
+                            enterpriesTrainingInfo.VillagePopulation = TypeConversionUtility.ToStringWithNull(dr["VillagePopulation"]);
+                            enterpriesTrainingInfo.BusinessIdea = TypeConversionUtility.ToStringWithNull(dr["BusinessIdea"]);
+                            enterpriesTrainingInfo.BusinessType = TypeConversionUtility.ToStringWithNull(dr["BusinessType"]);
+                            enterpriesTrainingInfo.ProcureBusiness = TypeConversionUtility.ToStringWithNull(dr["ProcureBusiness"]);
+                            enterpriesTrainingInfo.CurrentBusiness = TypeConversionUtility.ToStringWithNull(dr["CurrentBusiness"]);
+                            enterpriesTrainingInfo.RegularFinancialBusiness = TypeConversionUtility.ToStringWithNull(dr["RegularFinancialBusiness"]);
+                            enterpriesTrainingInfo.HowRegularFinancial = TypeConversionUtility.ToStringWithNull(dr["HowRegularFinancial"]);
+                            enterpriesTrainingInfo.SettingBusinessType = TypeConversionUtility.ToStringWithNull(dr["SettingBusinessType"]);
+                            enterpriesTrainingInfo.MonthlyRent = TypeConversionUtility.ToStringWithNull(dr["MonthlyRent"]);
+
+                            enterpriesTrainingInfo.ExpandBusiness = TypeConversionUtility.ToStringWithNull(dr["ExpandBusiness"]);
+                            enterpriesTrainingInfo.PotentialCustomers = TypeConversionUtility.ToStringWithNull(dr["PotentialCustomers"]);
+                            enterpriesTrainingInfo.BusinessDistance = TypeConversionUtility.ToStringWithNull(dr["BusinessDistance"]);
+                            enterpriesTrainingInfo.ExpectedFootfall = TypeConversionUtility.ToStringWithNull(dr["ExpectedFootfall"]);
+                            enterpriesTrainingInfo.HowFarBussiness = TypeConversionUtility.ToStringWithNull(dr["HowFarBussiness"]);
+                            enterpriesTrainingInfo.PlanningBusiness = TypeConversionUtility.ToStringWithNull(dr["PlanningBusiness"]);
+                            enterpriesTrainingInfo.SupportBusiness = TypeConversionUtility.ToStringWithNull(dr["SupportBusiness"]);
+                            enterpriesTrainingInfo.SupportType = TypeConversionUtility.ToStringWithNull(dr["SupportType"]);
+                            enterpriesTrainingInfo.NotProvidedSupport = TypeConversionUtility.ToStringWithNull(dr["NotProvidedSupport"]);
+                            enterpriesTrainingInfo.PaidWorker = TypeConversionUtility.ToStringWithNull(dr["PaidWorker"]);
+                            enterpriesTrainingInfo.DigitalInclusion = TypeConversionUtility.ToStringWithNull(dr["DigitalInclusion"]);
+                            enterpriesTrainingInfo.DigitalInclusionDate = TypeConversionUtility.ToStringWithNull(dr["DigitalInclusionDate"]);
+                            enterpriesTrainingInfo.OwnSmartPhone = TypeConversionUtility.ToStringWithNull(dr["OwnSmartPhone"]);
+                            enterpriesTrainingInfo.UseSmartPhone = TypeConversionUtility.ToStringWithNull(dr["UseSmartPhone"]);
+                            enterpriesTrainingInfo.SupplyChain = TypeConversionUtility.ToStringWithNull(dr["SupplyChain"]);
+                            enterpriesTrainingInfo.IsCompleteEntTraining = TypeConversionUtility.ToInteger(dr["IsCompleteEntTraining"]);
+
+                            if (dr["CreatedOn"] != DBNull.Value)
+                            {
+                                enterpriesTrainingInfo.CreatedOn = TypeConversionUtility.ToDateTime(dr["CreatedOn"]);
+                            }
+
+                            if (dr["UpdatedOn"] != DBNull.Value)
+                            {
+                                enterpriesTrainingInfo.UpdatedOn = TypeConversionUtility.ToDateTime(dr["UpdatedOn"]);
+                            }
+
+                            enterpriesTrainingList.Add(enterpriesTrainingInfo);
+                        }
+                    }
+
+                }
+            }
+                return enterpriesTrainingList;
+        }
+
+        public List<BusinessProgressReportList> RptBusinessProgressDetails(int createdUser, int projectCode, int PageNumber, int PageSize, string SearchText)
+        {
+            List<BusinessProgressReportList> enterpriesTrainingList = new List<BusinessProgressReportList>();
+            using (SqlConnection con = new SqlConnection(DB_Connection.Livelihood_Connection))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("Rpt_BusinessProgressForm_List", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@CreatedUser", createdUser);
+                    cmd.Parameters.AddWithValue("@Project", projectCode);
+                    cmd.Parameters.AddWithValue("@PageNumber", PageNumber);
+                    cmd.Parameters.AddWithValue("@PageSize", PageSize);
+                    cmd.Parameters.AddWithValue("@Search", SearchText);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            BusinessProgressReportList enterpriesTrainingInfo = new BusinessProgressReportList();
+                            enterpriesTrainingInfo.RowNum = TypeConversionUtility.ToInteger(dr["RowNum"]);
+                            enterpriesTrainingInfo.TotalCount = TypeConversionUtility.ToInteger(dr["TotalCount"]);
+                            enterpriesTrainingInfo.EnrollmentId = TypeConversionUtility.ToInteger(dr["EnrollmentId"]);
+                            enterpriesTrainingInfo.BeneficiaryCode = TypeConversionUtility.ToStringWithNull(dr["BeneficiaryCode"]);
+                            enterpriesTrainingInfo.StateName = TypeConversionUtility.ToStringWithNull(dr["StateName"]);
+                            enterpriesTrainingInfo.DistrictName = TypeConversionUtility.ToStringWithNull(dr["DistrictName"]);
+                            enterpriesTrainingInfo.BlockName = TypeConversionUtility.ToStringWithNull(dr["BlockName"]);
+                            enterpriesTrainingInfo.VillageName = TypeConversionUtility.ToStringWithNull(dr["VillageName"]);
+                            enterpriesTrainingInfo.ProjectCode = TypeConversionUtility.ToInteger(dr["ProjectCode"]);
+                            enterpriesTrainingInfo.ProjectName = TypeConversionUtility.ToStringWithNull(dr["ProjectName"]);
+                            enterpriesTrainingInfo.UserName = TypeConversionUtility.ToStringWithNull(dr["UserName"]);
+                            enterpriesTrainingInfo.WomenName = TypeConversionUtility.ToStringWithNull(dr["WomenName"]);
+                            enterpriesTrainingInfo.StartingBusinessDate = TypeConversionUtility.ToStringWithNull(dr["StartingBusinessDate"]);
+                            enterpriesTrainingInfo.Year = TypeConversionUtility.ToStringWithNull(dr["Year"]);
+                            enterpriesTrainingInfo.Month = TypeConversionUtility.ToStringWithNull(dr["Month"]);
+                            enterpriesTrainingInfo.NoNewCustomer = TypeConversionUtility.ToInteger(dr["NoNewCustomer"]);
+                            enterpriesTrainingInfo.NoRepeatedCustomer = TypeConversionUtility.ToInteger(dr["NoRepeatedCustomer"]);
+                            enterpriesTrainingInfo.ServicesOfferedType = TypeConversionUtility.ToStringWithNull(dr["ServicesOfferedType"]);
+                            enterpriesTrainingInfo.ServicesProvidedDetails = TypeConversionUtility.ToStringWithNull(dr["ServicesProvidedDetails"]);
+                            enterpriesTrainingInfo.GovCustomerServices = TypeConversionUtility.ToStringWithNull(dr["GovCustomerServices"]);
+                            enterpriesTrainingInfo.G2CServices = TypeConversionUtility.ToStringWithNull(dr["G2CServices"]);
+                            enterpriesTrainingInfo.IncomefromSell = TypeConversionUtility.ToStringWithNull(dr["IncomefromSell"]);
+                            enterpriesTrainingInfo.CashSellAmount = TypeConversionUtility.ToStringWithNull(dr["CashSellAmount"]);
+                            enterpriesTrainingInfo.CreditSellAmount = TypeConversionUtility.ToStringWithNull(dr["CreditSellAmount"]);
+                            enterpriesTrainingInfo.TotalIncome = TypeConversionUtility.ToStringWithNull(dr["TotalIncome"]);
+                            enterpriesTrainingInfo.Investment = TypeConversionUtility.ToStringWithNull(dr["Investment"]);
+                            enterpriesTrainingInfo.ExpenditurefromPurchase = TypeConversionUtility.ToStringWithNull(dr["ExpenditurefromPurchase"]);
+                            enterpriesTrainingInfo.CashExpenditure = TypeConversionUtility.ToBoolean(dr["CashExpenditure"]);
+                            enterpriesTrainingInfo.CreditExpenditure = TypeConversionUtility.ToBoolean(dr["CreditExpenditure"]);
+                            enterpriesTrainingInfo.TotalExpenditure = TypeConversionUtility.ToStringWithNull(dr["TotalExpenditure"]);
+                            enterpriesTrainingInfo.LastMonthCredit = TypeConversionUtility.ToStringWithNull(dr["LastMonthCredit"]);
+                            enterpriesTrainingInfo.CreditSettlement = TypeConversionUtility.ToStringWithNull(dr["CreditSettlement"]);
+                            enterpriesTrainingInfo.MonthlyProfitLoss = TypeConversionUtility.ToStringWithNull(dr["MonthlyProfitLoss"]);
+                            enterpriesTrainingInfo.PaymentReceived = TypeConversionUtility.ToStringWithNull(dr["PaymentReceived"]);
+                            enterpriesTrainingInfo.PaymentReceivedMode = TypeConversionUtility.ToStringWithNull(dr["PaymentReceivedMode"]);
+
+                            if (dr["CreatedOn"] != DBNull.Value)
+                            {
+                                enterpriesTrainingInfo.CreatedOn = TypeConversionUtility.ToDateTime(dr["CreatedOn"]);
+                            }
+
+                            if (dr["UpdatedOn"] != DBNull.Value)
+                            {
+                                enterpriesTrainingInfo.UpdatedOn = TypeConversionUtility.ToDateTime(dr["UpdatedOn"]);
+                            }
+                            enterpriesTrainingList.Add(enterpriesTrainingInfo);
+                        }
+                    }
+                }
+            }
+            return enterpriesTrainingList;
+        }
     }
 }

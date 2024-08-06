@@ -13,11 +13,11 @@ public partial class Forms_RptEnrollmentExport : System.Web.UI.Page
     {
         exportType = TypeConversionUtility.ToInteger(Request.QueryString["ExportType"]);
         ExportEnrollmentDetailsToExcel();
-        ClosePage();
+        //ClosePage();
     }
     private void ClosePage()
     {
-        Response.Write("<script>window.close();</script>");
+       // Response.Write("<script>window.close();</script>");
     }
     public void ExportEnrollmentDetailsToExcel()
     {
@@ -35,7 +35,7 @@ public partial class Forms_RptEnrollmentExport : System.Web.UI.Page
             BL_Reports objReport = new BL_Reports();
             DataTable dataTable = new DataTable();
 
-            string strSheetName = "Report Enrollment";
+            string strSheetName = "Enrollment";
             string strFileName = "Report_Enrollment_" + DateTime.Now.ToLocalTime().ToString() + ".xlsx";
 
             if (exportType == 1)
@@ -45,14 +45,20 @@ public partial class Forms_RptEnrollmentExport : System.Web.UI.Page
             else if (exportType == 2)
             {
                 strFileName = "Report_Training_" + DateTime.Now.ToLocalTime().ToString() + ".xlsx";
-                strSheetName = "Report Training";
+                strSheetName = "Training";
                 dataTable = objReport.RptTrainingDetailsDT(Convert.ToInt32(CreatedUser), Convert.ToInt32(projectCode), 0, int.MaxValue, "");
             }
             else if (exportType == 3)
             {
                 strFileName = "Report_Enterpries_Training_" + DateTime.Now.ToLocalTime().ToString() + ".xlsx";
-                strSheetName = "Report Enterpries Training";
+                strSheetName = "Enterpries Training";
                 dataTable = objReport.RptEnterpriesTrainingDetailsDT(Convert.ToInt32(CreatedUser), Convert.ToInt32(projectCode), 0, int.MaxValue, "");
+            }
+            else if (exportType == 4)
+            {
+                strFileName = "Report_Business_Progress_Training_" + DateTime.Now.ToLocalTime().ToString() + ".xlsx";
+                strSheetName = "Business Progress";
+                dataTable = objReport.RptBusinessProgressDetailsDT(Convert.ToInt32(CreatedUser), Convert.ToInt32(projectCode), 0, int.MaxValue, "");
             }
 
             using (var workbook = new XSSFWorkbook())
@@ -82,18 +88,22 @@ public partial class Forms_RptEnrollmentExport : System.Web.UI.Page
                     byte[] excelData = stream.ToArray();
 
                     // Send the Excel file to the client
-                    Context.Response.Clear();
-                    Context.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                    Context.Response.AddHeader("content-disposition", "attachment; filename="+ strFileName);
-                    Context.Response.BinaryWrite(excelData);
-                    Context.Response.End();
+                    Response.Clear();
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment; filename="+ strFileName);
+                    Response.BinaryWrite(excelData);
+                    Response.End();
                 }
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
-            throw;
+            //Response.End();
+        }
+        finally
+        {
+            //Response.End();
+            ClosePage();
         }
     }
 }

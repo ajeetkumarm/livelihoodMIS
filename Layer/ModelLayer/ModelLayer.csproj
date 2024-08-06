@@ -42,8 +42,10 @@
   <ItemGroup>
     <Compile Include="BusinessProgessCustomerList.cs" />
     <Compile Include="BusinessProgressCustomer.cs" />
+    <Compile Include="BusinessProgressReportList.cs" />
     <Compile Include="EnrollmentReportList.cs" />
     <Compile Include="EnterpriesSetupList.cs" />
+    <Compile Include="EnterpriesTrainingReportList.cs" />
     <Compile Include="FileUploadResponse.cs" />
     <Compile Include="ML_Block.cs" />
     <Compile Include="ML_BusinessProgress.cs" />
