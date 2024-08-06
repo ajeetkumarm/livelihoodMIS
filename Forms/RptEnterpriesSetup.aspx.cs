@@ -18,7 +18,7 @@ public partial class Forms_RptEnterpriesSetup : System.Web.UI.Page
         {
             if (!IsPostBack)
             {
-                BindEnterprisesSetupList();
+               // BindEnterprisesSetupList();
             }
         }
         else
@@ -32,31 +32,31 @@ public partial class Forms_RptEnterpriesSetup : System.Web.UI.Page
             Response.Cache.SetNoStore();
         }
     }
-    private void BindEnterprisesSetupList()
-    {
-        try
-        {
-            DataTable DTuser = Session["UserDetails"] as DataTable;
-            string UserCode = DTuser.Rows[0]["UserCode"].ToString();
-            string ProjectCode = DTuser.Rows[0]["ProjectCode"].ToString();
+    //private void BindEnterprisesSetupList()
+    //{
+    //    try
+    //    {
+    //        DataTable DTuser = Session["UserDetails"] as DataTable;
+    //        string UserCode = DTuser.Rows[0]["UserCode"].ToString();
+    //        string ProjectCode = DTuser.Rows[0]["ProjectCode"].ToString();
 
-            obj_ML_Reports.CreatedUser = UserCode;
-            obj_ML_Reports.ProjectCode = ProjectCode;
-            DataTable DT = obj_BL_Reports.BL_RptEnterpriesTrainingDetails(obj_ML_Reports);
-            if (DT.Rows.Count > 0)
-            {
-                rpt_EnterprisesSetup.DataSource = DT;
-                rpt_EnterprisesSetup.DataBind();
-            }
-            else
-            {
-                rpt_EnterprisesSetup.DataSource = null;
-                rpt_EnterprisesSetup.DataBind();
-            }
-        }
-        catch (Exception ex)
-        {
-            Response.Redirect(ex.Message);
-        }
-    }
+    //        obj_ML_Reports.CreatedUser = UserCode;
+    //        obj_ML_Reports.ProjectCode = ProjectCode;
+    //        DataTable DT = obj_BL_Reports.BL_RptEnterpriesTrainingDetails(obj_ML_Reports);
+    //        if (DT.Rows.Count > 0)
+    //        {
+    //            rpt_EnterprisesSetup.DataSource = DT;
+    //            rpt_EnterprisesSetup.DataBind();
+    //        }
+    //        else
+    //        {
+    //            rpt_EnterprisesSetup.DataSource = null;
+    //            rpt_EnterprisesSetup.DataBind();
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Response.Redirect(ex.Message);
+    //    }
+    //}
 }

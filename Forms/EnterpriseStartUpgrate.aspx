@@ -146,6 +146,10 @@
                                     <asp:ListItem Value="Bakery/Food">Bakery/Food</asp:ListItem>
                                     <asp:ListItem Value="Vegetable Selling">Vegetable Selling</asp:ListItem>
                                     <asp:ListItem Value="Digital Business">Digital Business</asp:ListItem>
+                                    <asp:ListItem Value="Incense Stick">Incense Stick</asp:ListItem>
+                                    <asp:ListItem Value="Bamboo Craft">Bamboo Craft</asp:ListItem>
+                                    <asp:ListItem Value="Banana Fibre">Banana Fibre</asp:ListItem>
+                                    <asp:ListItem Value="Handloom">Handloom</asp:ListItem>
                                     <asp:ListItem Value="Other">Other</asp:ListItem>
                                 </asp:DropDownList>
                             </div>

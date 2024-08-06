@@ -48,7 +48,12 @@ public partial class Forms_RptEnrollmentExport : System.Web.UI.Page
                 strSheetName = "Report Training";
                 dataTable = objReport.RptTrainingDetailsDT(Convert.ToInt32(CreatedUser), Convert.ToInt32(projectCode), 0, int.MaxValue, "");
             }
-            
+            else if (exportType == 3)
+            {
+                strFileName = "Report_Enterpries_Training_" + DateTime.Now.ToLocalTime().ToString() + ".xlsx";
+                strSheetName = "Report Enterpries Training";
+                dataTable = objReport.RptEnterpriesTrainingDetailsDT(Convert.ToInt32(CreatedUser), Convert.ToInt32(projectCode), 0, int.MaxValue, "");
+            }
 
             using (var workbook = new XSSFWorkbook())
             {
