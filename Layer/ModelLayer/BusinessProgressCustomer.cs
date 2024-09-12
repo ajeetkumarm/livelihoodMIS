@@ -57,12 +57,27 @@ namespace ModelLayer
         public BPCDigitalCategory()
         {
             ServiceLines = new List<BPCServiceLine>();
+            SubCategories = new List<BPCDigitalSubCategory>();
         }
         public int CategoryId { get; set; }
         public string Category { get; set; }
         public bool IsSelected { get; set; }
+        public List<BPCDigitalSubCategory> SubCategories { get; set; }
         public List<BPCServiceLine> ServiceLines { get; set; }
     }
+
+    public class BPCDigitalSubCategory
+    {
+        public BPCDigitalSubCategory()
+        {
+            ServiceURLs = new List<string>();
+        }
+        public int ServiceId { get; set; }
+        public int DigitalCategoryId { get; set; }
+        public string ServiceLine { get; set; }
+        public List<string> ServiceURLs { get; set; }
+    }
+
     [Serializable]
     public class BPCServiceLine
     {
@@ -70,8 +85,8 @@ namespace ModelLayer
         {
             ServiceURLs = new List<string>();
         }
-        public int ServiceId { get; set; }
-        public int DigitalCategoryId { get; set; }
+        public int? ServiceId { get; set; }
+        public int? DigitalCategoryId { get; set; }
         public string ServiceLine { get; set; }
         public int? CustomersNo { get; set; }
         public string UplodedFileName { get; set; }

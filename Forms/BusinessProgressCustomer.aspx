@@ -62,7 +62,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="pagetitle">
-        <h1>Business Progress</h1>
+        <h1>Business Progress
+
+             <a id="aBack" style="float:right;" href="/Forms/BusinessProgressCustomerList.aspx?EnrolId=<%= EnrollmentId %>" class="btn btn-sm btn-secondary">Back</a>
+        </h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -70,26 +73,27 @@
                 <li class="breadcrumb-item active">Business Progress</li>
             </ol>
         </nav>
+       
     </div>
     <!-- End Page Title -->
 
     <section class="section">
         <div class="card">
-            <div id="divTab" class="card-body" style="" ng-app="businessProgressApp" ng-controller="businessProgressController" ng-init="LoadDetail(<%= EnrollmentId %>, <%= UserCategory %>);">
+            <div id="divTab" class="card-body" style="" ng-app="businessProgressApp" ng-controller="businessProgressController" ng-init="LoadDetail(<%= EnrollmentId %>, <%= UserCategory %>, <%= BusinessProgressId %> );">
                 <div id="tabs">
                     <ul>
                         <li><a href="#tab1" ng-click="loadTabContent(1)">Reporting Period</a></li>
                         <li><a href="#tab2" ng-click="loadTabContent(2)">Customer Related</a></li>
                         <li><a href="#tab3" ng-click="loadTabContent(3)">Services Related</a></li>
                         <li><a href="#tab4" ng-click="loadTabContent(4)">Income Statement</a></li>
-                        <li><a href="#tab5" ng-click="loadTabContent(5)">Others</a></li>
+                        <%--<li><a href="#tab5" ng-click="loadTabContent(5)">Others</a></li>--%>
                     </ul>
                     <div id="tab1">
                         <div class="mb-3 row m-1" visible="false">
                             <label class="col-sm-3 col-form-label">Date of Starting of Business <span class="text-danger">*</span></label>
                             <div class="col-sm-3">
                                 <input id="txtBusinessStartingDate" name="txtBusinessStartingDate" ng-model="BusinessProgressModel.StartingBusinessDate"
-                                     ng-disabled="StartingBusinessDateEnable"
+                                    ng-disabled="StartingBusinessDateEnable"
                                     class="form-control" type="date" />
                                 <span class="text-danger" ng-show="IsSubmittedTab1 && !BusinessProgressModel.StartingBusinessDate">Required.</span>
                             </div>
@@ -129,7 +133,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row m-1" ng-show="DisplayMonthYearDataExist">
-                             <label class="col-sm-12 col-form-label text-danger">You alreay entered data for Month({{BusinessProgressModel.Month}}) & Year({{BusinessProgressModel.Year}}).</label>
+                            <label class="col-sm-12 col-form-label text-danger">You alreay entered data for Month({{BusinessProgressModel.Month}}) & Year({{BusinessProgressModel.Year}}).</label>
                         </div>
                         <div class="tab-buttons">
                             <button type="button" ng-click="prevTab()" class="btn btn-secondary">Previous</button>
@@ -184,11 +188,19 @@
                                         <div ng-show="_category.IsSelected" style="border: 1px solid #ccc; margin-left: 25px;" class="row p-1" ng-repeat="_surviceLine in _category.ServiceLines">
                                             <div class="col-md-12 mb-1">
                                                 <div class="row">
-                                                    <div class="col-md-6">{{_surviceLine.ServiceLine}}</div>
                                                     <div class="col-md-6">
-                                                        <a href="{{_surviceLine}}" target="_blank" ng-repeat="_surviceLine in _surviceLine.ServiceURLs">
+                                                        <select class="form-select" ng-model="_surviceLine.ServiceId">
+                                                            <option value="" ng-value="null">--Select--</option>
+                                                            <option ng-repeat="_service in _category.SubCategories" ng-value="_service.ServiceId">{{_service.ServiceLine}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <a href="{{_url}}" target="_blank" ng-repeat="_url in (_category.SubCategories | filter: {ServiceId: _surviceLine.ServiceId })[0].ServiceURLs">
                                                             <img src="/assets/img/link-solid.svg" style="color: blue;" />
                                                         </a>
+                                                    </div>
+                                                    <div class="col-md-2" style="text-align: right" ng-show="$first">
+                                                        <button type="button" class="btn btn-sm btn-success" title="Add New Service(s)" ng-click="addServiceLine(_category)">+ </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -345,13 +357,6 @@
                                     disabled="disabled" onkeypress="return isNumberKey(event)" maxlength="9" />
                             </div>
                         </div>
-
-                        <div class="tab-buttons">
-                            <button type="button" ng-click="prevTab()" class="btn btn-secondary">Previous</button>
-                            <button type="button" ng-click="nextTab()" class="btn btn-primary">Next</button>
-                        </div>
-                    </div>
-                    <div id="tab5">
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">How payment are received</label>
                             <div class="col-sm-6">
@@ -374,7 +379,7 @@
                         <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">Please specify % of payment received for each mode</label>
                             <div class="col-sm-6">
-                                <input type="text" id="txtPaymentRecivedMode" class="form-control" ng-model="BusinessProgressModel.PaymentRecivedMode"
+                                <input type="text" id="txtPaymentRecivedMode" class="form-control" ng-model="BusinessProgressModel.PaymentReceivedMode"
                                     ng-disabled="(BusinessProgressModel.PaymentModeDigital && !BusinessProgressModel.PaymentModeNoneDigital) || (!BusinessProgressModel.PaymentModeDigital && BusinessProgressModel.PaymentModeNoneDigital)"
                                     onkeypress="return isNumberKey(event)" maxlength="9" />
                             </div>
@@ -384,6 +389,7 @@
                             <button type="button" ng-click="SaveBusinessProgress()" class="btn btn-primary">Save</button>
                         </div>
                     </div>
+                    
                 </div>
 
             </div>

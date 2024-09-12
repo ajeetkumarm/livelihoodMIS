@@ -88,4 +88,37 @@ public partial class Forms_TrainingList : System.Web.UI.Page
             Response.Redirect(ex.Message);
         }
     }
+    protected void Btn_Delete_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            Button btn = (Button)sender;
+            if (btn.CommandArgument != null)
+            {
+                int EnrollmentId = Convert.ToInt32(btn.CommandArgument);
+                obj_ML_Enrollment.EnrollmentId = EnrollmentId;
+                int x = obj_BL_Enrollment.BL_DeleteEnrollmentForm(obj_ML_Enrollment);
+                if (x > 0)
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "message", "alert('Record Deleted Successfully !');", true);
+                    if (CreatedUser == "1")
+                    {
+                        BindTrainingList(CreatedUser, "");
+                    }
+                    else
+                    {
+                        BindTrainingList(CreatedUser, projectCode);
+                    }
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Message", "alert('System Error !');", true);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Response.Redirect(ex.Message);
+        }
+    }
 }

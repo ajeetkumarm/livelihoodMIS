@@ -194,5 +194,94 @@ namespace DataLayer
             }
             return isExist;
         }
+
+        public static bool SaveBusinessProgressStatus(BusinessProgressStatusDTO model)
+        {
+            bool saved = false;
+            using (SqlConnection con = new SqlConnection(DB_Connection.Livelihood_Connection))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("BusinessProgressStatus_Save", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@EnrollmentId", model.EnrollmentId);
+                    cmd.Parameters.AddWithValue("@BusinessStatus", model.BusinessStatus);
+                    cmd.Parameters.AddWithValue("@BusinessStatusDate", model.BusinessStatusDate);
+                    cmd.Parameters.AddWithValue("@BusinessStatusReason", model.BusinessStatusReason);
+                    cmd.Parameters.AddWithValue("@CreatedBy", model.CreatedBy);
+                    cmd.Parameters.AddWithValue("@UpdatedBy", model.UpdatedBy);
+                    saved = TypeConversionUtility.ToInteger(cmd.ExecuteNonQuery()) > 0;
+                }
+            }
+            return saved;
+        }
+        public static BusinessProgressStatusDTO GetBusinessProgressStatus(int enrollmentId)
+        {
+            BusinessProgressStatusDTO model = new BusinessProgressStatusDTO();
+            using (SqlConnection con = new SqlConnection(DB_Connection.Livelihood_Connection))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("usp_BusinessProgressStatus", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@QueryType", 1);
+                    cmd.Parameters.AddWithValue("@EnrollmentId", enrollmentId);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            model.EnrollmentId = TypeConversionUtility.ToInteger(dr["EnrollmentId"]);
+                            model.BusinessStatus = TypeConversionUtility.ToInteger(dr["BusinessStatus"]);
+                            model.BusinessStatusDate = TypeConversionUtility.ToStringWithNull(dr["BusinessStatusDate"]);
+                            model.BusinessStatusReason = TypeConversionUtility.ToStringWithNull(dr["BusinessStatusReason"]);
+                        }
+                    }
+                }
+            }
+            return model;
+        }
+
+        public static DataSet GetBusinessProgressCustomerByBusinessProgressId(int businessProgressId)
+        {
+            using (SqlConnection con = new SqlConnection(DB_Connection.Livelihood_Connection))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("usp_GetBusinessProgressCustomerByBusinessProgressId", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@BusinessProgressId", businessProgressId);
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataSet ds = new DataSet();
+                        da.Fill(ds);
+                        return ds;
+                    }
+                }
+            }
+        }
+        public static List<BusinessProgressCustomerCountEntity> GetBusinessProgressServiceLineCount(int enrollmentId)
+        {
+            List<BusinessProgressCustomerCountEntity> lstBusinessProgressCustomerCount = new List<BusinessProgressCustomerCountEntity>();
+            using (SqlConnection con = new SqlConnection(DB_Connection.Livelihood_Connection))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("usp_BusinessProgressServiceLineCount", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@EnrollmentId", enrollmentId);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            BusinessProgressCustomerCountEntity objBusinessProgressCustomerCount = new BusinessProgressCustomerCountEntity();
+                            objBusinessProgressCustomerCount.Category = TypeConversionUtility.ToStringWithNull(dr["Category"]);
+                            objBusinessProgressCustomerCount.TotalCount = TypeConversionUtility.ToInteger(dr["TotalCount"]);
+                            lstBusinessProgressCustomerCount.Add(objBusinessProgressCustomerCount);
+                        }
+                    }
+                }
+            }
+            return lstBusinessProgressCustomerCount;
+        }
     }
 }

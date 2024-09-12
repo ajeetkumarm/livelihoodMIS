@@ -24,11 +24,11 @@ public partial class Forms_BusinessProgressList : System.Web.UI.Page
                 projectCode = DT.Rows[0]["ProjectCode"].ToString();
                 if (CreatedUser == "1")
                 {
-                    BindBusinessProgress(CreatedUser, "");
+                   // BindBusinessProgress(CreatedUser, "");
                 }
                 else
                 {
-                    BindBusinessProgress(CreatedUser, projectCode);
+                    //BindBusinessProgress(CreatedUser, projectCode);
                 }
             }
         }
@@ -47,20 +47,20 @@ public partial class Forms_BusinessProgressList : System.Web.UI.Page
     {
         try
         {
-            obj_ML_Enrollment.QType = "BusinessProgress";
-            obj_ML_Enrollment.CreatedUser = Convert.ToInt32(CreatedUser);
-            obj_ML_Enrollment.ProjectCode = projectid;
-            DataTable DT = obj_BL_Enrollment.BL_EnrollmentDetails(obj_ML_Enrollment);
-            if (DT.Rows.Count > 0)
-            {
-                rpt_BusinessProgress.DataSource = DT;
-                rpt_BusinessProgress.DataBind();
-            }
-            else
-            {
-                rpt_BusinessProgress.DataSource = null;
-                rpt_BusinessProgress.DataBind();
-            }
+            //obj_ML_Enrollment.QType = "BusinessProgress";
+            //obj_ML_Enrollment.CreatedUser = Convert.ToInt32(CreatedUser);
+            //obj_ML_Enrollment.ProjectCode = projectid;
+            //DataTable DT = obj_BL_Enrollment.BL_EnrollmentDetails(obj_ML_Enrollment);
+            //if (DT.Rows.Count > 0)
+            //{
+            //    rpt_BusinessProgress.DataSource = DT;
+            //    rpt_BusinessProgress.DataBind();
+            //}
+            //else
+            //{
+            //    rpt_BusinessProgress.DataSource = null;
+            //    rpt_BusinessProgress.DataBind();
+            //}
         }
         catch (Exception ex)
         {

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
@@ -18,20 +20,17 @@ using ModelLayer;
 public class BusinessProgress : WebService
 {
     [WebMethod(EnableSession = true)]
-    public BusinessProgressCustomer GetBusinessProgressDetail(int enrollmentId)
+    public BusinessProgressCustomer GetBusinessProgressDetail(int enrollmentId, int businessProgressId)
     {
-        BusinessProgressCustomer businessProgressCustomer = new BusinessProgressCustomer();
-        businessProgressCustomer.DigitalCategories = BusinessProgressCustomerRepository.GetCategoryAndServiceLineList();
-        businessProgressCustomer.EnrollMentId = enrollmentId;
-        string startingBusinessDate= BusinessProgressCustomerRepository.GetBusinessProgressStartingBusinessDate(enrollmentId);
-        if (!string.IsNullOrEmpty(startingBusinessDate))
-        {
-            businessProgressCustomer.StartingBusinessDate = TypeConversionUtility.ToDateTime(startingBusinessDate).ToString();
-        }
-        
-
-
-        return businessProgressCustomer;
+        //BusinessProgressCustomer businessProgressCustomer = new BusinessProgressCustomer();
+        //businessProgressCustomer.DigitalCategories = BusinessProgressCustomerRepository.GetCategoryAndServiceLineList();
+        //businessProgressCustomer.EnrollMentId = enrollmentId;
+        //string startingBusinessDate= BusinessProgressCustomerRepository.GetBusinessProgressStartingBusinessDate(enrollmentId);
+        //if (!string.IsNullOrEmpty(startingBusinessDate))
+        //{
+        //    businessProgressCustomer.StartingBusinessDate = TypeConversionUtility.ToDateTime(startingBusinessDate).ToString();
+        //}
+        return BusinessProgressCustomerRepository.GetBusinessProgressCustomerByBusinessProgressId(enrollmentId, businessProgressId);
     }
 
     [WebMethod(EnableSession = true)]
@@ -95,5 +94,40 @@ public class BusinessProgress : WebService
     public bool CheckBusinessProgressCustomerDataExist(int businessProgressId, int enrollmentId, int year, string month)
     {
         return BusinessProgressCustomerRepository.CheckBusinessProgressCustomerDataExist(businessProgressId, enrollmentId, year, month);
+    }
+
+    [WebMethod(EnableSession = true)]
+    public CustomListResponse<BusinessProgressList> GetBusinessProgressList(int draw, int pageNumber, int pageSize, string search)
+    {
+        string CreatedUser, projectCode;
+        DataTable DT = Session["UserDetails"] as DataTable;
+        CreatedUser = DT.Rows[0]["UserCode"].ToString();
+        projectCode = DT.Rows[0]["ProjectCode"].ToString();
+        BL_Enrollment obj_BL_Enrollment = new BL_Enrollment();
+        var data = obj_BL_Enrollment.GetBusinessProgressList(Convert.ToInt32(CreatedUser), Convert.ToInt32(projectCode), pageNumber, pageSize, search).ToList();
+
+        var resData = new CustomListResponse<BusinessProgressList>()
+        {
+            draw = draw,
+            recordsTotal = data.Count > 0 ? data[0].TotalCount : 0,
+            recordsFiltered = data.Count,
+            data = data
+        };
+        return resData;
+    }
+    [WebMethod(EnableSession = true)]
+    public bool UpdateBusinessProgressStatus(BusinessProgressStatusDTO businessProgressStatus)
+    {
+        return BusinessProgressCustomerRepository.SaveBusinessProgressStatus(businessProgressStatus);
+    }
+    [WebMethod(EnableSession = true)]
+    public BusinessProgressStatusDTO GetBusinessProgressStatus(int enrollmentId)
+    {
+        return BusinessProgressCustomerRepository.GetBusinessProgressStatus(enrollmentId);
+    }
+    [WebMethod(EnableSession = true)]
+    public List<BusinessProgressCustomerCountEntity> GetBusinessProgressServiceLineCount(int enrollmentId)
+    {
+        return BusinessProgressCustomerRepository.GetBusinessProgressServiceLineCount(enrollmentId);
     }
 }

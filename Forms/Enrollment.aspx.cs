@@ -284,15 +284,18 @@ public partial class Forms_Enrollment : System.Web.UI.Page
     protected void ddlTheme_SelectedIndexChanged(object sender, EventArgs e)
     {
         GetBeneficaryCode();
+        ddlCasteSocial.Focus();
     }
     protected void txtWomenName_TextChanged(object sender, EventArgs e)
     {
         GetBeneficaryCode();
+        txtHusbandFatherName.Focus();
     }
 
     protected void txtPhoneNo_TextChanged(object sender, EventArgs e)
     {
         GetBeneficaryCode();
+        ddlTheme.Focus();
     }
     private void GetBeneficaryCode()
     {
@@ -325,27 +328,17 @@ public partial class Forms_Enrollment : System.Web.UI.Page
     static string CalculateYourAge(DateTime Dob)
     {      
         DateTime Now = DateTime.Now;
-        int Years = new DateTime(DateTime.Now.Subtract(Dob).Ticks).Year - 1;
-        //DateTime PastYearDate = Dob.AddYears(Years);
-        //int Months = 0;
-        //for (int i = 1; i <= 12; i++)
-        //{
-        //    if (PastYearDate.AddMonths(i) == Now)
-        //    {
-        //        Months = i;
-        //        break;
-        //    }
-        //    else if (PastYearDate.AddMonths(i) >= Now)
-        //    {
-        //        Months = i - 1;
-        //        break;
-        //    }
-        //}
-        //int Days = Now.Subtract(PastYearDate.AddMonths(Months)).Days;
-        //int Hours = Now.Subtract(PastYearDate).Hours;
-        //int Minutes = Now.Subtract(PastYearDate).Minutes;
-        //int Seconds = Now.Subtract(PastYearDate).Seconds;
-        //return String.Format("Age: {0} Year(s) {1} Month(s) {2} Day(s) {3} Hour(s) {4} Second(s)",Years, Months, Days, Hours, Seconds);
+        int Years = 0;
+        try
+        {
+            Years = new DateTime(DateTime.Now.Subtract(Dob).Ticks).Year - 1;
+        }
+        catch (Exception)
+        {
+            Years = 0;
+        }
+       
+        
         return String.Format("{0}",Years);
        
     }    
@@ -397,6 +390,11 @@ public partial class Forms_Enrollment : System.Web.UI.Page
                 obj_ML_Enrollment.MonthlyHouseholdIncome = ddlMonthlyHouseholdIncome.SelectedIndex > 0 ? ddlMonthlyHouseholdIncome.SelectedValue : "";
                 obj_ML_Enrollment.Scheme = Convert.ToInt32(ddlLinkedScheme.SelectedIndex > 0 ? ddlLinkedScheme.SelectedValue : "0");
                 obj_ML_Enrollment.CreatedBy = UserCode;
+
+                obj_ML_Enrollment.EmployeeId = TypeConversionUtility.ToStringWithNull(txtEmployeeId.Text).Trim();
+                obj_ML_Enrollment.EnrollmentStatus = TypeConversionUtility.ToStringWithNull(ddlEnrollmentStatus.SelectedValue);
+                obj_ML_Enrollment.ReplacementEmployeeId = TypeConversionUtility.ToStringWithNull(txtReplacementEmployeeId.Text).Trim();
+                obj_ML_Enrollment.ReplacementBeneficiaryCode = TypeConversionUtility.ToStringWithNull(txtReplacementBeneficiaryCode.Text).Trim();
                 int x = obj_BL_Enrollment.BL_InsEnrollment(obj_ML_Enrollment);
                 if (x > 0)
                 {
@@ -464,7 +462,16 @@ public partial class Forms_Enrollment : System.Web.UI.Page
         rblAdharCard.SelectedValue = "No";
         div_WillingAadhaar.Visible = false;
         div_AadhaarNo.Visible = false;
-        
+
+        txtEmployeeId.Text = "";
+        ddlEnrollmentStatus.SelectedIndex = 0;
+        txtReplacementEmployeeId.Text = "";
+        txtReplacementBeneficiaryCode.Text = "";
+        divReplacementBeneficiaryCode.Visible = false;
+        divReplacementEmployeeId.Visible = false;
+        rfvReplacementBeneficiaryCode.Enabled = false;
+        rfvReplacementEmployeeId.Enabled = false;
+
 
     }
     protected void rblSHG_SelectedIndexChanged(object sender, EventArgs e)
@@ -539,5 +546,23 @@ public partial class Forms_Enrollment : System.Web.UI.Page
         }
     }
 
-    
+
+
+    protected void ddlEnrollmentStatus_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (ddlEnrollmentStatus.SelectedValue == "Replacement")
+        {
+            divReplacementBeneficiaryCode.Visible = true;
+            divReplacementEmployeeId.Visible = true;
+            rfvReplacementBeneficiaryCode.Enabled = true;
+            rfvReplacementEmployeeId.Enabled = true;
+        }
+        else
+        {
+            divReplacementBeneficiaryCode.Visible = false;
+            divReplacementEmployeeId.Visible = false;
+            rfvReplacementBeneficiaryCode.Enabled = false;
+            rfvReplacementEmployeeId.Enabled = false;
+        }
+    }
 }

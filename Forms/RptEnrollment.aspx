@@ -30,12 +30,18 @@
                                         <tr>
                                             <th>S.No</th>
                                             <th>Beneficiary Code</th>
+                                            <th>Employee Id</th>
                                             <th>State</th>
                                             <th>District</th>
                                             <th>Block</th>
                                             <th>Village</th>
                                             <th>Project</th>
                                             <th>UserName (FE)</th>
+
+                                            <th>Enrollment Status</th>
+                                            <th>Replacement Employee Id</th>
+                                            <th>Replacement Beneficiary Code</th>
+
                                             <th>Women Name</th>
                                             <th>Husband/Father Name</th>
                                             <th>Mother Name</th>

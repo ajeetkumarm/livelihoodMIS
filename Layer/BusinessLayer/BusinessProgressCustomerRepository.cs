@@ -9,6 +9,127 @@ namespace BusinessLayer
 {
     public class BusinessProgressCustomerRepository
     {
+
+        public static BusinessProgressCustomer GetBusinessProgressCustomerByBusinessProgressId(int enrollmentId, int businessProgressId)
+        {
+
+            BusinessProgressCustomer businessProgressCustomer = new BusinessProgressCustomer();
+            businessProgressCustomer.DigitalCategories = GetCategoryAndServiceLineList();
+            if(businessProgressId==0)
+            {
+                businessProgressCustomer.EnrollMentId = enrollmentId;
+                string startingBusinessDate = GetBusinessProgressStartingBusinessDate(enrollmentId);
+                if (!string.IsNullOrEmpty(startingBusinessDate))
+                {
+                    businessProgressCustomer.StartingBusinessDate = TypeConversionUtility.ToDateTime(startingBusinessDate).ToString();
+                }
+            }
+            else
+            {
+                var dataSet = SqlBusinessProgressCustomer.GetBusinessProgressCustomerByBusinessProgressId(businessProgressId);
+                DataTable dtBusinessProgress = dataSet.Tables[0];
+                DataTable dtBusinessProgressCategories = dataSet.Tables[1];
+                DataTable dtBusinessProgressServices = dataSet.Tables[2];
+
+                if(dtBusinessProgress.Rows.Count>0)
+                {
+                    businessProgressCustomer. BusinessProgressId = TypeConversionUtility.ToInteger(dtBusinessProgress.Rows[0]["BusinessProgressId"]);
+                    businessProgressCustomer.EnrollMentId = TypeConversionUtility.ToInteger(dtBusinessProgress.Rows[0]["EnrollMentId"]);
+                    businessProgressCustomer.StartingBusinessDate = TypeConversionUtility.ToDateTime(dtBusinessProgress.Rows[0]["StartingBusinessDate"]).ToString();
+                    
+                    businessProgressCustomer.Month = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["Month"]);
+                    businessProgressCustomer.Year = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["Year"]);
+                    businessProgressCustomer.NoNewCustomer = TypeConversionUtility.ToInteger(dtBusinessProgress.Rows[0]["NoNewCustomer"]);
+                    businessProgressCustomer.NoRepeatedCustomer = TypeConversionUtility.ToInteger(dtBusinessProgress.Rows[0]["NoRepeatedCustomer"]);
+                    businessProgressCustomer.ServicesOfferedType = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["ServicesOfferedType"]);
+                    businessProgressCustomer.ServicesProvidedDetails = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["ServicesProvidedDetails"]);
+                    businessProgressCustomer.GovCustomerServices = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["GovCustomerServices"]);
+                    businessProgressCustomer.G2CServices = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["G2CServices"]);
+                    businessProgressCustomer.IncomefromSell = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["IncomefromSell"]);
+
+                    if(businessProgressCustomer.IncomefromSell.Contains("Cash Sell"))
+                    {
+                        businessProgressCustomer.IncomeSellCash = true;
+                    }
+                    if (businessProgressCustomer.IncomefromSell.Contains("Credit Sell"))
+                    {
+                        businessProgressCustomer.IncomeCreditSell = true;
+                    }
+
+                    businessProgressCustomer.CashSellAmount = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["CashSellAmount"]);
+                    businessProgressCustomer.CreditSellAmount = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["CreditSellAmount"]);
+                    businessProgressCustomer.TotalIncome = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["TotalIncome"]);
+                    businessProgressCustomer.Investment = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["Investment"]);
+                    businessProgressCustomer.ExpenditurefromPurchase = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["ExpenditurefromPurchase"]);
+                    if(businessProgressCustomer.ExpenditurefromPurchase.Contains("Cash Expenditure"))
+                    {
+                        businessProgressCustomer.CheckCashExpenditure = true;
+                    }
+                    if (businessProgressCustomer.ExpenditurefromPurchase.Contains("Credit Expenditure"))
+                    {
+                        businessProgressCustomer.CheckCreditExpenditure = true;
+                    }
+
+
+                    businessProgressCustomer.CashExpenditure = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["CashExpenditure"]);
+                    businessProgressCustomer.CreditExpenditure = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["CreditExpenditure"]);
+                    businessProgressCustomer.TotalExpenditure = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["TotalExpenditure"]);
+                    businessProgressCustomer.LastMonthCredit = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["LastMonthCredit"]);
+                    businessProgressCustomer.CreditSettlement = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["CreditSettlement"]);
+                    businessProgressCustomer.MonthlyProfitLoss = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["MonthlyProfitLoss"]);
+                    businessProgressCustomer.PaymentReceived = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["PaymentReceived"]);
+                    if (businessProgressCustomer.PaymentReceived.Contains("Digital"))
+                    {
+                        businessProgressCustomer.PaymentModeDigital = true;
+                    }
+                    if (businessProgressCustomer.PaymentReceived.Contains("Non-Digital"))
+                    {
+                        businessProgressCustomer.PaymentModeNoneDigital = true;
+                    }
+                    businessProgressCustomer.PaymentReceivedMode = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["PaymentReceivedMode"]);
+                }
+
+                if (dtBusinessProgressCategories.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dtBusinessProgressCategories.Rows)
+                    {
+                        int digitalCategoryId = TypeConversionUtility.ToInteger(row["DigitalCategoryId"]);
+                        var digitalCategory = businessProgressCustomer.DigitalCategories.FirstOrDefault(x => x.CategoryId == digitalCategoryId);
+                        if (digitalCategory != null)
+                        {
+                            digitalCategory.IsSelected = true;
+                        }
+                    }
+                }
+                List<BPCServiceLine> serviceLines = new List<BPCServiceLine>();
+                if (dtBusinessProgressServices.Rows.Count > 0)
+                {
+                    foreach (DataRow item in dtBusinessProgressServices.Rows)
+                    {
+                        serviceLines.Add(new BPCServiceLine
+                        {
+                            ServiceId = TypeConversionUtility.ToInteger(item["ServiceLineId"]),
+                            CustomersNo = TypeConversionUtility.ToInteger(item["CustomersNo"]),
+                            UplodedFileName = TypeConversionUtility.ToStringWithNull(item["UplodedFileName"]),
+                            DigitalCategoryId = TypeConversionUtility.ToInteger(item["DigitalCategoryId"])
+
+                        });
+                    }
+                }
+                foreach (var item in businessProgressCustomer.DigitalCategories)
+                {
+                    item.ServiceLines = serviceLines.Where(x => x.DigitalCategoryId == item.CategoryId).ToList();
+                    item.ServiceLines.ForEach(x => x.ServiceURLs = item.SubCategories.FirstOrDefault(j => j.ServiceId == x.ServiceId).ServiceURLs);
+
+                    if(item.ServiceLines.Count==0)
+                    {
+                        item.ServiceLines.Add(new BPCServiceLine());
+                    }
+                }
+            }
+            return businessProgressCustomer;
+        }
+
         public static List<BPCDigitalCategory> GetCategoryAndServiceLineList()
         {
             List<BPCDigitalCategory> list = new List<BPCDigitalCategory>();
@@ -39,7 +160,7 @@ namespace BusinessLayer
                             {
                                 serviceURLs = serviceUrl.Split(',').ToList();
                             }
-                            item.ServiceLines.Add(new BPCServiceLine
+                            item.SubCategories.Add(new BPCDigitalSubCategory
                             {
                                 ServiceId = Convert.ToInt32(row["ServiceId"]),
                                 DigitalCategoryId = Convert.ToInt32(row["DigitalCategoryId"]),
@@ -48,6 +169,8 @@ namespace BusinessLayer
                             });
                         }
                     }
+                    // Add 1 row with empty values
+                    item.ServiceLines.Add(new BPCServiceLine());
                 }
             }
             catch 
@@ -91,6 +214,28 @@ namespace BusinessLayer
         public static bool CheckBusinessProgressCustomerDataExist(int businessProgressId, int enrollmentId, int year, string month)
         {
             return SqlBusinessProgressCustomer.CheckBusinessProgressCustomerDataExist(businessProgressId, enrollmentId, year, month);
+        }
+        public static bool SaveBusinessProgressStatus(BusinessProgressStatusDTO model)
+        {
+            return SqlBusinessProgressCustomer.SaveBusinessProgressStatus(model);
+        }
+        public static BusinessProgressStatusDTO GetBusinessProgressStatus(int enrollmentId)
+        {
+            var model = SqlBusinessProgressCustomer.GetBusinessProgressStatus(enrollmentId);
+            if (model == null)
+            {
+                model = new BusinessProgressStatusDTO();
+                model.BusinessStatus = 1;
+            }
+            else if (model.BusinessStatus == 0)
+            {
+                model.BusinessStatus = 1;
+            }
+            return model;
+        }
+        public static List<BusinessProgressCustomerCountEntity> GetBusinessProgressServiceLineCount(int enrollmentId)
+        {
+            return SqlBusinessProgressCustomer.GetBusinessProgressServiceLineCount(enrollmentId);
         }
     }
 }

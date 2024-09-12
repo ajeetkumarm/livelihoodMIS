@@ -59,6 +59,12 @@
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
+                            <label class="col-sm-3 col-form-label">Employee Id</label>
+                            <div class="col-sm-6">
+                                <asp:TextBox ID="txtEmployeeId" runat="server" CssClass="form-control" MaxLength="50"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">State</label>
                             <div class="col-sm-6">
                                 <asp:DropDownList ID="ddlState" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlState_SelectedIndexChanged"></asp:DropDownList>
@@ -91,11 +97,39 @@
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
+                            <label class="col-sm-3 col-form-label">Enrollment Status <span style="color: red;">*</span></label>
+                            <div class="col-sm-6">
+                                <asp:DropDownList ID="ddlEnrollmentStatus" runat="server" CssClass="form-select" OnSelectedIndexChanged="ddlEnrollmentStatus_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:ListItem Value="0">--Select--</asp:ListItem>
+                                    <asp:ListItem Value="New">New</asp:ListItem>
+                                    <asp:ListItem Value="Replacement">Replacement</asp:ListItem>
+                                </asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="rfvEnrollmentStatus" runat="server" ErrorMessage="Please Enrollment Status!" ControlToValidate="ddlEnrollmentStatus" InitialValue="0"
+                                    ValidationGroup="Submit" ForeColor="Red" Display="Dynamic" SetFocusOnError="true"></asp:RequiredFieldValidator>
+                            </div>
+                        </div>
+                        <div class="mb-3 row m-1" id="divReplacementBeneficiaryCode" runat="server" visible="false">
+                            <label class="col-sm-3 col-form-label">Replacement Beneficiary Code <span style="color: red;">*</span></label>
+                            <div class="col-sm-6">
+                                <asp:TextBox ID="txtReplacementBeneficiaryCode" runat="server" CssClass="form-control"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvReplacementBeneficiaryCode" runat="server" ErrorMessage="Please Enter Replacement Beneficiary Code!" ControlToValidate="txtReplacementBeneficiaryCode"
+                                    ValidationGroup="Submit" Enabled="false" ForeColor="Red" Display="Dynamic" SetFocusOnError="true"></asp:RequiredFieldValidator>
+                            </div>
+                        </div>
+                        <div class="mb-3 row m-1" id="divReplacementEmployeeId" runat="server" visible="false">
+                            <label class="col-sm-3 col-form-label">Replacement Employee Id <span style="color: red;">*</span></label>
+                            <div class="col-sm-6">
+                                <asp:TextBox ID="txtReplacementEmployeeId" runat="server" CssClass="form-control" MaxLength="50"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvReplacementEmployeeId" runat="server" ErrorMessage="Please Enter Employee Id!" ControlToValidate="txtReplacementEmployeeId"
+                                    ValidationGroup="Submit" Enabled="false" ForeColor="Red" Display="Dynamic" SetFocusOnError="true"></asp:RequiredFieldValidator>
+                            </div>
+                        </div>
+                        <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">Name of Women <span style="color: red;">*</span></label>
                             <div class="col-sm-6">
                                 <asp:TextBox ID="txtWomenName" runat="server" class="form-control" AutoComplete="off" OnTextChanged="txtWomenName_TextChanged" AutoPostBack="true"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfv_WomenName" runat="server" ErrorMessage="Please Enter Women Name !" ControlToValidate="txtWomenName"
-                                    ValidationGroup="Submit" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="rfv_WomenName" runat="server" ErrorMessage="Please Enter Women Name!" ControlToValidate="txtWomenName"
+                                    ValidationGroup="Submit" ForeColor="Red" Display="Dynamic" SetFocusOnError="true"></asp:RequiredFieldValidator>
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
@@ -103,7 +137,7 @@
                             <div class="col-sm-6">
                                 <asp:TextBox ID="txtHusbandFatherName" runat="server" class="form-control" AutoComplete="off"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfv_Husband" runat="server" ErrorMessage="Please Enter Husband/ Father name !" ControlToValidate="txtHusbandFatherName"
-                                    ValidationGroup="Submit" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
+                                    ValidationGroup="Submit" ForeColor="Red" Display="Dynamic" SetFocusOnError="true"></asp:RequiredFieldValidator>
                             </div>
                         </div>
                         <div class="mb-3 row m-1">

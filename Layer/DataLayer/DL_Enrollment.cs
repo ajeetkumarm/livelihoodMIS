@@ -50,7 +50,11 @@ namespace DataLayer
                                   new SqlParameter("@MonthlyIndividualIncome", obj_ML_Enrollment.MonthlyIndividualIncome),
                                   new SqlParameter("@MonthlyHouseholdIncome", obj_ML_Enrollment.MonthlyHouseholdIncome),
                                   new SqlParameter("@Scheme", obj_ML_Enrollment.Scheme),
-                                  new SqlParameter("@CreatedBy", obj_ML_Enrollment.CreatedBy)
+                                  new SqlParameter("@CreatedBy", obj_ML_Enrollment.CreatedBy),
+                                  new SqlParameter("@EmployeeId", obj_ML_Enrollment.EmployeeId),
+                                  new SqlParameter("@ReplacementEmployeeId", obj_ML_Enrollment.ReplacementEmployeeId),
+                                  new SqlParameter("@ReplacementBeneficiaryCode", obj_ML_Enrollment.ReplacementBeneficiaryCode),
+                                  new SqlParameter("@EnrollmentStatus", obj_ML_Enrollment.EnrollmentStatus),
                                };
             return SqlHelper.ExecuteNonQuery(con, "USP_InsEnrollmentForm", par);
         }
@@ -163,6 +167,48 @@ namespace DataLayer
         {
             SqlParameter[] par = { new SqlParameter("@EnrollmentId", enrollmentId) };
             return SqlHelper.ExecuteDataset(con, "usp_GetEnrollmentFormById", par).Tables[0];
+        }
+        public IList<BusinessProgressList> GetBusinessProgressList(int createdUser, int projectId, int pageNumber, int pageSize, string search)
+        {
+            IList<BusinessProgressList> businessProgressList = new List<BusinessProgressList>();
+            using (SqlConnection con = new SqlConnection(DB_Connection.Livelihood_Connection))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("usp_BusinessProgressList", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@CreatedUser", createdUser);
+                    cmd.Parameters.AddWithValue("@Project", projectId);
+                    cmd.Parameters.AddWithValue("@PageNumber", pageNumber);
+                    cmd.Parameters.AddWithValue("@PageSize", pageSize);
+                    if (!string.IsNullOrEmpty(search))
+                    {
+                        cmd.Parameters.AddWithValue("@Search", search);
+                    }
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            BusinessProgressList objModel = new BusinessProgressList();
+                            objModel.RowNum = Convert.ToInt32(dr["RowNum"]);
+                            objModel.EnrollmentId = TypeConversionUtility.ToInteger(dr["EnrollmentId"]);
+                            objModel.TotalCount = TypeConversionUtility.ToInteger(dr["TotalCount"]);
+                            objModel.BeneficiaryCode = TypeConversionUtility.ToStringWithNull(dr["BeneficiaryCode"]);
+                            objModel.StateName = TypeConversionUtility.ToStringWithNull(dr["StateName"]);
+                            objModel.DistrictName = TypeConversionUtility.ToStringWithNull(dr["DistrictName"]);
+                            objModel.BlockName = TypeConversionUtility.ToStringWithNull(dr["BlockName"]);
+                            objModel.VillageName = TypeConversionUtility.ToStringWithNull(dr["VillageName"]);
+                            objModel.WomenName = TypeConversionUtility.ToStringWithNull(dr["WomenName"]);
+                            objModel.PhoneNo = TypeConversionUtility.ToStringWithNull(dr["PhoneNo"]);
+                            objModel.RegistrationDate = TypeConversionUtility.ToStringWithNull(dr["RegistrationDate"]);
+                            objModel.BusinessStatus = TypeConversionUtility.ToInteger(dr["BusinessStatus"]);
+                            businessProgressList.Add(objModel);
+                        }
+                    }
+                }
+            }
+            return businessProgressList;
         }
     }
 }

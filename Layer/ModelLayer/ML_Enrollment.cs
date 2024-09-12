@@ -8,7 +8,7 @@ namespace ModelLayer
 {
     public class ML_Enrollment
     {
-        
+
         public string QType { get; set; }
         public string ProjectCode { get; set; }
         public int CreatedUser { get; set; }
@@ -60,6 +60,9 @@ namespace ModelLayer
         public int IntrestedEDPTraining { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
-        
+        public string EmployeeId { get; set; }
+        public string ReplacementEmployeeId { get; set; }
+        public string ReplacementBeneficiaryCode { get; set; }
+        public string EnrollmentStatus { get; set; }
     }
 }

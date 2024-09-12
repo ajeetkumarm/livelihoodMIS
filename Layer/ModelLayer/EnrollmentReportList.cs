@@ -58,7 +58,10 @@ namespace ModelLayer
 		public string SchemeName { get; set; }
 		public DateTime? CreatedOn { get; set; }
 		public string CreatedDisplay => CreatedOn != null ? TypeConversionUtility.ToDateTime(CreatedOn).ToString("dd/MM/yyyy") : string.Empty;
-
         public DateTime? UpdatedOn { get; set; }
+        public string EmployeeId { get; set; }
+        public string ReplacementEmployeeId { get; set; }
+        public string ReplacementBeneficiaryCode { get; set; }
+        public string EnrollmentStatus { get; set; }
 	}
 }

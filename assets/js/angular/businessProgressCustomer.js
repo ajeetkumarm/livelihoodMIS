@@ -26,11 +26,11 @@ app.controller('businessProgressController', function ($scope, $http, Upload) {
         //$scope.loadTab(nextTab);
 
         $scope.Validation().then(function (isValid) {
-            if (isValid== false) {
+            if (isValid == false) {
                 return
             } else {
                 var nextTab = $scope.currentTab + 1;
-                if (nextTab > 5) nextTab = 1;
+                if (nextTab > 4) nextTab = 1;
                 $scope.loadTab(nextTab);
             }
         });
@@ -38,7 +38,7 @@ app.controller('businessProgressController', function ($scope, $http, Upload) {
 
     $scope.prevTab = function () {
         var prevTab = $scope.currentTab - 1;
-        if (prevTab < 1) prevTab = 5;
+        if (prevTab < 1) prevTab = 4;
         $scope.loadTab(prevTab);
     };
     $scope.Validation = function () {
@@ -155,9 +155,10 @@ app.controller('businessProgressController', function ($scope, $http, Upload) {
 
     $scope.loading = false;
     $scope.BusinessProgressModel = {};
-    $scope.LoadDetail = function (enrollMentId, userCategory) {
+    $scope.LoadDetail = function (enrollMentId, userCategory, businessProgressId) {
         $scope.EnrollmentId = enrollMentId;
         $scope.UserCategory = userCategory;
+        $scope.BusinessProgressId = businessProgressId;
         // console.log($scope.EnrollmentId);
         $scope.loadTabContent(1);
         $scope.GetBusinessProgressDetail();
@@ -171,9 +172,10 @@ app.controller('businessProgressController', function ($scope, $http, Upload) {
             url: '/WebServices/BusinessProgress.asmx/GetBusinessProgressDetail',
             dataType: 'json',
             method: 'POST',
-            data: "{'enrollmentId':" + $scope.EnrollmentId + "}",
+            data: "{'enrollmentId':" + $scope.EnrollmentId + ",'businessProgressId':" + $scope.BusinessProgressId+ "}",
             headers: { 'Content-Type': 'application/json' }
         }).then(function (response) {
+            console.log(response.data.d);
             $scope.BusinessProgressModel = response.data.d;
 
             if (response.data.d.StartingBusinessDate) {
@@ -195,6 +197,15 @@ app.controller('businessProgressController', function ($scope, $http, Upload) {
             $scope.loading = false;
         });
 
+    };
+    $scope.addServiceLine = function (category) {
+        category.ServiceLines.push({
+            ServiceId: null, // Default value to represent "Select"
+            CustomersNo: '',
+            ServiceURLs: [],
+            DisplayView: false,
+            UplodedFileName: ''
+        });
     };
 
     //$scope.CheckBusinessProgressCustomerDataExist = function () {
@@ -306,7 +317,7 @@ app.controller('businessProgressController', function ($scope, $http, Upload) {
 
     $scope.OTherPaymentReceived = function () {
 
-        $scope.BusinessProgressModel.PaymentRecivedMode =
+        $scope.BusinessProgressModel.PaymentReceivedMode =
             ($scope.BusinessProgressModel.PaymentModeDigital && !$scope.BusinessProgressModel.PaymentModeNoneDigital)
                 || (!$scope.BusinessProgressModel.PaymentModeDigital && $scope.BusinessProgressModel.PaymentModeNoneDigital)
                 ? '100%' : '';

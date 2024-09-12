@@ -42,7 +42,10 @@
   <ItemGroup>
     <Compile Include="BusinessProgessCustomerList.cs" />
     <Compile Include="BusinessProgressCustomer.cs" />
+    <Compile Include="BusinessProgressCustomerCountEntity.cs" />
+    <Compile Include="BusinessProgressList.cs" />
     <Compile Include="BusinessProgressReportList.cs" />
+    <Compile Include="BusinessProgressStatusDTO.cs" />
     <Compile Include="EnrollmentReportList.cs" />
     <Compile Include="EnterpriesSetupList.cs" />
     <Compile Include="EnterpriesTrainingReportList.cs" />

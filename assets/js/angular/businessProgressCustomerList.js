@@ -1,6 +1,7 @@
 ﻿var app = angular.module('businessProgressCustomerListApp', []);
 app.controller('businessProgressCustomerListController', function ($scope, $http, enrollmentId) {
 
+    $scope.categoryCountList = [];
     clearDataTableState();
     function clearDataTableState() {
         var state = JSON.parse(localStorage.getItem('DataTables_enterpriesSetupDataTable_' + window.location.pathname));
@@ -23,7 +24,7 @@ app.controller('businessProgressCustomerListController', function ($scope, $http
                 data: "{'enrollmentId':" + enrollmentId + ",'draw':" + data.draw + ",'pageNumber':" + data.start + ",'pageSize':" + data.length + ",'search':'" + data.search.value + "' }",
                 headers: { 'Content-Type': 'application/json' }
             }).then(function (response) {
-                console.log(response.data.d);
+                // console.log(response.data.d);
 
                 callback({
                     draw: response.data.d.draw,
@@ -39,7 +40,12 @@ app.controller('businessProgressCustomerListController', function ($scope, $http
         },
         columns: [
             { data: 'RowNum' },
-            { data: 'BeneficiaryCode' },
+            {
+                "data": "BeneficiaryCode",
+                "render": function (data, type, row) {
+                    return `<div><a href="BusinessProgressCustomer.aspx?EnrolId=${row["EnrollmentId"]}&editId=${row["BusinessProgressId"]}" title="Edit" data-toggle="tooltip">${data}</a></div>`
+                }
+            },
             { data: 'StateName' },
             { data: 'DistrictName' },
             { data: 'BlockName' },
@@ -93,4 +99,26 @@ app.controller('businessProgressCustomerListController', function ($scope, $http
             return JSON.parse(localStorage.getItem('DataTables_' + window.location.pathname));
         }
     });
+
+    // binda data into categoryCountList from service
+    $scope.LoadCategoryCount = function (enrollMentId) {
+        $scope.loading = true;
+        $http({
+            method: 'POST',
+            url: '/WebServices/BusinessProgress.asmx/GetBusinessProgressServiceLineCount',
+            dataType: 'json',
+            method: 'POST',
+            data: "{'enrollmentId':" + enrollMentId + "}",
+            headers: { 'Content-Type': 'application/json' }
+        }).then(function (response) {
+            console.log(response.data.d);
+            $scope.categoryCountList = response.data.d;
+
+            
+
+            $scope.loading = false;
+        }, function (response) {
+            $scope.loading = false;
+        });
+    };
 });

@@ -118,6 +118,10 @@ namespace DataLayer
                             {
                                 enrollmentInfo.UpdatedOn = TypeConversionUtility.ToDateTime(dr["UpdatedOn"]);
                             }
+                            enrollmentInfo.EmployeeId = TypeConversionUtility.ToStringWithNull(dr["EmployeeId"]);
+                            enrollmentInfo.ReplacementEmployeeId = TypeConversionUtility.ToStringWithNull(dr["ReplacementEmployeeId"]);
+                            enrollmentInfo.ReplacementBeneficiaryCode = TypeConversionUtility.ToStringWithNull(dr["ReplacementBeneficiaryCode"]);
+                            enrollmentInfo.EnrollmentStatus = TypeConversionUtility.ToStringWithNull(dr["EnrollmentStatus"]);
                             enrollmentList.Add(enrollmentInfo);
                         }
                     }

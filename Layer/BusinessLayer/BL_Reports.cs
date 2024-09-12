@@ -42,12 +42,16 @@ namespace BusinessLayer
 
             dt.Columns.Add("S.No", typeof(int));
             dt.Columns.Add("Beneficiary Code", typeof(string));
+            dt.Columns.Add("Employee Id", typeof(string));
             dt.Columns.Add("State", typeof(string));
             dt.Columns.Add("District", typeof(string));
             dt.Columns.Add("Block", typeof(string));
             dt.Columns.Add("Village", typeof(string));
             dt.Columns.Add("Project", typeof(string));
             dt.Columns.Add("User Name(FE)", typeof(string));
+            dt.Columns.Add("Enrollment Status", typeof(string));
+            dt.Columns.Add("Replacement Employee Id", typeof(string));
+            dt.Columns.Add("Replacement Beneficiary Code", typeof(string));
             dt.Columns.Add("Women Name", typeof(string));
             dt.Columns.Add("Husband / Father Name", typeof(string));
             dt.Columns.Add("Mother Name", typeof(string));
@@ -89,12 +93,16 @@ namespace BusinessLayer
                 DataRow dr = dt.NewRow();
                 dr["S.No"] = item.RowNum;
                 dr["Beneficiary Code"] = TypeConversionUtility.ToStringWithNull(item.BeneficiaryCode);
+                dr["Employee Id"] = TypeConversionUtility.ToStringWithNull(item.EmployeeId);
                 dr["State"] = TypeConversionUtility.ToStringWithNull(item.StateName);
                 dr["District"] = TypeConversionUtility.ToStringWithNull(item.DistrictName);
                 dr["Block"] = TypeConversionUtility.ToStringWithNull(item.BlockName);
                 dr["Village"] = TypeConversionUtility.ToStringWithNull(item.VillageName);
                 dr["Project"] = TypeConversionUtility.ToStringWithNull(item.ProjectName);
                 dr["User Name(FE)"] = TypeConversionUtility.ToStringWithNull(item.UserName);
+                dr["Enrollment Status"] = TypeConversionUtility.ToStringWithNull(item.EnrollmentStatus);
+                dr["Replacement Employee Id"] = TypeConversionUtility.ToStringWithNull(item.ReplacementEmployeeId);
+                dr["Replacement Beneficiary Code"] = TypeConversionUtility.ToStringWithNull(item.ReplacementBeneficiaryCode);
                 dr["Women Name"] = TypeConversionUtility.ToStringWithNull(item.WomenName);
                 dr["Husband / Father Name"] = TypeConversionUtility.ToStringWithNull(item.HusbandFatherName);
                 dr["Mother Name"] = TypeConversionUtility.ToStringWithNull(item.MotherName);

@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Forms/Livelihood.master" AutoEventWireup="true" CodeFile="BusinessProgressCustomerList.aspx.cs" Inherits="Forms_BusinessProgressCustomer" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    
+
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="/assets/js/angular/angular.min.js"></script>
     <script src="/assets/js/angular/businessProgressCustomerList.js"></script>
@@ -10,6 +10,19 @@
         app.value("enrollmentId", <%= EnrollmentId%>);
     </script>
 
+    <style>
+        
+        .count-number {
+            font-size: 24px; /* Increased font size */
+            font-weight: bold;
+            color: #333; /* Adjust color as needed */
+            text-align: right;
+        }
+
+        .shadow-sm {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -27,10 +40,28 @@
 
     <section class="section">
         <div class="card">
-            <div class="card-body" ng-app="businessProgressCustomerListApp" ng-controller="businessProgressCustomerListController">
+            <div class="card-body" ng-app="businessProgressCustomerListApp" ng-controller="businessProgressCustomerListController" ng-init="LoadCategoryCount(<%= EnrollmentId %> );">
                 <h5 class="card-title">Business Progress
                     <a href="BusinessProgressCustomer.aspx" id="aAddNew" runat="server" class="btn btn-primary float-end">Add New</a>
                 </h5>
+                <hr />
+                <div class="row">
+                    <div class="col-md-3" ng-repeat="category in categoryCountList">
+                        <div class="card radius-10 mb-3 shadow-sm" style="border: none;">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <!-- Category title -->
+                                <h5 class="card-title mb-0 {{category.color}}">{{category.Category}}
+                                </h5>
+
+                                <!-- Total Count -->
+                                <span class="count-number">{{category.TotalCount}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card radius-10 mb-2 p-2">

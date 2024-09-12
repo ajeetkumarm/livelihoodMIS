@@ -32,5 +32,9 @@ namespace BusinessLayer
         {
             return obj_DL_Enrollment.GetEnterpriseSetupList(createdUser, projectId, pageNumber, pageSize, search);
         }
+        public IList<BusinessProgressList> GetBusinessProgressList(int createdUser, int projectId, int pageNumber, int pageSize, string search)
+        {
+            return obj_DL_Enrollment.GetBusinessProgressList(createdUser, projectId, pageNumber, pageSize, search);
+        }
     }
 }

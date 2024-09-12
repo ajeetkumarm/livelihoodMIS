@@ -7,9 +7,11 @@ public partial class Forms_BusinessProgressCustomer : System.Web.UI.Page
 {
     public int EnrollmentId = 0;
     public int UserCategory = 0;
+    public int BusinessProgressId = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
         EnrollmentId = TypeConversionUtility.ToInteger(Request.QueryString["EnrolId"]);
+        BusinessProgressId = TypeConversionUtility.ToInteger(Request.QueryString["editId"]);
         DataTable DT = Session["UserDetails"] as DataTable;
        
         if (DT != null && DT.Rows.Count > 0)
