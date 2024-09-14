@@ -48,25 +48,25 @@ public partial class Forms_EnterpriesSetup : System.Web.UI.Page
     {
         try
         {
-            DataTable DT1 = Session["UserDetails"] as DataTable;
-            CreatedUser = DT1.Rows[0]["UserCode"].ToString();
-            projectCode = DT1.Rows[0]["ProjectCode"].ToString();
-            obj_ML_Enrollment.QType = "EntSetup";
-            obj_ML_Enrollment.CreatedUser = Convert.ToInt32(CreatedUser);
-            obj_ML_Enrollment.ProjectCode = projectCode;
-            //obj_ML_Enrollment.State = Convert.ToInt32(ddlState.SelectedValue.Trim());
-            //obj_ML_Enrollment.District = Convert.ToInt32(ddlDistrict.SelectedValue.Trim());
-            DataTable DT = obj_BL_Enrollment.BL_EnterpriseDetails(obj_ML_Enrollment);
-            if (DT.Rows.Count > 0)
-            {
-                rpt_EntSetupList.DataSource = DT;
-                rpt_EntSetupList.DataBind();
-            }
-            else
-            {
-                rpt_EntSetupList.DataSource = null;
-                rpt_EntSetupList.DataBind();
-            }
+            //DataTable DT1 = Session["UserDetails"] as DataTable;
+            //CreatedUser = DT1.Rows[0]["UserCode"].ToString();
+            //projectCode = DT1.Rows[0]["ProjectCode"].ToString();
+            //obj_ML_Enrollment.QType = "EntSetup";
+            //obj_ML_Enrollment.CreatedUser = Convert.ToInt32(CreatedUser);
+            //obj_ML_Enrollment.ProjectCode = projectCode;
+            ////obj_ML_Enrollment.State = Convert.ToInt32(ddlState.SelectedValue.Trim());
+            ////obj_ML_Enrollment.District = Convert.ToInt32(ddlDistrict.SelectedValue.Trim());
+            //DataTable DT = obj_BL_Enrollment.BL_EnterpriseDetails(obj_ML_Enrollment);
+            //if (DT.Rows.Count > 0)
+            //{
+            //    rpt_EntSetupList.DataSource = DT;
+            //    rpt_EntSetupList.DataBind();
+            //}
+            //else
+            //{
+            //    rpt_EntSetupList.DataSource = null;
+            //    rpt_EntSetupList.DataBind();
+            //}
         }
         catch (Exception ex)
         {

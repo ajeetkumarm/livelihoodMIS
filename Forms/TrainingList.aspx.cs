@@ -12,7 +12,7 @@ public partial class Forms_TrainingList : System.Web.UI.Page
 {
     ML_Enrollment obj_ML_Enrollment = new ML_Enrollment();
     BL_Enrollment obj_BL_Enrollment = new BL_Enrollment();
-    string CreatedUser, projectCode;
+    public string CreatedUser, projectCode;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (HttpContext.Current.Session["UserDetails"] != null)
@@ -95,10 +95,10 @@ public partial class Forms_TrainingList : System.Web.UI.Page
             Button btn = (Button)sender;
             if (btn.CommandArgument != null)
             {
+                DataTable DT = Session["UserDetails"] as DataTable;
                 int EnrollmentId = Convert.ToInt32(btn.CommandArgument);
-                obj_ML_Enrollment.EnrollmentId = EnrollmentId;
-                int x = obj_BL_Enrollment.BL_DeleteEnrollmentForm(obj_ML_Enrollment);
-                if (x > 0)
+                CreatedUser = TypeConversionUtility.ToStringWithNull(DT.Rows[0]["UserCode"]);
+                if (obj_BL_Enrollment.EDPTrainingMoveToEnrollment(EnrollmentId, TypeConversionUtility.ToInteger(CreatedUser)))
                 {
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "message", "alert('Record Deleted Successfully !');", true);
                     if (CreatedUser == "1")

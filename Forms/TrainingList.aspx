@@ -73,8 +73,8 @@
                                                     <div class="d-flex order-actions">
                                                         <asp:Button ID="Btn_Update" runat="server" CssClass="btn btn-sm btn-success" Text="Update" CommandArgument='<%#Eval("EnrollmentId")%>' OnClick="Btn_Update_Click" />
 
-                                                        <%--<asp:Button ID="Btn_Delete" runat="server" CssClass="btn btn-sm btn-danger" Text="Delete" CommandArgument='<%#Eval("EnrollmentId")%>' OnClick="Btn_Delete_Click"
-                                                            OnClientClick="if ( !confirm('Are you sure you want to delete ? ')) return false;" />--%>
+                                                        <asp:Button ID="Btn_Delete" runat="server" CssClass="btn btn-sm btn-danger m-1" Visible='<%# CreatedUser=="1"? true: false %>' Text="Delete" CommandArgument='<%#Eval("EnrollmentId")%>' OnClick="Btn_Delete_Click"
+                                                            OnClientClick="if ( !confirm('Are you sure you want to delete ? ')) return false;" />
 
                                                         <%--&nbsp;
                                                         <asp:Button ID="Btn_No" runat="server" CssClass="btn btn-sm btn-danger" Text="No" CommandArgument='<%#Eval("EnrollmentId")%>' OnClick="Btn_No_Click" />--%>

@@ -210,5 +210,20 @@ namespace DataLayer
             }
             return businessProgressList;
         }
+        public bool EDPTrainingMoveToEnrollment(int enrollmentId, int updatedBy)
+        {
+            SqlParameter[] par = { new SqlParameter("@EnrollmentId", enrollmentId), new SqlParameter("@UpdatedBy", updatedBy) };
+            return SqlHelper.ExecuteNonQuery(con, "usp_EDPTrainingMoveToEnrollment", par) > 0;
+        }
+        public bool EnterpriseSetupMoveToEDPTraining(int enrollmentId, int updatedBy)
+        {
+            SqlParameter[] par = { new SqlParameter("@EnrollmentId", enrollmentId), new SqlParameter("@UpdatedBy", updatedBy) };
+            return SqlHelper.ExecuteNonQuery(con, "usp_EnterpriseSetupMoveToEDPTraining", par) > 0;
+        }
+        public bool BusinessProgressMoveToEnterpriseSetup(int enrollmentId, int updatedBy)
+        {
+            SqlParameter[] par = { new SqlParameter("@EnrollmentId", enrollmentId), new SqlParameter("@UpdatedBy", updatedBy) };
+            return SqlHelper.ExecuteNonQuery(con, "usp_BusinessProgressMoveToEnterpriseSetup", par) > 0;
+        }
     }
 }

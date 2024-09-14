@@ -36,4 +36,13 @@ public class EnterpriesSetup : WebService
         };
         return resData;
     }
+    [WebMethod(EnableSession = true)]
+    public bool EnterpriseSetupMoveToEDPTraining(int enrollmentId)
+    {
+        string CreatedUser;
+        DataTable DT = Session["UserDetails"] as DataTable;
+        CreatedUser = DT.Rows[0]["UserCode"].ToString();
+        BL_Enrollment obj_BL_Enrollment = new BL_Enrollment();
+        return obj_BL_Enrollment.EnterpriseSetupMoveToEDPTraining(enrollmentId, TypeConversionUtility.ToInteger(CreatedUser));
+    }
 }

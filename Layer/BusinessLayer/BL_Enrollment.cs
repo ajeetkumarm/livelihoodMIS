@@ -30,11 +30,33 @@ namespace BusinessLayer
         }
         public IList<EnterpriesSetupList> GetEnterpriseSetupList(int createdUser, int projectId, int pageNumber, int pageSize, string search)
         {
-            return obj_DL_Enrollment.GetEnterpriseSetupList(createdUser, projectId, pageNumber, pageSize, search);
+            var data = obj_DL_Enrollment.GetEnterpriseSetupList(createdUser, projectId, pageNumber, pageSize, search);
+            foreach (var item in data)
+            {
+                item.DisplayDelete = createdUser != 1 ? "display:none" : "";
+            }
+            return data;
         }
         public IList<BusinessProgressList> GetBusinessProgressList(int createdUser, int projectId, int pageNumber, int pageSize, string search)
         {
-            return obj_DL_Enrollment.GetBusinessProgressList(createdUser, projectId, pageNumber, pageSize, search);
+            var data= obj_DL_Enrollment.GetBusinessProgressList(createdUser, projectId, pageNumber, pageSize, search);
+            foreach (var item in data)
+            {
+                item.DisplayDelete = createdUser != 1 ? "display:none" : "";
+            }
+            return data;
+        }
+        public bool EDPTrainingMoveToEnrollment(int enrollmentId, int updatedBy)
+        {
+            return obj_DL_Enrollment.EDPTrainingMoveToEnrollment(enrollmentId, updatedBy);
+        }
+        public bool EnterpriseSetupMoveToEDPTraining(int enrollmentId, int updatedBy)
+        {
+            return obj_DL_Enrollment.EnterpriseSetupMoveToEDPTraining(enrollmentId, updatedBy);
+        }
+        public bool BusinessProgressMoveToEnterpriseSetup(int enrollmentId, int updatedBy)
+        {
+            return obj_DL_Enrollment.BusinessProgressMoveToEnterpriseSetup(enrollmentId, updatedBy);
         }
     }
 }

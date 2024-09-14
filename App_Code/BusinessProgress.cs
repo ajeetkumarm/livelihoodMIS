@@ -130,4 +130,14 @@ public class BusinessProgress : WebService
     {
         return BusinessProgressCustomerRepository.GetBusinessProgressServiceLineCount(enrollmentId);
     }
+
+    [WebMethod(EnableSession = true)]
+    public bool BusinessProgressMoveToEnterpriseSetup(int enrollmentId)
+    {
+        string CreatedUser;
+        DataTable DT = Session["UserDetails"] as DataTable;
+        CreatedUser = DT.Rows[0]["UserCode"].ToString();
+        BL_Enrollment obj_BL_Enrollment = new BL_Enrollment();
+        return obj_BL_Enrollment.BusinessProgressMoveToEnterpriseSetup(enrollmentId, TypeConversionUtility.ToInteger(CreatedUser));
+    }
 }

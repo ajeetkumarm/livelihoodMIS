@@ -103,12 +103,18 @@ app.controller('businessProgressController', function ($scope, $http, $compile) 
                 class: 'no-word-wrap',
                 render: function (data, type, row) {
                     return $compile(`
-                        <a href="BusinessProgressCustomerList.aspx?EnrolId=${row.EnrollmentId}" title="Add Business Progress" 
-                           class="btn btn-sm btn-success">
-                           Add Business Progress
-                        </a>
+                        <div class="text-center">
+                            <a href="BusinessProgressCustomerList.aspx?EnrolId=${row.EnrollmentId}" title="Add Business Progress" 
+                               class="btn btn-sm btn-success">
+                               Add Business Progress
+                            </a> 
+                             <a href="javascript:void(0)" title="Click to change the status" style="${row.DisplayDelete}" ng-click="DeleteClick(${row.EnrollmentId});" class="btn btn-sm btn-danger m-1">
+                                   Delete
+                                </a>
+                       </div>
                     `)($scope)[0].outerHTML;
-                }
+                },
+                width: '10%'
             }
         ],
         "createdRow": function (row, data, index) {
@@ -269,5 +275,26 @@ app.controller('businessProgressController', function ($scope, $http, $compile) 
             item.IsSelected = false;
         });
     };
+    $scope.DeleteClick = function (enrollmentId) {
+        var r = confirm("Are you sure you want to delete this record?");
+        if (r == false) {
+            return;
+        }
 
+        $http({
+            method: 'POST',
+            url: '/WebServices/BusinessProgress.asmx/BusinessProgressMoveToEnterpriseSetup',
+            dataType: 'json',
+            method: 'POST',
+            data: "{'enrollmentId':" + enrollmentId + "}",
+            headers: { 'Content-Type': 'application/json' }
+        }).then(function (response) {
+            if (response.data.d) {
+                dataTable.ajax.reload();
+                alert("Record has been deleted successfully.");
+            }
+        }, function (response) {
+            $scope.loading = false;
+        });
+    };
 });

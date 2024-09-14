@@ -47,6 +47,7 @@ namespace ModelLayer
         public int TotalCount { get; set; }
         public string RegistrationDate { get; set; }
         public string RegistrationDateText => TypeConversionUtility.ToDateTime(RegistrationDate).ToString("dd/MM/yyyy");
+        public string DisplayDelete { get; set; }
     }
 
 

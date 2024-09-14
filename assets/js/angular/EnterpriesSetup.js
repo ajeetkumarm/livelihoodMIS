@@ -1,5 +1,5 @@
 ﻿var app = angular.module('enterpriesSetupApp',[]);
-app.controller('enterpriesSetupController', function ($scope, $http) {
+app.controller('enterpriesSetupController', function ($scope, $http, $compile) {
 
     clearDataTableState();
     function clearDataTableState() {
@@ -47,19 +47,33 @@ app.controller('enterpriesSetupController', function ($scope, $http) {
             { data: 'BlockName' },
             { data: 'VillageName' },
             { data: 'RegistrationDateText' },
-           
             {
-                "data": "EnrollmentId",
-                "render": function (data) {
-
-                    return `<div><a href="EnterpriseStartUpgrate.aspx?EnrolId=${data}" class="btn btn-sm btn-success" title="Update" >
+                data: 'EnrollmentId',
+                class: 'no-word-wrap',
+                render: function (data, type, row) {
+                    var compiledHtml = $compile(`
+                        <div class="text-center">
+                            <a href="EnterpriseStartUpgrate.aspx?EnrolId=${data}" class="btn btn-sm btn-success" title="Update" >
                                     Update
                                     </a>
-                             </div>`
-                }, 
+                            <a href="javascript:void(0)" title="Click to change the status" style="${row.DisplayDelete}" ng-click="DeleteClick(${row.EnrollmentId});" class="btn btn-sm btn-danger m-1">
+                               Delete
+                            </a>
+                        </div>
+                    `)($scope);
+                    // Ensure Angular is aware of changes
+                    $scope.$applyAsync();
+                    return compiledHtml[0].outerHTML;
+                },
+
+                width: '10%'
             },
             
+            
         ],
+        "createdRow": function (row, data, index) {
+            $compile(row)($scope);  //add this to compile the DOM
+        },
         lengthMenu: [
             [25, 50, 100, -1],
             [25, 50, 100, 'All'],
@@ -79,4 +93,27 @@ app.controller('enterpriesSetupController', function ($scope, $http) {
             return JSON.parse(localStorage.getItem('DataTables_' + window.location.pathname));
         }
     });
+
+    $scope.DeleteClick = function (enrollmentId) {
+        var r = confirm("Are you sure you want to delete this record?");
+        if (r == false) {
+            return;
+        }
+
+        $http({
+            method: 'POST',
+            url: '/WebServices/EnterpriesSetup.asmx/EnterpriseSetupMoveToEDPTraining',
+            dataType: 'json',
+            method: 'POST',
+            data: "{'enrollmentId':" + enrollmentId + "}",
+            headers: { 'Content-Type': 'application/json' }
+        }).then(function (response) {
+            if (response.data.d) {
+                dataTable.ajax.reload();
+                alert("Record has been deleted successfully.");
+            }
+        }, function (response) {
+            $scope.loading = false;
+        });
+    };
 });

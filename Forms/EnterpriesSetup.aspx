@@ -37,73 +37,14 @@
                                             <th>Block</th>
                                             <th>Village</th>
                                             <th>Registration Date</th>
-                                            <th>Action</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
 
 
                                 </table>
 
-                                <asp:Repeater ID="rpt_EntSetupList" runat="server" Visible="false">
-                                    <HeaderTemplate>
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th>S.No</th>
-                                                <th>Beneficiary Code</th>
-                                                <th>Women Name</th>
-                                                <th>Phone No</th>
-                                                <th>State</th>
-                                                <th>District</th>
-                                                <th>Block</th>
-                                                <th>Village</th>
-                                                <th>Registration Date</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                    </HeaderTemplate>
-                                    <ItemTemplate>
-                                        <tr>
-                                            <td>
-                                                <asp:Label ID="lblSrNo" Text='<%# Container.ItemIndex + 1 %>' runat="server" />
-                                            </td>
-                                            <td>
-                                                <%# Eval("BeneficiaryCode") %>
-                                            </td>
-                                            <td>
-                                                <%# Eval("WomenName") %>
-                                            </td>
-                                            <td>
-                                                <%# Eval("PhoneNo") %>
-                                            </td>
-                                            <td>
-                                                <%# Eval("StateName") %>
-                                            </td>
-                                            <td>
-                                                <%# Eval("DistrictName") %>
-                                            </td>
-                                            <td>
-                                                <%# Eval("BlockName") %>
-                                            </td>
-                                            <td>
-                                                <%# Eval("VillageName") %>
-                                            </td>
-                                            <td>
-                                                <%# Eval("RegistrationDate","{0:dd/MM/yyyy}") %>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex order-actions">
-                                                    <asp:Button ID="Btn_Update" runat="server" CssClass="btn btn-sm btn-success" Text="Update" CommandArgument='<%#Eval("EnrollmentId")%>' OnClick="Btn_Update_Click" />
-                                                    <%--&nbsp;
-                    <asp:Button ID="Btn_No" runat="server" CssClass="btn btn-sm btn-danger" Text="No" CommandArgument='<%#Eval("EnrollmentId")%>' OnClick="Btn_No_Click" />--%>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </ItemTemplate>
-                                    <FooterTemplate>
-                                        </tbody>
-                                    </FooterTemplate>
-                                </asp:Repeater>
+                                
                             </div>
                         </div>
                     </div>
