@@ -36,6 +36,10 @@ public class BusinessProgress : WebService
     [WebMethod(EnableSession = true)]
     public object SaveBusinessProgress(BusinessProgressCustomer model)
     {
+        DataTable DT = Session["UserDetails"] as DataTable;
+        string CreatedUser = DT.Rows[0]["UserCode"].ToString();
+        model.CreatedBy = TypeConversionUtility.ToInteger(CreatedUser).ToString();
+
         var dbResponse = BusinessLayer.BusinessProgressCustomerRepository.SaveBusinessProgressCustomer(model);
         if (dbResponse)
         {

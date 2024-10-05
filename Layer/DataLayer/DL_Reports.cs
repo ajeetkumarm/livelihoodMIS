@@ -40,7 +40,6 @@ namespace DataLayer
             };
             return SqlHelper.ExecuteDataset(con, "Rpt_BusinessProgressForm", par).Tables[0];
         }
-
         public List<EnrollmentReportList> RptEnrollmentDetails(int createdUser, int projectCode, int PageNumber, int PageSize, string SearchText)
         {
             List<EnrollmentReportList> enrollmentList = new List<EnrollmentReportList>();
@@ -122,6 +121,7 @@ namespace DataLayer
                             enrollmentInfo.ReplacementEmployeeId = TypeConversionUtility.ToStringWithNull(dr["ReplacementEmployeeId"]);
                             enrollmentInfo.ReplacementBeneficiaryCode = TypeConversionUtility.ToStringWithNull(dr["ReplacementBeneficiaryCode"]);
                             enrollmentInfo.EnrollmentStatus = TypeConversionUtility.ToStringWithNull(dr["EnrollmentStatus"]);
+                            enrollmentInfo.CohortValue = TypeConversionUtility.ToStringWithNull(dr["CohortValue"]);
                             enrollmentList.Add(enrollmentInfo);
                         }
                     }
@@ -129,7 +129,6 @@ namespace DataLayer
             }
             return enrollmentList;
         }
-
         public List<TrainingReportList> RptTrainingDetails(int createdUser, int projectCode, int PageNumber, int PageSize, string SearchText)
         {
             List<TrainingReportList> trainingList = new List<TrainingReportList>();
@@ -235,8 +234,6 @@ namespace DataLayer
             }
             return trainingList;
         }
-
-
         public List<EnterpriesTrainingReportList> RptEnterpriesTrainingDetails(int createdUser, int projectCode, int PageNumber, int PageSize, string SearchText)
         {
             List<EnterpriesTrainingReportList> enterpriesTrainingList = new List<EnterpriesTrainingReportList>();
@@ -318,7 +315,6 @@ namespace DataLayer
             }
                 return enterpriesTrainingList;
         }
-
         public List<BusinessProgressReportList> RptBusinessProgressDetails(int createdUser, int projectCode, int PageNumber, int PageSize, string SearchText)
         {
             List<BusinessProgressReportList> enterpriesTrainingList = new List<BusinessProgressReportList>();
@@ -389,6 +385,191 @@ namespace DataLayer
                 }
             }
             return enterpriesTrainingList;
+        }
+        public List<ConsolidateReportList> RptConsolidated(int createdUser, int projectCode, int PageNumber, int PageSize, string SearchText)
+        {
+            List<ConsolidateReportList> enrollmentList = new List<ConsolidateReportList>();
+            using (SqlConnection con = new SqlConnection(DB_Connection.Livelihood_Connection))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("Rpt_consolidated_List", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@CreatedUser", createdUser);
+                    cmd.Parameters.AddWithValue("@Project", projectCode);
+                    cmd.Parameters.AddWithValue("@PageNumber", PageNumber);
+                    cmd.Parameters.AddWithValue("@PageSize", PageSize);
+                    cmd.Parameters.AddWithValue("@Search", SearchText);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            ConsolidateReportList enrollmentInfo = new ConsolidateReportList();
+
+                            #region "Enrollment Details"
+                            enrollmentInfo.RowNum = TypeConversionUtility.ToInteger(dr["RowNum"]);
+                            enrollmentInfo.EnrollmentId = TypeConversionUtility.ToInteger(dr["EnrollmentId"]);
+                            enrollmentInfo.TotalCount = TypeConversionUtility.ToInteger(dr["TotalCount"]);
+                            enrollmentInfo.BeneficiaryCode = TypeConversionUtility.ToStringWithNull(dr["BeneficiaryCode"]);
+                            enrollmentInfo.StateName = TypeConversionUtility.ToStringWithNull(dr["StateName"]);
+                            enrollmentInfo.DistrictName = TypeConversionUtility.ToStringWithNull(dr["DistrictName"]);
+                            enrollmentInfo.BlockName = TypeConversionUtility.ToStringWithNull(dr["BlockName"]);
+                            enrollmentInfo.VillageName = TypeConversionUtility.ToStringWithNull(dr["VillageName"]);
+                            enrollmentInfo.ProjectCode = TypeConversionUtility.ToInteger(dr["ProjectCode"]);
+                            enrollmentInfo.ProjectName = TypeConversionUtility.ToStringWithNull(dr["ProjectName"]);
+                            enrollmentInfo.UserName = TypeConversionUtility.ToStringWithNull(dr["UserName"]);
+                            enrollmentInfo.WomenName = TypeConversionUtility.ToStringWithNull(dr["WomenName"]);
+                            enrollmentInfo.HusbandFatherName = TypeConversionUtility.ToStringWithNull(dr["HusbandFatherName"]);
+                            enrollmentInfo.MotherName = TypeConversionUtility.ToStringWithNull(dr["MotherName"]);
+                            enrollmentInfo.PhoneNo = TypeConversionUtility.ToStringWithNull(dr["PhoneNo"]);
+                            enrollmentInfo.ThemeCode = TypeConversionUtility.ToStringWithNull(dr["ThemeCode"]);
+                            enrollmentInfo.Cast = TypeConversionUtility.ToInteger(dr["Cast"]);
+                            enrollmentInfo.CastName = TypeConversionUtility.ToStringWithNull(dr["CastName"]);
+                            enrollmentInfo.EconomicStatus = TypeConversionUtility.ToStringWithNull(dr["EconomicStatus"]);
+                            enrollmentInfo.MaritalStatus = TypeConversionUtility.ToStringWithNull(dr["MaritalStatus"]);
+                            enrollmentInfo.BirthDate = TypeConversionUtility.ToStringWithNull(dr["BirthDate"]);
+                            enrollmentInfo.Age = TypeConversionUtility.ToInteger(dr["Age"]);
+                            enrollmentInfo.PartSHG = TypeConversionUtility.ToStringWithNull(dr["PartSHG"]);
+                            enrollmentInfo.SHGName = TypeConversionUtility.ToStringWithNull(dr["SHGName"]);
+                            enrollmentInfo.SHGType = TypeConversionUtility.ToInteger(dr["SHGType"]);
+                            enrollmentInfo.RegistrationDate = TypeConversionUtility.ToStringWithNull(dr["RegistrationDate"]);
+                            enrollmentInfo.SHGDate = TypeConversionUtility.ToStringWithNull(dr["SHGDate"]);
+                            enrollmentInfo.Education = TypeConversionUtility.ToInteger(dr["Education"]);
+                            enrollmentInfo.EducationName = TypeConversionUtility.ToStringWithNull(dr["EducationName"]);
+                            enrollmentInfo.PwD = TypeConversionUtility.ToStringWithNull(dr["PwD"]);
+                            enrollmentInfo.PwDSpecify = TypeConversionUtility.ToStringWithNull(dr["PwDSpecify"]);
+                            enrollmentInfo.AadhaarrCard = TypeConversionUtility.ToStringWithNull(dr["AadhaarrCard"]);
+                            enrollmentInfo.AadhaarCardDetails = TypeConversionUtility.ToStringWithNull(dr["AadhaarCardDetails"]);
+                            enrollmentInfo.AadhaarNo = TypeConversionUtility.ToStringWithNull(dr["AadhaarNo"]);
+                            enrollmentInfo.AnyIDProofDetails = TypeConversionUtility.ToStringWithNull(dr["AnyIDProofDetails"]);
+                            enrollmentInfo.IDProofNo = TypeConversionUtility.ToStringWithNull(dr["IDProofNo"]);
+                            enrollmentInfo.IssuingAuthority = TypeConversionUtility.ToStringWithNull(dr["IssuingAuthority"]);
+                            enrollmentInfo.RationCard = TypeConversionUtility.ToStringWithNull(dr["RationCard"]);
+                            enrollmentInfo.RationCardlinkedPDS = TypeConversionUtility.ToStringWithNull(dr["RationCardlinkedPDS"]);
+                            enrollmentInfo.BankAccountNo = TypeConversionUtility.ToStringWithNull(dr["BankAccountNo"]);
+                            enrollmentInfo.LinkedSocialSecuritySchemes = TypeConversionUtility.ToStringWithNull(dr["LinkedSocialSecuritySchemes"]);
+                            enrollmentInfo.Reasons = TypeConversionUtility.ToStringWithNull(dr["Reasons"]);
+                            enrollmentInfo.WomenBelong = TypeConversionUtility.ToStringWithNull(dr["WomenBelong"]);
+                            enrollmentInfo.ValidCertificate = TypeConversionUtility.ToStringWithNull(dr["ValidCertificate"]);
+                            enrollmentInfo.MonthlyIndividualIncome = TypeConversionUtility.ToStringWithNull(dr["MonthlyIndividualIncome"]);
+                            enrollmentInfo.MonthlyHouseholdIncome = TypeConversionUtility.ToStringWithNull(dr["MonthlyHouseholdIncome"]);
+                            enrollmentInfo.Scheme = TypeConversionUtility.ToStringWithNull(dr["Scheme"]);
+                            enrollmentInfo.SchemeName = TypeConversionUtility.ToStringWithNull(dr["SchemeName"]);
+
+                            if (dr["CreatedOn"] != DBNull.Value)
+                            {
+                                enrollmentInfo.CreatedOn = TypeConversionUtility.ToDateTime(dr["CreatedOn"]);
+                            }
+
+                            if (dr["UpdatedOn"] != DBNull.Value)
+                            {
+                                enrollmentInfo.UpdatedOn = TypeConversionUtility.ToDateTime(dr["UpdatedOn"]);
+                            }
+                            enrollmentInfo.EmployeeId = TypeConversionUtility.ToStringWithNull(dr["EmployeeId"]);
+                            enrollmentInfo.ReplacementEmployeeId = TypeConversionUtility.ToStringWithNull(dr["ReplacementEmployeeId"]);
+                            enrollmentInfo.ReplacementBeneficiaryCode = TypeConversionUtility.ToStringWithNull(dr["ReplacementBeneficiaryCode"]);
+                            enrollmentInfo.EnrollmentStatus = TypeConversionUtility.ToStringWithNull(dr["EnrollmentStatus"]);
+                            enrollmentInfo.CohortValue = TypeConversionUtility.ToStringWithNull(dr["CohortValue"]);
+
+                            #endregion
+
+                            #region "EDP Training Details"
+                            enrollmentInfo.IsLifeSkillsTraining = TypeConversionUtility.ToStringWithNull(dr["IsLifeSkillsTraining"]);
+                            enrollmentInfo.RCSCDate = TypeConversionUtility.ToStringWithNull(dr["RCSCDate"]);
+
+                            if (!string.IsNullOrEmpty(enrollmentInfo.RCSCDate))
+                            {
+                                enrollmentInfo.RCSCDate = TypeConversionUtility.ToDateTime(enrollmentInfo.RCSCDate).ToString("dd/MM/yyyy");
+                            }
+
+                            enrollmentInfo.WRPCDate = TypeConversionUtility.ToStringWithNull(dr["WRPCDate"]);
+                            if (!string.IsNullOrEmpty(enrollmentInfo.WRPCDate))
+                            {
+                                enrollmentInfo.WRPCDate = TypeConversionUtility.ToDateTime(enrollmentInfo.WRPCDate).ToString("dd/MM/yyyy");
+                            }
+                            enrollmentInfo.HNCDate = TypeConversionUtility.ToStringWithNull(dr["HNCDate"]);
+                            if (!string.IsNullOrEmpty(enrollmentInfo.HNCDate))
+                            {
+                                enrollmentInfo.HNCDate = TypeConversionUtility.ToDateTime(enrollmentInfo.HNCDate).ToString("dd/MM/yyyy");
+                            }
+                            enrollmentInfo.FLCDate = TypeConversionUtility.ToStringWithNull(dr["FLCDate"]);
+                            if (!string.IsNullOrEmpty(enrollmentInfo.FLCDate))
+                            {
+                                enrollmentInfo.FLCDate = TypeConversionUtility.ToDateTime(enrollmentInfo.FLCDate).ToString("dd/MM/yyyy");
+                            }
+                            enrollmentInfo.EDTSDate = TypeConversionUtility.ToStringWithNull(dr["EDTSDate"]);
+                            if (!string.IsNullOrEmpty(enrollmentInfo.EDTSDate))
+                            {
+                                enrollmentInfo.EDTSDate = TypeConversionUtility.ToDateTime(enrollmentInfo.EDTSDate).ToString("dd/MM/yyyy");
+                            }
+
+                            enrollmentInfo.LEAPDate = TypeConversionUtility.ToStringWithNull(dr["LEAPDate"]);
+                            if (!string.IsNullOrEmpty(enrollmentInfo.LEAPDate))
+                            {
+                                enrollmentInfo.LEAPDate = TypeConversionUtility.ToDateTime(enrollmentInfo.LEAPDate).ToString("dd/MM/yyyy");
+                            }
+                            enrollmentInfo.ESISDate = TypeConversionUtility.ToStringWithNull(dr["ESISDate"]);
+                            if (!string.IsNullOrEmpty(enrollmentInfo.ESISDate))
+                            {
+                                enrollmentInfo.ESISDate = TypeConversionUtility.ToDateTime(enrollmentInfo.ESISDate).ToString("dd/MM/yyyy");
+                            }
+                            enrollmentInfo.BMTCDate = TypeConversionUtility.ToStringWithNull(dr["BMTCDate"]);
+                            if (!string.IsNullOrEmpty(enrollmentInfo.BMTCDate))
+                            {
+                                enrollmentInfo.BMTCDate = TypeConversionUtility.ToDateTime(enrollmentInfo.BMTCDate).ToString("dd/MM/yyyy");
+                            }
+                            enrollmentInfo.MMTCDate = TypeConversionUtility.ToStringWithNull(dr["MMTCDate"]);
+                            if (!string.IsNullOrEmpty(enrollmentInfo.MMTCDate))
+                            {
+                                enrollmentInfo.MMTCDate = TypeConversionUtility.ToDateTime(enrollmentInfo.MMTCDate).ToString("dd/MM/yyyy");
+                            }
+                            enrollmentInfo.EDPTCDate = TypeConversionUtility.ToStringWithNull(dr["EDPTCDate"]);
+                            if (!string.IsNullOrEmpty(enrollmentInfo.EDPTCDate))
+                            {
+                                enrollmentInfo.EDPTCDate = TypeConversionUtility.ToDateTime(enrollmentInfo.EDPTCDate).ToString("dd/MM/yyyy");
+                            }
+                            enrollmentInfo.IsTrainingCompleted = TypeConversionUtility.ToInteger(dr["IsTrainingCompleted"]);
+                            #endregion
+
+                            #region "Enterprise Training Details"
+                            enrollmentInfo.StartBusiness = TypeConversionUtility.ToStringWithNull(dr["StartBusiness"]);
+                            enrollmentInfo.BusinessReasons = TypeConversionUtility.ToStringWithNull(dr["BusinessReasons"]);
+                            enrollmentInfo.Business = TypeConversionUtility.ToStringWithNull(dr["Business"]);
+                            enrollmentInfo.BusinessWhen = TypeConversionUtility.ToStringWithNull(dr["BusinessWhen"]);
+                            enrollmentInfo.StatusBusiness = TypeConversionUtility.ToStringWithNull(dr["StatusBusiness"]);
+                            enrollmentInfo.VillagePopulation = TypeConversionUtility.ToStringWithNull(dr["VillagePopulation"]);
+                            enrollmentInfo.BusinessIdea = TypeConversionUtility.ToStringWithNull(dr["BusinessIdea"]);
+                            enrollmentInfo.BusinessType = TypeConversionUtility.ToStringWithNull(dr["BusinessType"]);
+                            enrollmentInfo.ProcureBusiness = TypeConversionUtility.ToStringWithNull(dr["ProcureBusiness"]);
+                            enrollmentInfo.CurrentBusiness = TypeConversionUtility.ToStringWithNull(dr["CurrentBusiness"]);
+                            enrollmentInfo.RegularFinancialBusiness = TypeConversionUtility.ToStringWithNull(dr["RegularFinancialBusiness"]);
+                            enrollmentInfo.HowRegularFinancial = TypeConversionUtility.ToStringWithNull(dr["HowRegularFinancial"]);
+                            enrollmentInfo.SettingBusinessType = TypeConversionUtility.ToStringWithNull(dr["SettingBusinessType"]);
+                            enrollmentInfo.MonthlyRent = TypeConversionUtility.ToStringWithNull(dr["MonthlyRent"]);
+                            enrollmentInfo.ExpandBusiness = TypeConversionUtility.ToStringWithNull(dr["ExpandBusiness"]);
+                            enrollmentInfo.PotentialCustomers = TypeConversionUtility.ToStringWithNull(dr["PotentialCustomers"]);
+                            enrollmentInfo.BusinessDistance = TypeConversionUtility.ToStringWithNull(dr["BusinessDistance"]);
+                            enrollmentInfo.ExpectedFootfall = TypeConversionUtility.ToStringWithNull(dr["ExpectedFootfall"]);
+                            enrollmentInfo.HowFarBussiness = TypeConversionUtility.ToStringWithNull(dr["HowFarBussiness"]);
+                            enrollmentInfo.PlanningBusiness = TypeConversionUtility.ToStringWithNull(dr["PlanningBusiness"]);
+                            enrollmentInfo.SupportBusiness = TypeConversionUtility.ToStringWithNull(dr["SupportBusiness"]);
+                            enrollmentInfo.SupportType = TypeConversionUtility.ToStringWithNull(dr["SupportType"]);
+                            enrollmentInfo.NotProvidedSupport = TypeConversionUtility.ToStringWithNull(dr["NotProvidedSupport"]);
+                            enrollmentInfo.PaidWorker = TypeConversionUtility.ToStringWithNull(dr["PaidWorker"]);
+                            enrollmentInfo.DigitalInclusion = TypeConversionUtility.ToStringWithNull(dr["DigitalInclusion"]);
+                            enrollmentInfo.DigitalInclusionDate = TypeConversionUtility.ToStringWithNull(dr["DigitalInclusionDate"]);
+                            enrollmentInfo.OwnSmartPhone = TypeConversionUtility.ToStringWithNull(dr["OwnSmartPhone"]); 
+                            enrollmentInfo.UseSmartPhone = TypeConversionUtility.ToStringWithNull(dr["UseSmartPhone"]);
+                            enrollmentInfo.SupplyChain = TypeConversionUtility.ToStringWithNull(dr["SupplyChain"]);
+                            enrollmentInfo.IsCompleteEntTraining = TypeConversionUtility.ToInteger(dr["IsCompleteEntTraining"]);
+                            #endregion
+
+                            enrollmentList.Add(enrollmentInfo);
+                        }
+                    }
+                }
+            }
+            return enrollmentList;
         }
     }
 }

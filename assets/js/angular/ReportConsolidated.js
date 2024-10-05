@@ -1,15 +1,15 @@
-﻿var app = angular.module('reportEnrollmentApp',[]);
-app.controller('reportEnrollmentController', function ($scope, $http) {
+﻿var app = angular.module('reportConsolidatedApp',[]);
+app.controller('reportConsolidatedAppController', function ($scope, $http) {
 
     clearDataTableState();
     function clearDataTableState() {
-        var state = JSON.parse(localStorage.getItem('DataTables_reportEnrollmentTable_' + window.location.pathname));
+        var state = JSON.parse(localStorage.getItem('DataTables_reportConsolidatedTable_' + window.location.pathname));
         if (state) {
             state.start = 0;
-            localStorage.setItem('DataTables_reportEnrollmentTable_' + window.location.pathname, JSON.stringify(state));
+            localStorage.setItem('DataTables_reportConsolidatedTable_' + window.location.pathname, JSON.stringify(state));
         }
     }
-    var dataTable = $('#reportEnrollmentTable').DataTable({
+    var dataTable = $('#reportConsolidatedTable').DataTable({
         serverSide: true,
         processing: true,
         paging: true,
@@ -18,7 +18,7 @@ app.controller('reportEnrollmentController', function ($scope, $http) {
            
             $http({
                 method: 'POST',
-                url: '/WebServices/Report.asmx/GetEnrollmentDetails',
+                url: '/WebServices/Report.asmx/GetConsolidated',
                 dataType: 'json',
                 method: 'POST',
                 data: "{'draw':" + data.draw + ",'pageNumber':" + data.start + ",'pageSize':" + data.length + ",'search':'" + data.search.value +"' }",
@@ -87,6 +87,47 @@ app.controller('reportEnrollmentController', function ($scope, $http) {
             { data: 'MonthlyHouseholdIncome' },
             { data: 'SchemeName' },
             { data: 'CreatedDisplay' },
+
+            { data: 'IsLifeSkillsTraining' },
+            { data: 'RCSCDate' },
+            { data: 'WRPCDate' },
+            { data: 'HNCDate' },
+            { data: 'FLCDate' },
+            { data: 'EDTSDate' },
+            { data: 'LEAPDate' },
+            { data: 'ESISDate' },
+            { data: 'BMTCDate' },
+            { data: 'MMTCDate' },
+            { data: 'EDPTCDate' },
+
+            { data: 'StartBusiness' },
+            { data: 'BusinessReasons' },
+            { data: 'Business' },
+            { data: 'BusinessWhen' },
+            { data: 'StatusBusiness' },
+            { data: 'VillagePopulation' },
+            { data: 'BusinessIdea' },
+            { data: 'BusinessType' },
+            { data: 'ProcureBusiness' },
+            { data: 'CurrentBusiness' },
+            { data: 'RegularFinancialBusiness' },
+            { data: 'HowRegularFinancial' },
+            { data: 'SettingBusinessType' },
+            { data: 'MonthlyRent' },
+            { data: 'ExpandBusiness' },
+            { data: 'PotentialCustomers' },
+            { data: 'BusinessDistance' },
+            { data: 'ExpectedFootfall' },
+            { data: 'HowFarBussiness' },
+            { data: 'SupportBusiness' },
+            { data: 'SupportType' },
+            { data: 'NotProvidedSupport' },
+            { data: 'PaidWorker' },
+            { data: 'DigitalInclusion' },
+            { data: 'DigitalInclusionDate' },
+            { data: 'OwnSmartPhone' },
+            { data: 'UseSmartPhone' },
+            { data: 'SupplyChain' },
         ],
         lengthMenu: [
             [25, 50, 100, -1],
@@ -111,7 +152,7 @@ app.controller('reportEnrollmentController', function ($scope, $http) {
             {
                 text: 'Export to Excel',
                 action: function () {
-                    var newWindow = window.open('/Forms/RptEnrollmentExport.aspx?ExportType=1', '_blank');
+                    var newWindow = window.open('/Forms/RptEnrollmentExport.aspx?ExportType=5', '_blank');
                     newWindow.onload = function () {
                         setTimeout(function () {
                             newWindow.close();

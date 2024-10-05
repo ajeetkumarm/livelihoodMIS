@@ -31,6 +31,7 @@
                 <div class="col-md-2">
                     <asp:Button ID="Btn_Search" runat="server" Text="Search" CssClass="btn btn-primary " OnClick="Btn_Search_Click" />
                     <a href="Village.aspx" class="btn btn-primary" >Add New</a>
+                    <asp:Button ID="Btn_Export" runat="server" Text="Export" CssClass="btn btn-primary" OnClick="Btn_Export_Click" />
                 </div>
                
             </div>

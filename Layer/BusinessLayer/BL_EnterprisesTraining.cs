@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataLayer;
+﻿using DataLayer;
 using ModelLayer;
-using System.Data;
 
 namespace BusinessLayer
 {
@@ -15,6 +9,10 @@ namespace BusinessLayer
         public int BL_InsUpdEntTraining(ML_EnterprisesTraining obj_ML_EnterprisesTraining)
         {
             return obj_DL_EnterprisesTraining.DL_InsUpdEntTraining(obj_ML_EnterprisesTraining);
+        }
+        public ML_EnterprisesTraining GetDetailByEnrollmentId(int enrollmentId)
+        {
+            return obj_DL_EnterprisesTraining.GetDetailByEnrollmentId(enrollmentId);
         }
     }
 }

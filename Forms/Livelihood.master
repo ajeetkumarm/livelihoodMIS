@@ -167,6 +167,7 @@
                         <li id="li_R2" runat="server" visible="false"><a href="RptTraining.aspx"><i class="bi bi-circle"></i><span>EDP Training</span> </a></li>
                         <li id="li_R3" runat="server" visible="false"><a href="RptEnterpriesSetup.aspx"><i class="bi bi-circle"></i><span>Enterprise Setup</span> </a></li>
                         <li id="li_R4" runat="server" visible="false"><a href="RptBusinessProgress.aspx"><i class="bi bi-circle"></i><span>Business Progress</span> </a></li>
+                        <li id="li_R5" runat="server" visible="false"><a href="RptConsolidated.aspx"><i class="bi bi-circle"></i><span>Consolidated Report</span> </a></li>
                     </ul>
                 </li>
                 <li id="liBusinessProgresss" runat="server" visible="false" class="nav-item"><a class="nav-link collapsed" href="BusinessProgressCustomerList.aspx"><i class="bi bi-circle"></i><span>Business Progress</span> </a></li>

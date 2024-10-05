@@ -63,5 +63,6 @@ namespace ModelLayer
         public string ReplacementEmployeeId { get; set; }
         public string ReplacementBeneficiaryCode { get; set; }
         public string EnrollmentStatus { get; set; }
+        public string CohortValue { get; set; }
 	}
 }

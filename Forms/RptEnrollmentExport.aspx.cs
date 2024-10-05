@@ -60,7 +60,12 @@ public partial class Forms_RptEnrollmentExport : System.Web.UI.Page
                 strSheetName = "Business Progress";
                 dataTable = objReport.RptBusinessProgressDetailsDT(Convert.ToInt32(CreatedUser), Convert.ToInt32(projectCode), 0, int.MaxValue, "");
             }
-
+            else if (exportType == 5)
+            {
+                strFileName = "Report_Consolidated_" + DateTime.Now.ToLocalTime().ToString() + ".xlsx";
+                strSheetName = "Business Progress";
+                dataTable = objReport.RptConsolidatedDT(Convert.ToInt32(CreatedUser), Convert.ToInt32(projectCode), 0, int.MaxValue, "");
+            }
             using (var workbook = new XSSFWorkbook())
             {
                 ISheet sheet = workbook.CreateSheet(strSheetName);

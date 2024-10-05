@@ -12,7 +12,9 @@ namespace DataLayer
         SqlConnection con = new SqlConnection(DB_Connection.Livelihood_Connection);
         public int DL_InsEnrollment(ML_Enrollment obj_ML_Enrollment)
         {
-            SqlParameter[] par ={ new SqlParameter("@BeneficiaryCode", obj_ML_Enrollment.BeneficiaryCode),
+            SqlParameter[] par ={ 
+                                  new SqlParameter("@EnrollmentId", obj_ML_Enrollment.EnrollmentId),
+                                  new SqlParameter("@BeneficiaryCode", obj_ML_Enrollment.BeneficiaryCode),
                                   new SqlParameter("@WomenName", obj_ML_Enrollment.WomenName),
                                   new SqlParameter("@HusbandFatherName", obj_ML_Enrollment.HusbandFatherName),
                                   new SqlParameter("@MotherName", obj_ML_Enrollment.MotherName),
@@ -55,6 +57,7 @@ namespace DataLayer
                                   new SqlParameter("@ReplacementEmployeeId", obj_ML_Enrollment.ReplacementEmployeeId),
                                   new SqlParameter("@ReplacementBeneficiaryCode", obj_ML_Enrollment.ReplacementBeneficiaryCode),
                                   new SqlParameter("@EnrollmentStatus", obj_ML_Enrollment.EnrollmentStatus),
+                                  new SqlParameter("@CohortValue", obj_ML_Enrollment.CohortValue),
                                };
             return SqlHelper.ExecuteNonQuery(con, "USP_InsEnrollmentForm", par);
         }
@@ -225,5 +228,64 @@ namespace DataLayer
             SqlParameter[] par = { new SqlParameter("@EnrollmentId", enrollmentId), new SqlParameter("@UpdatedBy", updatedBy) };
             return SqlHelper.ExecuteNonQuery(con, "usp_BusinessProgressMoveToEnterpriseSetup", par) > 0;
         }
+
+        public ML_Enrollment GetEnrollmentDetail(int enrollmentId)
+        {
+            ML_Enrollment obj_ML_Enrollment = new ML_Enrollment();
+            SqlParameter[] par = { new SqlParameter("@EnrollmentId", enrollmentId) };
+            using (SqlDataReader dr = SqlHelper.ExecuteReader(con, "usp_GetEnrollmentDetailById", par))
+            {
+                while (dr.Read())
+                {
+                    obj_ML_Enrollment.EnrollmentId = TypeConversionUtility.ToInteger(dr["EnrollmentId"]);
+                    obj_ML_Enrollment.BeneficiaryCode = TypeConversionUtility.ToStringWithNull(dr["BeneficiaryCode"]);
+                    obj_ML_Enrollment.WomenName = TypeConversionUtility.ToStringWithNull(dr["WomenName"]);
+                    obj_ML_Enrollment.HusbandFatherName = TypeConversionUtility.ToStringWithNull(dr["HusbandFatherName"]);
+                    obj_ML_Enrollment.MotherName = TypeConversionUtility.ToStringWithNull(dr["MotherName"]);
+                    obj_ML_Enrollment.PhoneNo = TypeConversionUtility.ToStringWithNull(dr["PhoneNo"]);
+                    obj_ML_Enrollment.ThemeCode = TypeConversionUtility.ToStringWithNull(dr["ThemeCode"]);
+                    obj_ML_Enrollment.Cast = TypeConversionUtility.ToInteger(dr["Cast"]);
+                    obj_ML_Enrollment.EconomicStatus = TypeConversionUtility.ToInteger(dr["EconomicStatus"]);
+                    obj_ML_Enrollment.MaritalStatus = TypeConversionUtility.ToStringWithNull(dr["MaritalStatus"]);
+                    obj_ML_Enrollment.BirthDate = TypeConversionUtility.ToStringWithNull(dr["BirthDate"]);
+                    obj_ML_Enrollment.Age = TypeConversionUtility.ToInteger(dr["Age"]);
+                    obj_ML_Enrollment.RegistrationDate = TypeConversionUtility.ToStringWithNull(dr["RegistrationDate"]);
+                    obj_ML_Enrollment.State = TypeConversionUtility.ToInteger(dr["State"]);
+                    obj_ML_Enrollment.District = TypeConversionUtility.ToInteger(dr["District"]);
+                    obj_ML_Enrollment.Block = TypeConversionUtility.ToInteger(dr["Block"]);
+                    obj_ML_Enrollment.Village = TypeConversionUtility.ToInteger(dr["Village"]);
+                    obj_ML_Enrollment.PartSHG = TypeConversionUtility.ToStringWithNull(dr["PartSHG"]);
+                    obj_ML_Enrollment.SHGName = TypeConversionUtility.ToStringWithNull(dr["SHGName"]);
+                    obj_ML_Enrollment.SHGDate = TypeConversionUtility.ToStringWithNull(dr["SHGDate"]);
+                    obj_ML_Enrollment.SHGType = TypeConversionUtility.ToInteger(dr["SHGType"]);
+                    obj_ML_Enrollment.Education = TypeConversionUtility.ToInteger(dr["Education"]);
+                    obj_ML_Enrollment.PwD = TypeConversionUtility.ToStringWithNull(dr["PwD"]);
+                    obj_ML_Enrollment.PwDSpecify = TypeConversionUtility.ToStringWithNull(dr["PwDSpecify"]);
+                    obj_ML_Enrollment.AadhaarrCard = TypeConversionUtility.ToStringWithNull(dr["AadhaarrCard"]);
+                    obj_ML_Enrollment.AadhaarCardDetails = TypeConversionUtility.ToStringWithNull(dr["AadhaarCardDetails"]);
+                    obj_ML_Enrollment.AadhaarNo = TypeConversionUtility.ToStringWithNull(dr["AadhaarNo"]);
+                    obj_ML_Enrollment.AnyIDProofDetails = TypeConversionUtility.ToStringWithNull(dr["AnyIDProofDetails"]);
+                    obj_ML_Enrollment.IDProofNo = TypeConversionUtility.ToStringWithNull(dr["IDProofNo"]);
+                    obj_ML_Enrollment.IssuingAuthority = TypeConversionUtility.ToStringWithNull(dr["IssuingAuthority"]);
+                    obj_ML_Enrollment.RationCard = TypeConversionUtility.ToStringWithNull(dr["RationCard"]);
+                    obj_ML_Enrollment.RationCardlinkedPDS = TypeConversionUtility.ToStringWithNull(dr["RationCardlinkedPDS"]);
+                    obj_ML_Enrollment.BankAccountNo = TypeConversionUtility.ToStringWithNull(dr["BankAccountNo"]);
+                    obj_ML_Enrollment.LinkedSocialSecuritySchemes = TypeConversionUtility.ToStringWithNull(dr["LinkedSocialSecuritySchemes"]);
+                    obj_ML_Enrollment.WomenBelong = TypeConversionUtility.ToStringWithNull(dr["WomenBelong"]);
+                    obj_ML_Enrollment.ValidCertificate = TypeConversionUtility.ToStringWithNull(dr["ValidCertificate"]);
+                    obj_ML_Enrollment.MonthlyIndividualIncome = TypeConversionUtility.ToStringWithNull(dr["MonthlyIndividualIncome"]);
+                    obj_ML_Enrollment.MonthlyHouseholdIncome = TypeConversionUtility.ToStringWithNull(dr["MonthlyHouseholdIncome"]);
+                    obj_ML_Enrollment.Scheme = TypeConversionUtility.ToInteger(dr["Scheme"]);
+                    obj_ML_Enrollment.EmployeeId = TypeConversionUtility.ToStringWithNull(dr["EmployeeId"]);
+                    obj_ML_Enrollment.ReplacementEmployeeId = TypeConversionUtility.ToStringWithNull(dr["ReplacementEmployeeId"]);
+                    obj_ML_Enrollment.ReplacementBeneficiaryCode = TypeConversionUtility.ToStringWithNull(dr["ReplacementBeneficiaryCode"]);
+                    obj_ML_Enrollment.EnrollmentStatus = TypeConversionUtility.ToStringWithNull(dr["EnrollmentStatus"]);
+                    obj_ML_Enrollment.CohortValue = TypeConversionUtility.ToStringWithNull(dr["CohortValue"]);
+                }
+            }
+            return obj_ML_Enrollment;
+        }
+
+
     }
 }

@@ -36,14 +36,6 @@
                                     <asp:ListItem Value="No">No</asp:ListItem>
                                 </asp:RadioButtonList>
                             </div>
-                           <%-- <div id="div_StartedImprovedBusiness" class="col-md-6 mb-3" runat="server" visible="false">
-                                <label class="col-form-label">Started / improved business</label>
-                                <asp:RadioButtonList ID="rblStartedImprovedBusiness" runat="server" RepeatDirection="Horizontal"
-                                    AutoPostBack="true" OnSelectedIndexChanged="rblStartedImprovedBusiness_SelectedIndexChanged">
-                                    <asp:ListItem Value="Yes">Yes</asp:ListItem>
-                                    <asp:ListItem Value="No">No</asp:ListItem>
-                                </asp:RadioButtonList>
-                            </div>--%>
                             <asp:Panel ID="pnl_Lst" runat="server" Visible="false">
                                 <div class="col-md-6 mb-3">
                                     <label class="col-form-label">if, Yes</label>

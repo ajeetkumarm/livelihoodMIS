@@ -90,6 +90,9 @@
                                                     </div>
                                                 </td>
                                                 <td>
+                                                    <!-- Add Edit Button -->
+                                                    <a href="Enrollment.aspx?EnrollmentId=<%#Eval("EnrollmentId")%>" class="btn btn-sm btn-success">Edit</a>
+
                                                     <asp:Button ID="Btn_Delete" runat="server" CssClass="btn btn-sm btn-danger" Text="Delete" CommandArgument='<%#Eval("EnrollmentId")%>' OnClick="Btn_Delete_Click"
                                                         OnClientClick="if ( !confirm('Are you sure you want to delete ? ')) return false;" />
                                                 </td>

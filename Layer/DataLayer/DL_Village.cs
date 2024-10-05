@@ -72,5 +72,9 @@ namespace DataLayer
             }
             return villageList;
         }
+        public DataTable GetVillageListExport()
+        {
+            return SqlHelper.ExecuteDataset(con, "usp_GetVillageList_Export").Tables[0];
+        }
     }
 }

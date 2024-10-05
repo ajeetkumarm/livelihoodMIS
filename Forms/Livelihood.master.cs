@@ -68,6 +68,10 @@ public partial class Livelihood : System.Web.UI.MasterPage
                 li_5.Visible = true;
                 li_R4.Visible = true;
             }
+            else if (ControlId == "6")
+            {
+                li_R5.Visible = true;
+            }
         }
         if (UserCategory == 1)
         {
@@ -81,6 +85,7 @@ public partial class Livelihood : System.Web.UI.MasterPage
             li_R2.Visible = true;
             li_R3.Visible = true;
             li_R4.Visible = true;
+            li_R5.Visible = true;
         }
 
         if (UserCategory == 8)

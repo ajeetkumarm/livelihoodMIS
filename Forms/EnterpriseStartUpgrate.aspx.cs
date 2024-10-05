@@ -33,7 +33,7 @@ public partial class Forms_EnterpriseStartUpgrate : System.Web.UI.Page
         {
             obj_CL_DigitalService = ViewState["VS_obj_CL_ProcureBusiness"] as CL_DigitalService;
         }
-    }    
+    }
     protected void Btn_Submit_Click(object sender, EventArgs e)
     {
         try
@@ -108,7 +108,7 @@ public partial class Forms_EnterpriseStartUpgrate : System.Web.UI.Page
                 obj_ML_EnterprisesTraining.MonthlyRent = txtMonthlyRent.Text != "" ? txtMonthlyRent.Text : "";
                 obj_ML_EnterprisesTraining.ExpandBusiness = ddlExpandScaleBusiness.SelectedIndex > 0 ? ddlExpandScaleBusiness.SelectedValue : "";
                 obj_ML_EnterprisesTraining.PotentialCustomers = rblPotentialCustomers.SelectedValue;
-                obj_ML_EnterprisesTraining.BusinessDistance = ddlDistanceBusiness.SelectedIndex > 0 ? ddlDistanceBusiness.SelectedValue : ""; 
+                obj_ML_EnterprisesTraining.BusinessDistance = ddlDistanceBusiness.SelectedIndex > 0 ? ddlDistanceBusiness.SelectedValue : "";
                 obj_ML_EnterprisesTraining.ExpectedFootfall = txtExpectedFootfall.Text != "" ? txtExpectedFootfall.Text : "";
                 obj_ML_EnterprisesTraining.HowFarBussiness = ddlBusinessExisting.SelectedIndex > 0 ? ddlBusinessExisting.SelectedValue : "";
                 obj_ML_EnterprisesTraining.PlanningBusiness = PromoteBusiness;
@@ -139,13 +139,60 @@ public partial class Forms_EnterpriseStartUpgrate : System.Web.UI.Page
                 {
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Message", "alert('System Error !');", true);
                 }
-            }           
+            }
         }
         catch (Exception ex)
         {
             Response.Write(ex.Message);
         }
     }
+    //private void BindEnterprisesTrainingDetails()
+    //{
+    //    try
+    //    {
+    //        obj_ML_EnterprisesTraining = obj_BL_EnterprisesTraining.GetDetailByEnrollmentId(Convert.ToInt32(Request.QueryString["EnrolId"]));
+    //        if (obj_ML_EnterprisesTraining != null)
+    //        {
+    //            rblStartBusiness.SelectedValue = obj_ML_EnterprisesTraining.StartBusiness;
+    //            StartBusinessChange();
+    //            ddlNoReasons.SelectedValue = obj_ML_EnterprisesTraining.BusinessReasons;
+    //            rblBusiness.SelectedValue = obj_ML_EnterprisesTraining.Business;
+    //            ddlWhen.SelectedValue = obj_ML_EnterprisesTraining.BusinessWhen;
+    //            ddlStatusBusiness.SelectedValue = obj_ML_EnterprisesTraining.StatusBusiness;
+    //            txtVillagePopulation.Text = obj_ML_EnterprisesTraining.VillagePopulation;
+    //            rblBusinessIdea.SelectedValue = obj_ML_EnterprisesTraining.BusinessIdea;
+    //            ddlBusinessType.SelectedValue = obj_ML_EnterprisesTraining.BusinessType;
+    //            ddlCurrentBusiness.SelectedValue = obj_ML_EnterprisesTraining.CurrentBusiness;
+    //            rblRegularFinancialBusiness.SelectedValue = obj_ML_EnterprisesTraining.RegularFinancialBusiness;
+    //            ddlHow.SelectedValue = obj_ML_EnterprisesTraining.HowRegularFinancial;
+    //            rblSettingBusiness.SelectedValue = obj_ML_EnterprisesTraining.SettingBusinessType;
+    //            txtMonthlyRent.Text = obj_ML_EnterprisesTraining.MonthlyRent;
+    //            ddlExpandScaleBusiness.SelectedValue = obj_ML_EnterprisesTraining.ExpandBusiness;
+    //            rblPotentialCustomers.SelectedValue = obj_ML_EnterprisesTraining.PotentialCustomers;
+    //            ddlDistanceBusiness.SelectedValue = obj_ML_EnterprisesTraining.BusinessDistance;
+    //            txtExpectedFootfall.Text = obj_ML_EnterprisesTraining.ExpectedFootfall;
+    //            ddlBusinessExisting.SelectedValue = obj_ML_EnterprisesTraining.HowFarBussiness;
+    //            //ddlPlanningBusiness.SelectedValue = obj_ML_EnterprisesTraining.PlanningBusiness;
+    //            rblAdvSupBusiness.SelectedValue = obj_ML_EnterprisesTraining.SupportBusiness;
+    //            //ddlSupportType.SelectedValue = obj_ML_EnterprisesTraining.SupportType;
+    //            ddlSupportNotProvide.SelectedValue = obj_ML_EnterprisesTraining.NotProvidedSupport;
+
+    //            txtPaidWorkers.Text = obj_ML_EnterprisesTraining.PaidWorker;
+    //            txtDigitalTrnNo.Text = obj_ML_EnterprisesTraining.DigitalInclusion;
+    //            txtDigitalInclusionDate.Text = obj_ML_EnterprisesTraining.DigitalInclusionDate;
+    //            rblSmartPhone.SelectedValue = obj_ML_EnterprisesTraining.OwnSmartPhone;
+    //            rblSmartPhoneActivity.SelectedValue = obj_ML_EnterprisesTraining.UseSmartPhone;
+    //            rblSupplyChain.SelectedValue = obj_ML_EnterprisesTraining.SupplyChain;
+
+
+    //        }
+    //    }
+    //    catch 
+    //    {
+
+    //    }
+    //}
+
     protected void Btn_Cancel_Click(object sender, EventArgs e)
     {
         nilGrid();
@@ -200,12 +247,16 @@ public partial class Forms_EnterpriseStartUpgrate : System.Web.UI.Page
     }
     protected void rblStartBusiness_SelectedIndexChanged(object sender, EventArgs e)
     {
+        StartBusinessChange();
+    }
+    private void StartBusinessChange()
+    {
         nilGrid();
         if (rblStartBusiness.SelectedValue == "Yes")
         {
             div_Business.Visible = true;
             div_Reasons.Visible = false;
-            ddlNoReasons.SelectedIndex = 0; 
+            ddlNoReasons.SelectedIndex = 0;
         }
         else
         {
@@ -236,7 +287,7 @@ public partial class Forms_EnterpriseStartUpgrate : System.Web.UI.Page
             div_CurrentBusiness.Visible = false;
             div_RegFinBusiness.Visible = false;
             div_How.Visible = false;
-            div_SettingBusiness.Visible= false;
+            div_SettingBusiness.Visible = false;
             div_ExpandBusiness.Visible = false;
             div_PotentialCustomers.Visible = false;
             div_DistanceBusiness.Visible = false;
@@ -264,9 +315,10 @@ public partial class Forms_EnterpriseStartUpgrate : System.Web.UI.Page
             ddlStatusBusiness.SelectedIndex = 0;
         }
     }
+
     protected void rblBusiness_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (rblBusiness.SelectedValue== "New Business" || rblBusiness.SelectedValue == "Innovative Business")
+        if (rblBusiness.SelectedValue == "New Business" || rblBusiness.SelectedValue == "Innovative Business")
         {
             div_When.Visible = true;
             div_VillagePopulation.Visible = true;
@@ -286,7 +338,7 @@ public partial class Forms_EnterpriseStartUpgrate : System.Web.UI.Page
             ddlBusinessType.SelectedIndex = 0;
             rblRegularFinancialBusiness.ClearSelection();
             ddlHow.SelectedIndex = 0;
-            
+
             ddlDistanceBusiness.SelectedIndex = 0;
             txtExpectedFootfall.Text = "";
             ddlBusinessExisting.SelectedIndex = 0;
@@ -296,7 +348,7 @@ public partial class Forms_EnterpriseStartUpgrate : System.Web.UI.Page
             ddlSupportNotProvide.SelectedIndex = 0;
             div_ProcureBusiness.Visible = false;
             div_StatusBusiness.Visible = false;
-            ddlStatusBusiness.SelectedIndex = 0;    
+            ddlStatusBusiness.SelectedIndex = 0;
         }
         else
         {
@@ -342,7 +394,7 @@ public partial class Forms_EnterpriseStartUpgrate : System.Web.UI.Page
     protected void rblBusinessIdea_SelectedIndexChanged(object sender, EventArgs e)
     {
         nilGrid();
-        if (rblBusinessIdea.SelectedValue=="Yes")
+        if (rblBusinessIdea.SelectedValue == "Yes")
         {
             div_BusinessType.Visible = true;
             div_CurrentBusiness.Visible = false;
@@ -387,11 +439,11 @@ public partial class Forms_EnterpriseStartUpgrate : System.Web.UI.Page
     protected void rblRegularFinancialBusiness_SelectedIndexChanged(object sender, EventArgs e)
     {
         nilGrid();
-        if (rblRegularFinancialBusiness.SelectedValue=="Yes")
+        if (rblRegularFinancialBusiness.SelectedValue == "Yes")
         {
             div_How.Visible = true;
             div_PotentialCustomers.Visible = true;
-            if (rblBusiness.SelectedValue== "Upgrade Business")
+            if (rblBusiness.SelectedValue == "Upgrade Business")
             {
                 div_How.Visible = false;
                 ddlHow.SelectedIndex = 0;
@@ -439,7 +491,7 @@ public partial class Forms_EnterpriseStartUpgrate : System.Web.UI.Page
     protected void rblPotentialCustomers_SelectedIndexChanged(object sender, EventArgs e)
     {
         nilGrid();
-        if (rblPotentialCustomers.SelectedValue=="Yes")
+        if (rblPotentialCustomers.SelectedValue == "Yes")
         {
             div_footfall.Visible = true;
             div_DistanceBusiness.Visible = true;
@@ -476,7 +528,7 @@ public partial class Forms_EnterpriseStartUpgrate : System.Web.UI.Page
     protected void rblAdvSupBusiness_SelectedIndexChanged(object sender, EventArgs e)
     {
         nilGrid();
-        if (rblAdvSupBusiness.SelectedValue=="Yes")
+        if (rblAdvSupBusiness.SelectedValue == "Yes")
         {
             div_SupportType.Visible = true;
             div_NotSupportBusiness.Visible = true;
@@ -572,7 +624,7 @@ public partial class Forms_EnterpriseStartUpgrate : System.Web.UI.Page
             //ddlFooterServiceLine.DataBind();
             //ddlFooterServiceLine.Items.Insert(0, "--Select Service Line--");
         }
-    }    
+    }
     public void AddServiceLine()
     {
         nilGrid();
@@ -650,7 +702,7 @@ public partial class Forms_EnterpriseStartUpgrate : System.Web.UI.Page
     protected void rblSettingBusiness_SelectedIndexChanged(object sender, EventArgs e)
     {
         nilGrid();
-        if (rblSettingBusiness.SelectedValue== "Rented")
+        if (rblSettingBusiness.SelectedValue == "Rented")
         {
             div_MonthlyRent.Visible = true;
         }
@@ -660,5 +712,5 @@ public partial class Forms_EnterpriseStartUpgrate : System.Web.UI.Page
             txtMonthlyRent.Text = "";
         }
     }
-    
+
 }

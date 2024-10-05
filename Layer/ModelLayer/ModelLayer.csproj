@@ -46,6 +46,7 @@
     <Compile Include="BusinessProgressList.cs" />
     <Compile Include="BusinessProgressReportList.cs" />
     <Compile Include="BusinessProgressStatusDTO.cs" />
+    <Compile Include="ConsolidateReportList.cs" />
     <Compile Include="EnrollmentReportList.cs" />
     <Compile Include="EnterpriesSetupList.cs" />
     <Compile Include="EnterpriesTrainingReportList.cs" />

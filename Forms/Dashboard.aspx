@@ -26,6 +26,23 @@
                         <div class="col-auto">
                             <asp:DropDownList ID="ddlProject" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlProject_SelectedIndexChanged"></asp:DropDownList>
                         </div>
+                        <div class="col-auto">
+                            <label class="col-form-label">From Date</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="date" class="form-control" id="txtFromDate" runat="server" name="fromDate" />
+                        </div>
+                        <div class="col-auto">
+                            <label class="col-form-label">To Date</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="date" class="form-control" id="txtToDate" runat="server" name="toDate" />
+                        </div>
+                        <div class="col-auto">
+                            <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary" OnClick="btnSearch_Click" />
+                        </div>
+
+
                         <%--<div class="col-auto">
                             <label class="col-form-label">Partner</label>
                         </div>
@@ -117,7 +134,6 @@
                 <!-- End Customers Card -->
 
             </div>
-
         </section>
     </div>
 </asp:Content>

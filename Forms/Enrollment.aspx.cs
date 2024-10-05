@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
@@ -15,6 +12,17 @@ public partial class Forms_Enrollment : System.Web.UI.Page
     ML_Enrollment obj_ML_Enrollment = new ML_Enrollment();
     BL_Enrollment obj_BL_Enrollment = new BL_Enrollment();
 
+    public int EnrollmentId
+    {
+        get
+        {
+            if (Request.QueryString["EnrollmentId"] != null)
+            {
+                return TypeConversionUtility.ToInteger(Request.QueryString["EnrollmentId"]);
+            }
+            return 0;
+        }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -28,6 +36,10 @@ public partial class Forms_Enrollment : System.Web.UI.Page
             FetchEconomicStatus();
             FetchEducation();
             FetchScheme();
+            if (EnrollmentId > 0)
+            {
+                BindEnrollmentDetail();
+            }
         }
     }
     private void FetchTheme()
@@ -83,6 +95,10 @@ public partial class Forms_Enrollment : System.Web.UI.Page
     }
     protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
     {
+        FetchDistrict();
+    }
+    private void FetchDistrict()
+    {
         try
         {
             obj_ML_Masters.QueryType = "District";
@@ -98,7 +114,7 @@ public partial class Forms_Enrollment : System.Web.UI.Page
                 ddlDistrict.DataValueField = "DistrictId";
                 ddlDistrict.DataTextField = "DistrictName";
                 ddlDistrict.DataBind();
-                ddlDistrict.Items.Insert(0, new ListItem("--Select District--","0"));
+                ddlDistrict.Items.Insert(0, new ListItem("--Select District--", "0"));
             }
         }
         catch (Exception)
@@ -107,6 +123,10 @@ public partial class Forms_Enrollment : System.Web.UI.Page
         }
     }
     protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        FetchBlock();
+    }
+    private void FetchBlock()
     {
         try
         {
@@ -132,6 +152,10 @@ public partial class Forms_Enrollment : System.Web.UI.Page
         }
     }
     protected void ddlBlock_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        FetchVillage();
+    }
+    private void FetchVillage()
     {
         try
         {
@@ -291,7 +315,6 @@ public partial class Forms_Enrollment : System.Web.UI.Page
         GetBeneficaryCode();
         txtHusbandFatherName.Focus();
     }
-
     protected void txtPhoneNo_TextChanged(object sender, EventArgs e)
     {
         GetBeneficaryCode();
@@ -299,6 +322,11 @@ public partial class Forms_Enrollment : System.Web.UI.Page
     }
     private void GetBeneficaryCode()
     {
+        if (EnrollmentId > 0)
+        {
+            return;
+        }
+
         string fName = txtWomenName.Text.Trim();
         if (fName.Contains(" "))
         {
@@ -320,7 +348,6 @@ public partial class Forms_Enrollment : System.Web.UI.Page
         }
         txtBeneficiaryCode.Text = Convert.ToString(txtPhoneNo.Text).Trim() + fName + FatherFname + Convert.ToString(ddlTheme.SelectedValue);
     }
-
     protected void txtDateBirth_TextChanged(object sender, EventArgs e)
     {
         txtAge.Text = CalculateYourAge(Convert.ToDateTime(txtDateBirth.Text.Trim()));
@@ -348,8 +375,10 @@ public partial class Forms_Enrollment : System.Web.UI.Page
         {
             DataTable DT = Session["UserDetails"] as DataTable;
             string UserCode = DT.Rows[0]["UserCode"].ToString();
+            obj_ML_Enrollment.CohortValue = Convert.ToString(ddlCohort.SelectedValue);
             if (Btn_SubmitForm.Text == "Submit Form")
             {
+                obj_ML_Enrollment.EnrollmentId = EnrollmentId;
                 obj_ML_Enrollment.BeneficiaryCode = txtBeneficiaryCode.Text != "" ? txtBeneficiaryCode.Text : "";
                 obj_ML_Enrollment.WomenName = txtWomenName.Text != "" ? txtWomenName.Text : "";
                 obj_ML_Enrollment.HusbandFatherName = txtHusbandFatherName.Text != "" ? txtHusbandFatherName.Text : "";
@@ -398,7 +427,16 @@ public partial class Forms_Enrollment : System.Web.UI.Page
                 int x = obj_BL_Enrollment.BL_InsEnrollment(obj_ML_Enrollment);
                 if (x > 0)
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "message", "alert('Form Submit Successfully !');", true);
+                    
+                    
+                    if (EnrollmentId > 0)
+                    {
+                        Response.Redirect("EnrollmentList.aspx?Message=Success");
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "message", "alert('Form Submit Successfully !');", true);
+                    }
                 }
                 else
                 {
@@ -471,12 +509,17 @@ public partial class Forms_Enrollment : System.Web.UI.Page
         divReplacementEmployeeId.Visible = false;
         rfvReplacementBeneficiaryCode.Enabled = false;
         rfvReplacementEmployeeId.Enabled = false;
+        ddlCohort.SelectedValue = "";
 
 
     }
     protected void rblSHG_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (rblSHG.SelectedValue=="Yes")
+        SHGChange();
+    }
+    private void SHGChange()
+    {
+        if (rblSHG.SelectedValue == "Yes")
         {
             div_SHGName.Visible = true;
             div_SHGDate.Visible = true;
@@ -494,7 +537,11 @@ public partial class Forms_Enrollment : System.Web.UI.Page
     }
     protected void rblPreviouslyLinkedSocialSecuritySchemes_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (rblPreviouslyLinkedSocialSecuritySchemes.SelectedValue=="Yes")
+        PreviouslyLinkedSocialSecuritySchemesChange();
+    }
+    private void PreviouslyLinkedSocialSecuritySchemesChange()
+    {
+        if (rblPreviouslyLinkedSocialSecuritySchemes.SelectedValue == "Yes")
         {
             div_LinkedScheme.Visible = true;
         }
@@ -505,6 +552,10 @@ public partial class Forms_Enrollment : System.Web.UI.Page
         }
     }
     protected void rblPwD_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        PwDChange();
+    }
+    private void PwDChange()
     {
         if (rblPwD.SelectedValue == "Yes")
         {
@@ -517,6 +568,10 @@ public partial class Forms_Enrollment : System.Web.UI.Page
         }
     }
     protected void rblAdharCard_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        AadharCardChange();
+    }
+    private void AadharCardChange()
     {
         if (rblAdharCard.SelectedValue == "Yes")
         {
@@ -533,6 +588,10 @@ public partial class Forms_Enrollment : System.Web.UI.Page
     }
     protected void rblWillingAadhaardetails_SelectedIndexChanged(object sender, EventArgs e)
     {
+        DisplayWillingAadhaarDetails();
+    }
+    private void DisplayWillingAadhaarDetails()
+    {
         if (rblWillingAadhaardetails.SelectedValue == "Yes")
         {
             div_AadhaarNo.Visible = true;
@@ -540,14 +599,11 @@ public partial class Forms_Enrollment : System.Web.UI.Page
         }
         else
         {
-            rfvAadhaarNumber.Enabled=false;
+            rfvAadhaarNumber.Enabled = false;
             div_AadhaarNo.Visible = false;
             txtAadhaarNo.Text = "";
         }
     }
-
-
-
     protected void ddlEnrollmentStatus_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (ddlEnrollmentStatus.SelectedValue == "Replacement")
@@ -564,5 +620,76 @@ public partial class Forms_Enrollment : System.Web.UI.Page
             rfvReplacementBeneficiaryCode.Enabled = false;
             rfvReplacementEmployeeId.Enabled = false;
         }
+    }
+    private void BindEnrollmentDetail()
+    {
+        try
+        {
+            var enrollmentInfo = obj_BL_Enrollment.GetEnrollmentDetail(EnrollmentId);
+            if (enrollmentInfo != null)
+            {
+                txtBeneficiaryCode.Text = enrollmentInfo.BeneficiaryCode;
+                txtWomenName.Text = enrollmentInfo.WomenName;
+                txtHusbandFatherName.Text = enrollmentInfo.HusbandFatherName;
+                txtMotherName.Text = enrollmentInfo.MotherName;
+                txtPhoneNo.Text = enrollmentInfo.PhoneNo;
+                ddlTheme.SelectedValue = enrollmentInfo.ThemeCode;
+                ddlCasteSocial.SelectedValue = enrollmentInfo.Cast.ToString();
+                ddlEconomicStatus.SelectedValue = enrollmentInfo.EconomicStatus.ToString();
+                ddlMaritalStatus.SelectedValue = enrollmentInfo.MaritalStatus;
+                txtDateBirth.Text = enrollmentInfo.BirthDate;
+                txtAge.Text = enrollmentInfo.Age.ToString();
+                txtRegistrationDate.Text = enrollmentInfo.RegistrationDate;
+
+                ddlState.SelectedIndex = ddlState.Items.IndexOf(ddlState.Items.FindByValue(TypeConversionUtility.ToStringWithNull(enrollmentInfo.State)));
+                FetchDistrict();
+                ddlDistrict.SelectedIndex = ddlDistrict.Items.IndexOf(ddlDistrict.Items.FindByValue(TypeConversionUtility.ToStringWithNull(enrollmentInfo.District)));
+                FetchBlock();
+
+                ddlBlock.SelectedIndex = ddlBlock.Items.IndexOf(ddlBlock.Items.FindByValue(TypeConversionUtility.ToStringWithNull(enrollmentInfo.Block)));
+                FetchVillage();
+                ddlVillage.SelectedIndex = ddlVillage.Items.IndexOf(ddlVillage.Items.FindByValue(TypeConversionUtility.ToStringWithNull(enrollmentInfo.Village)));
+
+                rblSHG.SelectedValue = enrollmentInfo.PartSHG;
+                SHGChange();
+                txtShgName.Text = enrollmentInfo.SHGName;
+                txtDateSHG.Text = enrollmentInfo.SHGDate;
+                ddlShgType.SelectedIndex = ddlShgType.Items.IndexOf(ddlShgType.Items.FindByValue(TypeConversionUtility.ToStringWithNull(enrollmentInfo.SHGType)));
+
+                ddlEducation.SelectedIndex = ddlEducation.Items.IndexOf(ddlEducation.Items.FindByValue(TypeConversionUtility.ToStringWithNull(enrollmentInfo.Education)));
+                rblPwD.SelectedValue = enrollmentInfo.PwD;
+                PwDChange();
+                txtPwDSpecify.Text = enrollmentInfo.PwDSpecify;
+                rblAdharCard.SelectedValue = enrollmentInfo.AadhaarrCard;
+                AadharCardChange();
+                rblWillingAadhaardetails.SelectedValue = enrollmentInfo.AadhaarCardDetails;
+                DisplayWillingAadhaarDetails();
+                txtAadhaarNo.Text = enrollmentInfo.AadhaarNo;
+                ddlGovtOfIndiaIdProofs.SelectedValue = enrollmentInfo.AnyIDProofDetails;
+                txtIDProofNo.Text = enrollmentInfo.IDProofNo;
+                txtIssuingAuthority.Text = enrollmentInfo.IssuingAuthority;
+                rblRationCard.SelectedValue = enrollmentInfo.RationCard;
+                rblRationCardlinkedPDS.SelectedValue = enrollmentInfo.RationCardlinkedPDS;
+                rblBankAcPersonal.SelectedValue = enrollmentInfo.BankAccountNo;
+                rblPreviouslyLinkedSocialSecuritySchemes.SelectedValue = enrollmentInfo.LinkedSocialSecuritySchemes;
+                PreviouslyLinkedSocialSecuritySchemesChange();
+                ddlCriteriaWomen.SelectedIndex = ddlCriteriaWomen.Items.IndexOf(ddlCriteriaWomen.Items.FindByValue(TypeConversionUtility.ToStringWithNull(enrollmentInfo.WomenBelong)));
+
+                rblValidCertificate.SelectedValue = enrollmentInfo.ValidCertificate;
+                ddlMonthlyIndIncome.SelectedIndex = ddlMonthlyIndIncome.Items.IndexOf(ddlMonthlyIndIncome.Items.FindByValue(TypeConversionUtility.ToStringWithNull(enrollmentInfo.MonthlyIndividualIncome)));
+                ddlMonthlyHouseholdIncome.SelectedIndex = ddlMonthlyHouseholdIncome.Items.IndexOf(ddlMonthlyHouseholdIncome.Items.FindByValue(TypeConversionUtility.ToStringWithNull(enrollmentInfo.MonthlyHouseholdIncome)));
+                ddlLinkedScheme.SelectedIndex = ddlLinkedScheme.Items.IndexOf(ddlLinkedScheme.Items.FindByValue(TypeConversionUtility.ToStringWithNull(enrollmentInfo.Scheme)));
+                txtEmployeeId.Text = enrollmentInfo.EmployeeId;
+                ddlEnrollmentStatus.SelectedIndex = ddlEnrollmentStatus.Items.IndexOf(ddlEnrollmentStatus.Items.FindByValue(TypeConversionUtility.ToStringWithNull(enrollmentInfo.EnrollmentStatus)));
+                txtReplacementEmployeeId.Text = enrollmentInfo.ReplacementEmployeeId;
+                txtReplacementBeneficiaryCode.Text = enrollmentInfo.ReplacementBeneficiaryCode;
+                ddlCohort.SelectedIndex = ddlCohort.Items.IndexOf(ddlCohort.Items.FindByValue(TypeConversionUtility.ToStringWithNull(enrollmentInfo.CohortValue)));
+            }
+        }
+        catch 
+        {
+
+        }
+
     }
 }

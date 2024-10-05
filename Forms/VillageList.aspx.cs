@@ -160,4 +160,41 @@ public partial class Forms_VillageList : System.Web.UI.Page
         var redirectUrl = stringBuilder.ToString().TrimEnd('?', '&');
         Response.Redirect(redirectUrl);
     }
+    private void ExportToExcel()
+    {
+        try
+        {
+            var dt = obj_BL_Village.GetVillageListExport();
+            if (dt.Rows.Count > 0)
+            {
+                GridView gv = new GridView();
+                gv.DataSource = dt;
+                gv.DataBind();
+                Response.ClearContent();
+                Response.Buffer = true;
+                Response.AddHeader("content-disposition", "attachment; filename=VillageList.xls");
+                Response.ContentType = "application/ms-excel";
+                Response.Charset = "";
+                System.IO.StringWriter sw = new System.IO.StringWriter();
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+                gv.RenderControl(htw);
+                Response.Output.Write(sw.ToString());
+                Response.Flush();
+                Response.End();
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", " alert('Data not found !');", true);
+            }
+        }
+        catch (Exception ex)
+        {
+            Response.Write(ex.Message);
+        }
+    }
+
+    protected void Btn_Export_Click(object sender, EventArgs e)
+    {
+        ExportToExcel();
+    }
 }

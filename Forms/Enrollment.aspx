@@ -125,6 +125,17 @@
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
+                            <label class="col-sm-3 col-form-label">Cohort</label>
+                            <div class="col-sm-6">
+                                <asp:DropDownList ID="ddlCohort" runat="server" class="form-select">
+                                    <asp:ListItem Value="">--Select--</asp:ListItem>
+                                    <asp:ListItem Value="Cohort-1">Cohort-1</asp:ListItem>
+                                    <asp:ListItem Value="Cohort-2">Cohort-2</asp:ListItem>
+                                    <asp:ListItem Value="Cohort-3">Cohort-3</asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                        </div>
+                        <div class="mb-3 row m-1">
                             <label class="col-sm-3 col-form-label">Name of Women <span style="color: red;">*</span></label>
                             <div class="col-sm-6">
                                 <asp:TextBox ID="txtWomenName" runat="server" class="form-control" AutoComplete="off" OnTextChanged="txtWomenName_TextChanged" AutoPostBack="true"></asp:TextBox>

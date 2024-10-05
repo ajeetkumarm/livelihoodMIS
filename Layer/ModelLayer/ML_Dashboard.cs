@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModelLayer
 {
@@ -15,5 +11,7 @@ namespace ModelLayer
         public int TotalEDPTraining { get; set; }
         public int TotalEnterpriesTraining { get; set; }
         public int TotalBusinessProgress { get; set; }
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
     }
 }

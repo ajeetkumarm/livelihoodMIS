@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ModelLayer;
 using Microsoft.ApplicationBlocks.Data;
 
@@ -53,11 +49,40 @@ namespace DataLayer
                                };
             return SqlHelper.ExecuteNonQuery(con, "USP_InsUpdEntTraining", par);
         }
-        //public DataTable DL_FieldEntTraining(ML_EnterprisesTraining obj_ML_EnterprisesTraining)
-        //{
-        //    SqlParameter[] par = { new SqlParameter("@QueryType", obj_ML_EnterprisesTraining.QType) };
-        //    return SqlHelper.ExecuteDataset(con, "USP_Enrollment", par).Tables[0];
-        //}
-
+        public ML_EnterprisesTraining GetDetailByEnrollmentId(int enrollmentId)
+        {
+            ML_EnterprisesTraining obj_ML_EnterprisesTraining = new ML_EnterprisesTraining();
+            SqlParameter[] par = { new SqlParameter("@EnrollmentId", enrollmentId) };
+            DataSet ds = SqlHelper.ExecuteDataset(con, "USP_GetDetailByEnrollmentId", par);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                obj_ML_EnterprisesTraining.EntTrainingId = Convert.ToInt32(ds.Tables[0].Rows[0]["EntTrainingId"]);
+                obj_ML_EnterprisesTraining.EnrollmentId = Convert.ToInt32(ds.Tables[0].Rows[0]["EnrollmentId"]);
+                obj_ML_EnterprisesTraining.StartBusiness = Convert.ToString(ds.Tables[0].Rows[0]["StartBusiness"]);
+                obj_ML_EnterprisesTraining.BusinessReasons = Convert.ToString(ds.Tables[0].Rows[0]["BusinessReasons"]);
+                obj_ML_EnterprisesTraining.Business = Convert.ToString(ds.Tables[0].Rows[0]["Business"]);
+                obj_ML_EnterprisesTraining.BusinessWhen = Convert.ToString(ds.Tables[0].Rows[0]["BusinessWhen"]);
+                obj_ML_EnterprisesTraining.StatusBusiness = Convert.ToString(ds.Tables[0].Rows[0]["StatusBusiness"]);
+                obj_ML_EnterprisesTraining.VillagePopulation = Convert.ToString(ds.Tables[0].Rows[0]["VillagePopulation"]);
+                obj_ML_EnterprisesTraining.BusinessIdea = Convert.ToString(ds.Tables[0].Rows[0]["BusinessIdea"]);
+                obj_ML_EnterprisesTraining.BusinessType = Convert.ToString(ds.Tables[0].Rows[0]["BusinessType"]);
+                obj_ML_EnterprisesTraining.ProcureBusiness = Convert.ToString(ds.Tables[0].Rows[0]["ProcureBusiness"]);
+                obj_ML_EnterprisesTraining.CurrentBusiness = Convert.ToString(ds.Tables[0].Rows[0]["CurrentBusiness"]);
+                obj_ML_EnterprisesTraining.RegularFinancialBusiness = Convert.ToString(ds.Tables[0].Rows[0]["RegularFinancialBusiness"]);
+                obj_ML_EnterprisesTraining.HowRegularFinancial = Convert.ToString(ds.Tables[0].Rows[0]["HowRegularFinancial"]);
+                obj_ML_EnterprisesTraining.SettingBusinessType = Convert.ToString(ds.Tables[0].Rows[0]["SettingBusinessType"]);
+                obj_ML_EnterprisesTraining.MonthlyRent = Convert.ToString(ds.Tables[0].Rows[0]["MonthlyRent"]);
+                obj_ML_EnterprisesTraining.ExpandBusiness = Convert.ToString(ds.Tables[0].Rows[0]["ExpandBusiness"]);
+                obj_ML_EnterprisesTraining.PotentialCustomers = Convert.ToString(ds.Tables[0].Rows[0]["PotentialCustomers"]);
+                obj_ML_EnterprisesTraining.BusinessDistance = Convert.ToString(ds.Tables[0].Rows[0]["BusinessDistance"]);
+                obj_ML_EnterprisesTraining.ExpectedFootfall = Convert.ToString(ds.Tables[0].Rows[0]["ExpectedFootfall"]);
+                obj_ML_EnterprisesTraining.HowFarBussiness = Convert.ToString(ds.Tables[0].Rows[0]["HowFarBussiness"]);
+                obj_ML_EnterprisesTraining.PlanningBusiness = Convert.ToString(ds.Tables[0].Rows[0]["PlanningBusiness"]);
+                obj_ML_EnterprisesTraining.SupportBusiness = Convert.ToString(ds.Tables[0].Rows[0]["SupportBusiness"]);
+                obj_ML_EnterprisesTraining.SupportType = Convert.ToString(ds.Tables[0].Rows[0]["SupportType"]);
+                obj_ML_EnterprisesTraining.NotProvidedSupport = Convert.ToString(ds.Tables[0].Rows[0]["NotProvidedSupport"]);
+            }
+            return obj_ML_EnterprisesTraining;
+        }
     }
 }

@@ -80,6 +80,17 @@ public partial class Dashboard : System.Web.UI.Page
         {
             obj_ML_Dashboard.CreatedUser = UserCode;
             obj_ML_Dashboard.ProjectCode = ProjectId;
+
+            if (!string.IsNullOrEmpty(txtFromDate.Value.Trim()) && !string.IsNullOrEmpty(txtToDate.Value.Trim()))
+            {
+                obj_ML_Dashboard.FromDate = TypeConversionUtility.ToDateTime(txtFromDate.Value.Trim()).ToString("dd-MM-yyyy");
+                obj_ML_Dashboard.ToDate = TypeConversionUtility.ToDateTime(txtToDate.Value.Trim()).ToString("dd-MM-yyyy");
+            }
+            else
+            {
+                obj_ML_Dashboard.FromDate = null;
+                obj_ML_Dashboard.ToDate = null;
+            }
             DataSet DS = obj_BL_Dashboard.BL_DashboardCount(obj_ML_Dashboard);
 
 
@@ -103,6 +114,12 @@ public partial class Dashboard : System.Web.UI.Page
 
     protected void ddlProject_SelectedIndexChanged(object sender, EventArgs e)
     {
+        SearchDashboardCount();
+    }
+
+
+    private void SearchDashboardCount()
+    {
         try
         {
             DataTable DTUser = Session["UserDetails"] as DataTable;
@@ -123,5 +140,11 @@ public partial class Dashboard : System.Web.UI.Page
         {
             Response.Write(ex.Message);
         }
+    }
+    
+
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        SearchDashboardCount();
     }
 }

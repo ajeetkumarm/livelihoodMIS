@@ -99,4 +99,24 @@ public class Report : WebService
         };
         return resData;
     }
+
+    [WebMethod(EnableSession = true)]
+    public CustomListResponse<ConsolidateReportList> GetConsolidated(int draw, int pageNumber, int pageSize, string search)
+    {
+        string CreatedUser, projectCode;
+        DataTable DT = Session["UserDetails"] as DataTable;
+        CreatedUser = DT.Rows[0]["UserCode"].ToString();
+        projectCode = DT.Rows[0]["ProjectCode"].ToString();
+        BL_Reports objReport = new BL_Reports();
+        var data = objReport.RptConsolidated(Convert.ToInt32(CreatedUser), Convert.ToInt32(projectCode), pageNumber, pageSize, search).ToList();
+
+        var resData = new CustomListResponse<ConsolidateReportList>()
+        {
+            draw = draw,
+            recordsTotal = data.Count > 0 ? data[0].TotalCount : 0,
+            recordsFiltered = data.Count,
+            data = data
+        };
+        return resData;
+    }
 }

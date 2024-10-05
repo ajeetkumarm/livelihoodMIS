@@ -58,5 +58,9 @@ namespace BusinessLayer
         {
             return obj_DL_Enrollment.BusinessProgressMoveToEnterpriseSetup(enrollmentId, updatedBy);
         }
+        public ML_Enrollment GetEnrollmentDetail(int enrollmentId)
+        {
+            return obj_DL_Enrollment.GetEnrollmentDetail(enrollmentId);
+        }
     }
 }

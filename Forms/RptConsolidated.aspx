@@ -1,31 +1,31 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Forms/Livelihood.master" AutoEventWireup="true" CodeFile="RptEnrollment.aspx.cs" Inherits="Forms_RptEnrollment" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Forms/Livelihood.master" AutoEventWireup="true" CodeFile="RptConsolidated.aspx.cs" Inherits="Forms_RptConsolidated" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="/assets/js/angular/angular.min.js"></script>
 
-    <script src="/assets/js/angular/ReportEnrollment.js"></script>
+    <script src="/assets/js/angular/ReportConsolidated.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="pagetitle">
-        <h1>Enrollment Report</h1>
+        <h1>Consolidated Report</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item">Reports</li>
-                <li class="breadcrumb-item active">Enrollment Report</li>
+                <li class="breadcrumb-item active">Consolidated Report</li>
             </ol>
         </nav>
     </div>
     <section class="section">
         <div class="card">
-            <div class="card-body" ng-app="reportEnrollmentApp" ng-controller="reportEnrollmentController">
+            <div class="card-body" ng-app="reportConsolidatedApp" ng-controller="reportConsolidatedAppController">
                 <h5 class="card-title">Enrollment Report</h5>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card radius-10 mb-2 p-2">
                             <div class="table-responsive">
-                                <table id="reportEnrollmentTable" class="table table-striped table-bordered nowrap">
+                                <table id="reportConsolidatedTable" class="table table-striped table-bordered nowrap">
                                     <thead class="table-light">
                                         <tr>
                                             <th>S.No</th>
@@ -77,6 +77,47 @@
                                             <th>Monthly Household Income</th>
                                             <th>Scheme</th>
                                             <th>Submited On</th>
+
+                                            <th>Is Life Skills Training</th>
+                                            <th>RCSC Date</th>
+                                            <th>WRPC Date</th>
+                                            <th>HNC Date</th>
+                                            <th>FLC Date</th>
+                                            <th>EDTS Date</th>
+                                            <th>LEAP Date</th>
+                                            <th>ESIS Date</th>
+                                            <th>BMTC Date</th>
+                                            <th>MMTC Date</th>
+                                            <th>EDPT CDate</th>
+
+                                            <th>Start Business</th>
+                                            <th>Business Reasons</th>
+                                            <th>Business</th>
+                                            <th>Business When</th>
+                                            <th>Status Business</th>
+                                            <th>Village Population</th>
+                                            <th>Business Idea</th>
+                                            <th>Business Type</th>
+                                            <th>Procure Business</th>
+                                            <th>Current Business</th>
+                                            <th>Regular Financial Business</th>
+                                            <th>How Regular Financial</th>
+                                            <th>Setting Business Type</th>
+                                            <th>Monthly Rent</th>
+                                            <th>Expand Business</th>
+                                            <th>Potential Customers</th>
+                                            <th>Business Distance</th>
+                                            <th>Expected Foot fall</th>
+                                            <th>How Far Bussiness</th>
+                                            <th>Support Business</th>
+                                            <th>Support Type</th>
+                                            <th>Not Provided Support</th>
+                                            <th>Paid Worker</th>
+                                            <th>Digital Inclusion</th>
+                                            <th>Digital Inclusion Date</th>
+                                            <th>Own Smart Phone</th>
+                                            <th>Use Smart Phone</th>
+                                            <th>Supply Chain</th>
                                         </tr>
                                     </thead>
                                 </table>

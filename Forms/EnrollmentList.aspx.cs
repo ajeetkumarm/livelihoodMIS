@@ -31,6 +31,10 @@ public partial class EnrollmentList : System.Web.UI.Page
                 {
                     BindEnrollmentList(CreatedUser, projectCode);
                 }
+                if (Request.QueryString["Message"] != null)
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "message", "alert('Record has been save successfully!');", true);
+                }
             }
         }
         else

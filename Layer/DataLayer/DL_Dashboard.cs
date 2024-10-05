@@ -17,7 +17,9 @@ namespace DataLayer
         public DataSet DL_DashboardCount(ML_Dashboard obj_ML_Dashboard)
         {
             SqlParameter[] par = { new SqlParameter("@CreatedUser", obj_ML_Dashboard.CreatedUser),
-                                   new SqlParameter("@ProjectCode", obj_ML_Dashboard.ProjectCode)
+                                   new SqlParameter("@ProjectCode", obj_ML_Dashboard.ProjectCode),
+                                   new SqlParameter("@FromDate", obj_ML_Dashboard.FromDate),
+                                   new SqlParameter("@ToDate", obj_ML_Dashboard.ToDate),
             };
             return SqlHelper.ExecuteDataset(con, "USP_DashboardCount", par);
         }

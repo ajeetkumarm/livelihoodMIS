@@ -20,5 +20,9 @@ namespace BusinessLayer
         {
             return obj_DL_Village.GetVillages(pageNumber, pageSize, villageName);
         }
+        public DataTable GetVillageListExport()
+        {
+            return obj_DL_Village.GetVillageListExport();
+        }
     }
 }
