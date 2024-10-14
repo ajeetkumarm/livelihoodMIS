@@ -1,6 +1,6 @@
-﻿var app = angular.module('reportEnrollmentApp',[]);
-app.controller('reportEnrollmentController', function ($scope, $http) {
-
+﻿var app = angular.module('reportEnrollmentApp', []);
+app.controller('reportEnrollmentController', function ($scope, $http, $window) {
+    var UserCategory = parseInt($window.UserCategory, 10);
     clearDataTableState();
     function clearDataTableState() {
         var state = JSON.parse(localStorage.getItem('DataTables_reportEnrollmentTable_' + window.location.pathname));
@@ -9,19 +9,84 @@ app.controller('reportEnrollmentController', function ($scope, $http) {
             localStorage.setItem('DataTables_reportEnrollmentTable_' + window.location.pathname, JSON.stringify(state));
         }
     }
+    var columns = [
+        { data: 'RowNum' },
+        { data: 'BeneficiaryCode' },
+        { data: 'EmployeeId' },
+        { data: 'StateName' },
+        { data: 'DistrictName' },
+        { data: 'BlockName' },
+        { data: 'VillageName' },
+        { data: 'ProjectName' },
+
+    ];
+
+    if (UserCategory !== 9) {
+        columns = columns.concat({ data: 'UserName' },);
+    }
+
+    columns = columns.concat(
+        { data: 'EnrollmentStatus' },
+        { data: 'ReplacementEmployeeId' },
+        { data: 'ReplacementBeneficiaryCode' },
+        { data: 'CohortValue' },
+    );
+
+    if (UserCategory !== 9) {
+        columns = columns.concat(
+            { data: 'WomenName' },
+            { data: 'HusbandFatherName' },
+            { data: 'MotherName' },
+            { data: 'PhoneNo' }
+        );
+    }
+    columns = columns.concat(
+        { data: 'ThemeCode' },
+        { data: 'CastName' },
+        { data: 'EconomicStatus' },
+        { data: 'MaritalStatus' },
+        { data: 'BirthDateDisplay' },
+        { data: 'Age' },
+        { data: 'RegistrationDateDisplay' },
+        { data: 'PartSHG' },
+        { data: 'SHGName' },
+        { data: 'SHGDateDisplay' },
+        { data: 'SHGType' },
+        { data: 'EducationName' },
+        { data: 'PwD' },
+        { data: 'PwDSpecify' },
+        { data: 'AadhaarrCard' },
+        { data: 'AadhaarCardDetails' },
+        { data: 'AadhaarNo' },
+        { data: 'AnyIDProofDetails' },
+        { data: 'IDProofNo' },
+        { data: 'IssuingAuthority' },
+        { data: 'RationCard' },
+        { data: 'RationCardlinkedPDS' },
+        { data: 'BankAccountNo' },
+        { data: 'LinkedSocialSecuritySchemes' },
+        { data: 'Reasons' },
+        { data: 'WomenBelong' },
+        { data: 'ValidCertificate' },
+        { data: 'MonthlyIndividualIncome' },
+        { data: 'MonthlyHouseholdIncome' },
+        { data: 'SchemeName' },
+        { data: 'CreatedDisplay' },
+    );
+
     var dataTable = $('#reportEnrollmentTable').DataTable({
         serverSide: true,
         processing: true,
         paging: true,
-        
+
         ajax: function (data, callback, settings) {
-           
+
             $http({
                 method: 'POST',
                 url: '/WebServices/Report.asmx/GetEnrollmentDetails',
                 dataType: 'json',
                 method: 'POST',
-                data: "{'draw':" + data.draw + ",'pageNumber':" + data.start + ",'pageSize':" + data.length + ",'search':'" + data.search.value +"' }",
+                data: "{'draw':" + data.draw + ",'pageNumber':" + data.start + ",'pageSize':" + data.length + ",'search':'" + data.search.value + "' }",
                 headers: { 'Content-Type': 'application/json' }
             }).then(function (response) {
                 console.log(response.data.d);
@@ -38,56 +103,8 @@ app.controller('reportEnrollmentController', function ($scope, $http) {
                 $scope.loading = false;
             });
         },
-        columns: [
-            { data: 'RowNum' },
-            { data: 'BeneficiaryCode' },
-            { data: 'EmployeeId' },
-            { data: 'StateName' },
-            { data: 'DistrictName' },
-            { data: 'BlockName' },
-            { data: 'VillageName' },
-            { data: 'ProjectName' },
-            { data: 'UserName' },
-            { data: 'EnrollmentStatus' },
-            { data: 'ReplacementEmployeeId' },
-            { data: 'ReplacementBeneficiaryCode' },
-            { data: 'CohortValue' },
-            { data: 'WomenName' },
-            { data: 'HusbandFatherName' },
-            { data: 'MotherName' },
-            { data: 'PhoneNo' },
-            { data: 'ThemeCode' },
-            { data: 'CastName' },
-            { data: 'EconomicStatus' },
-            { data: 'MaritalStatus' },
-            { data: 'BirthDateDisplay' },
-            { data: 'Age' },
-            { data: 'RegistrationDateDisplay' },
-            { data: 'PartSHG' },
-            { data: 'SHGName' },
-            { data: 'SHGDateDisplay' },
-            { data: 'SHGType' },
-            { data: 'EducationName' },
-            { data: 'PwD' },
-            { data: 'PwDSpecify' },
-            { data: 'AadhaarrCard' },
-            { data: 'AadhaarCardDetails' },
-            { data: 'AadhaarNo' },
-            { data: 'AnyIDProofDetails' },
-            { data: 'IDProofNo' },
-            { data: 'IssuingAuthority' },
-            { data: 'RationCard' },
-            { data: 'RationCardlinkedPDS' },
-            { data: 'BankAccountNo' },
-            { data: 'LinkedSocialSecuritySchemes' },
-            { data: 'Reasons' },
-            { data: 'WomenBelong' },
-            { data: 'ValidCertificate' },
-            { data: 'MonthlyIndividualIncome' },
-            { data: 'MonthlyHouseholdIncome' },
-            { data: 'SchemeName' },
-            { data: 'CreatedDisplay' },
-        ],
+        columns: columns,
+
         lengthMenu: [
             [25, 50, 100, -1],
             [25, 50, 100, 'All'],

@@ -1,6 +1,6 @@
-﻿var app = angular.module('reportConsolidatedApp',[]);
-app.controller('reportConsolidatedAppController', function ($scope, $http) {
-
+﻿var app = angular.module('reportConsolidatedApp', []);
+app.controller('reportConsolidatedAppController', function ($scope, $http, $window) {
+    var UserCategory = parseInt($window.UserCategory, 10);
     clearDataTableState();
     function clearDataTableState() {
         var state = JSON.parse(localStorage.getItem('DataTables_reportConsolidatedTable_' + window.location.pathname));
@@ -9,19 +9,125 @@ app.controller('reportConsolidatedAppController', function ($scope, $http) {
             localStorage.setItem('DataTables_reportConsolidatedTable_' + window.location.pathname, JSON.stringify(state));
         }
     }
+
+    var columns = [
+        { data: 'RowNum' },
+        { data: 'BeneficiaryCode' },
+        { data: 'EmployeeId' },
+        { data: 'StateName' },
+        { data: 'DistrictName' },
+        { data: 'BlockName' },
+        { data: 'VillageName' },
+        { data: 'ProjectName' },
+
+    ];
+
+    if (UserCategory !== 9) {
+        columns = columns.concat({ data: 'UserName' });
+    }
+
+    columns = columns.concat(
+        { data: 'EnrollmentStatus' },
+        { data: 'ReplacementEmployeeId' },
+        { data: 'ReplacementBeneficiaryCode' },
+        { data: 'CohortValue' }
+    );
+
+    if (UserCategory !== 9) {
+        columns = columns.concat(
+            { data: 'WomenName' },
+            { data: 'HusbandFatherName' },
+            { data: 'MotherName' },
+            { data: 'PhoneNo' }
+        );
+    }
+
+    columns = columns.concat({ data: 'ThemeCode' },
+        { data: 'CastName' },
+        { data: 'EconomicStatus' },
+        { data: 'MaritalStatus' },
+        { data: 'BirthDateDisplay' },
+        { data: 'Age' },
+        { data: 'RegistrationDateDisplay' },
+        { data: 'PartSHG' },
+        { data: 'SHGName' },
+        { data: 'SHGDateDisplay' },
+        { data: 'SHGType' },
+        { data: 'EducationName' },
+        { data: 'PwD' },
+        { data: 'PwDSpecify' },
+        { data: 'AadhaarrCard' },
+        { data: 'AadhaarCardDetails' },
+        { data: 'AadhaarNo' },
+        { data: 'AnyIDProofDetails' },
+        { data: 'IDProofNo' },
+        { data: 'IssuingAuthority' },
+        { data: 'RationCard' },
+        { data: 'RationCardlinkedPDS' },
+        { data: 'BankAccountNo' },
+        { data: 'LinkedSocialSecuritySchemes' },
+        { data: 'Reasons' },
+        { data: 'WomenBelong' },
+        { data: 'ValidCertificate' },
+        { data: 'MonthlyIndividualIncome' },
+        { data: 'MonthlyHouseholdIncome' },
+        { data: 'SchemeName' },
+        { data: 'CreatedDisplay' },
+
+        { data: 'IsLifeSkillsTraining' },
+        { data: 'RCSCDate' },
+        { data: 'WRPCDate' },
+        { data: 'HNCDate' },
+        { data: 'FLCDate' },
+        { data: 'EDTSDate' },
+        { data: 'LEAPDate' },
+        { data: 'ESISDate' },
+        { data: 'BMTCDate' },
+        { data: 'MMTCDate' },
+        { data: 'EDPTCDate' },
+
+        { data: 'StartBusiness' },
+        { data: 'BusinessReasons' },
+        { data: 'Business' },
+        { data: 'BusinessWhen' },
+        { data: 'StatusBusiness' },
+        { data: 'VillagePopulation' },
+        { data: 'BusinessIdea' },
+        { data: 'BusinessType' },
+        { data: 'ProcureBusiness' },
+        { data: 'CurrentBusiness' },
+        { data: 'RegularFinancialBusiness' },
+        { data: 'HowRegularFinancial' },
+        { data: 'SettingBusinessType' },
+        { data: 'MonthlyRent' },
+        { data: 'ExpandBusiness' },
+        { data: 'PotentialCustomers' },
+        { data: 'BusinessDistance' },
+        { data: 'ExpectedFootfall' },
+        { data: 'HowFarBussiness' },
+        { data: 'SupportBusiness' },
+        { data: 'SupportType' },
+        { data: 'NotProvidedSupport' },
+        { data: 'PaidWorker' },
+        { data: 'DigitalInclusion' },
+        { data: 'DigitalInclusionDate' },
+        { data: 'OwnSmartPhone' },
+        { data: 'UseSmartPhone' },
+        { data: 'SupplyChain' });
+
     var dataTable = $('#reportConsolidatedTable').DataTable({
         serverSide: true,
         processing: true,
         paging: true,
-        
+
         ajax: function (data, callback, settings) {
-           
+
             $http({
                 method: 'POST',
                 url: '/WebServices/Report.asmx/GetConsolidated',
                 dataType: 'json',
                 method: 'POST',
-                data: "{'draw':" + data.draw + ",'pageNumber':" + data.start + ",'pageSize':" + data.length + ",'search':'" + data.search.value +"' }",
+                data: "{'draw':" + data.draw + ",'pageNumber':" + data.start + ",'pageSize':" + data.length + ",'search':'" + data.search.value + "' }",
                 headers: { 'Content-Type': 'application/json' }
             }).then(function (response) {
                 console.log(response.data.d);
@@ -38,97 +144,7 @@ app.controller('reportConsolidatedAppController', function ($scope, $http) {
                 $scope.loading = false;
             });
         },
-        columns: [
-            { data: 'RowNum' },
-            { data: 'BeneficiaryCode' },
-            { data: 'EmployeeId' },
-            { data: 'StateName' },
-            { data: 'DistrictName' },
-            { data: 'BlockName' },
-            { data: 'VillageName' },
-            { data: 'ProjectName' },
-            { data: 'UserName' },
-            { data: 'EnrollmentStatus' },
-            { data: 'ReplacementEmployeeId' },
-            { data: 'ReplacementBeneficiaryCode' },
-            { data: 'CohortValue' },
-            { data: 'WomenName' },
-            { data: 'HusbandFatherName' },
-            { data: 'MotherName' },
-            { data: 'PhoneNo' },
-            { data: 'ThemeCode' },
-            { data: 'CastName' },
-            { data: 'EconomicStatus' },
-            { data: 'MaritalStatus' },
-            { data: 'BirthDateDisplay' },
-            { data: 'Age' },
-            { data: 'RegistrationDateDisplay' },
-            { data: 'PartSHG' },
-            { data: 'SHGName' },
-            { data: 'SHGDateDisplay' },
-            { data: 'SHGType' },
-            { data: 'EducationName' },
-            { data: 'PwD' },
-            { data: 'PwDSpecify' },
-            { data: 'AadhaarrCard' },
-            { data: 'AadhaarCardDetails' },
-            { data: 'AadhaarNo' },
-            { data: 'AnyIDProofDetails' },
-            { data: 'IDProofNo' },
-            { data: 'IssuingAuthority' },
-            { data: 'RationCard' },
-            { data: 'RationCardlinkedPDS' },
-            { data: 'BankAccountNo' },
-            { data: 'LinkedSocialSecuritySchemes' },
-            { data: 'Reasons' },
-            { data: 'WomenBelong' },
-            { data: 'ValidCertificate' },
-            { data: 'MonthlyIndividualIncome' },
-            { data: 'MonthlyHouseholdIncome' },
-            { data: 'SchemeName' },
-            { data: 'CreatedDisplay' },
-
-            { data: 'IsLifeSkillsTraining' },
-            { data: 'RCSCDate' },
-            { data: 'WRPCDate' },
-            { data: 'HNCDate' },
-            { data: 'FLCDate' },
-            { data: 'EDTSDate' },
-            { data: 'LEAPDate' },
-            { data: 'ESISDate' },
-            { data: 'BMTCDate' },
-            { data: 'MMTCDate' },
-            { data: 'EDPTCDate' },
-
-            { data: 'StartBusiness' },
-            { data: 'BusinessReasons' },
-            { data: 'Business' },
-            { data: 'BusinessWhen' },
-            { data: 'StatusBusiness' },
-            { data: 'VillagePopulation' },
-            { data: 'BusinessIdea' },
-            { data: 'BusinessType' },
-            { data: 'ProcureBusiness' },
-            { data: 'CurrentBusiness' },
-            { data: 'RegularFinancialBusiness' },
-            { data: 'HowRegularFinancial' },
-            { data: 'SettingBusinessType' },
-            { data: 'MonthlyRent' },
-            { data: 'ExpandBusiness' },
-            { data: 'PotentialCustomers' },
-            { data: 'BusinessDistance' },
-            { data: 'ExpectedFootfall' },
-            { data: 'HowFarBussiness' },
-            { data: 'SupportBusiness' },
-            { data: 'SupportType' },
-            { data: 'NotProvidedSupport' },
-            { data: 'PaidWorker' },
-            { data: 'DigitalInclusion' },
-            { data: 'DigitalInclusionDate' },
-            { data: 'OwnSmartPhone' },
-            { data: 'UseSmartPhone' },
-            { data: 'SupplyChain' },
-        ],
+        columns: columns,
         lengthMenu: [
             [25, 50, 100, -1],
             [25, 50, 100, 'All'],

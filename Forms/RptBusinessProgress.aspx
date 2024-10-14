@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Forms/Livelihood.master" AutoEventWireup="true" CodeFile="RptBusinessProgress.aspx.cs" Inherits="Forms_RptBusinessProgress" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <script type="text/javascript">
+        var UserCategory = <%= UserCategory %>;
+    </script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="/assets/js/angular/angular.min.js"></script>
     <script src="/assets/js/angular/ReportBusinessProgress.js"></script>
@@ -34,8 +37,11 @@
                                             <th>Block</th>
                                             <th>Village</th>
                                             <th>Project</th>
+                                            <% if (UserCategory != 9)
+                                                { %>
                                             <th>UserName (FE)</th>
                                             <th>Women Name</th>
+                                            <% } %>
                                             <th>Starting Business Date</th>
                                             <th>Year</th>
                                             <th>Month</th>

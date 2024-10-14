@@ -32,6 +32,7 @@ public partial class Forms_RptEnrollmentExport : System.Web.UI.Page
 
             CreatedUser = DT.Rows[0]["UserCode"].ToString();
             projectCode = DT.Rows[0]["ProjectCode"].ToString();
+            int UserCategory = Convert.ToInt32(DT.Rows[0]["UserCategory"].ToString());
             BL_Reports objReport = new BL_Reports();
             DataTable dataTable = new DataTable();
 
@@ -40,7 +41,7 @@ public partial class Forms_RptEnrollmentExport : System.Web.UI.Page
 
             if (exportType == 1)
             {
-                dataTable = objReport.RptEnrollmentDetailDT(Convert.ToInt32(CreatedUser), Convert.ToInt32(projectCode), 0, int.MaxValue, "");
+                dataTable = objReport.RptEnrollmentDetailDT(Convert.ToInt32(CreatedUser), Convert.ToInt32(projectCode), 0, int.MaxValue, "", UserCategory);
             }
             else if (exportType == 2)
             {
@@ -58,13 +59,13 @@ public partial class Forms_RptEnrollmentExport : System.Web.UI.Page
             {
                 strFileName = "Report_Business_Progress_Training_" + DateTime.Now.ToLocalTime().ToString() + ".xlsx";
                 strSheetName = "Business Progress";
-                dataTable = objReport.RptBusinessProgressDetailsDT(Convert.ToInt32(CreatedUser), Convert.ToInt32(projectCode), 0, int.MaxValue, "");
+                dataTable = objReport.RptBusinessProgressDetailsDT(Convert.ToInt32(CreatedUser), Convert.ToInt32(projectCode), 0, int.MaxValue, "", UserCategory);
             }
             else if (exportType == 5)
             {
                 strFileName = "Report_Consolidated_" + DateTime.Now.ToLocalTime().ToString() + ".xlsx";
                 strSheetName = "Business Progress";
-                dataTable = objReport.RptConsolidatedDT(Convert.ToInt32(CreatedUser), Convert.ToInt32(projectCode), 0, int.MaxValue, "");
+                dataTable = objReport.RptConsolidatedDT(Convert.ToInt32(CreatedUser), Convert.ToInt32(projectCode), 0, int.MaxValue, "", UserCategory);
             }
             using (var workbook = new XSSFWorkbook())
             {

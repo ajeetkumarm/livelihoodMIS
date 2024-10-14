@@ -1,6 +1,6 @@
-﻿var app = angular.module('reportBusinessProgressApp',[]);
-app.controller('reportBusinessProgressController', function ($scope, $http) {
-
+﻿var app = angular.module('reportBusinessProgressApp', []);
+app.controller('reportBusinessProgressController', function ($scope, $http,$window) {
+    var UserCategory = parseInt($window.UserCategory, 10);
     clearDataTableState();
     function clearDataTableState() {
         var state = JSON.parse(localStorage.getItem('DataTables_reportBusinessProgressTable_' + window.location.pathname));
@@ -9,19 +9,60 @@ app.controller('reportBusinessProgressController', function ($scope, $http) {
             localStorage.setItem('DataTables_reportBusinessProgressTable_' + window.location.pathname, JSON.stringify(state));
         }
     }
+
+    var columns = [{ data: 'RowNum' },
+    { data: 'BeneficiaryCode' },
+    { data: 'StateName' },
+    { data: 'DistrictName' },
+    { data: 'BlockName' },
+    { data: 'VillageName' },
+    { data: 'ProjectName' }];
+
+
+    if (UserCategory !== 9) {
+
+        columns = columns.concat({ data: 'UserName' });
+        columns = columns.concat({ data: 'WomenName' });
+    }
+
+    columns = columns.concat({ data: 'StartingBusinessDate' },
+        { data: 'Year' },
+        { data: 'Month' },
+        { data: 'NoNewCustomer' },
+        { data: 'NoRepeatedCustomer' },
+        { data: 'ServicesOfferedType' },
+        { data: 'ServicesProvidedDetails' },
+        { data: 'GovCustomerServices' },
+        { data: 'G2CServices' },
+        { data: 'IncomefromSell' },
+        { data: 'CashSellAmount' },
+        { data: 'CreditSellAmount' },
+        { data: 'TotalIncome' },
+        { data: 'Investment' },
+        { data: 'ExpenditurefromPurchase' },
+        { data: 'CashExpenditure' },
+        { data: 'CreditExpenditure' },
+        { data: 'TotalExpenditure' },
+        { data: 'LastMonthCredit' },
+        { data: 'CreditSettlement' },
+        { data: 'MonthlyProfitLoss' },
+        { data: 'PaymentReceived' },
+        { data: 'PaymentReceivedMode' },
+        { data: 'CreatedDisplay' });
+
     var dataTable = $('#reportBusinessProgressTable').DataTable({
         serverSide: true,
         processing: true,
         paging: true,
-        
+
         ajax: function (data, callback, settings) {
-           
+
             $http({
                 method: 'POST',
                 url: '/WebServices/Report.asmx/GetRptBusinessProgressDetails',
                 dataType: 'json',
                 method: 'POST',
-                data: "{'draw':" + data.draw + ",'pageNumber':" + data.start + ",'pageSize':" + data.length + ",'search':'" + data.search.value +"' }",
+                data: "{'draw':" + data.draw + ",'pageNumber':" + data.start + ",'pageSize':" + data.length + ",'search':'" + data.search.value + "' }",
                 headers: { 'Content-Type': 'application/json' }
             }).then(function (response) {
                 console.log(response.data.d);
@@ -38,41 +79,7 @@ app.controller('reportBusinessProgressController', function ($scope, $http) {
                 $scope.loading = false;
             });
         },
-        columns: [
-            { data: 'RowNum' },
-            { data: 'BeneficiaryCode' },
-            { data: 'StateName' },
-            { data: 'DistrictName' },
-            { data: 'BlockName' },
-            { data: 'VillageName' },
-            { data: 'ProjectName' },
-            { data: 'UserName' },
-            { data: 'WomenName' },
-            { data: 'StartingBusinessDate' },
-            { data: 'Year' },
-            { data: 'Month' },
-            { data: 'NoNewCustomer' },
-            { data: 'NoRepeatedCustomer' },
-            { data: 'ServicesOfferedType' },
-            { data: 'ServicesProvidedDetails' },
-            { data: 'GovCustomerServices' },
-            { data: 'G2CServices' },
-            { data: 'IncomefromSell' },
-            { data: 'CashSellAmount' },
-            { data: 'CreditSellAmount' },
-            { data: 'TotalIncome' },
-            { data: 'Investment' },
-            { data: 'ExpenditurefromPurchase' },
-            { data: 'CashExpenditure' },
-            { data: 'CreditExpenditure' },
-            { data: 'TotalExpenditure' },
-            { data: 'LastMonthCredit' },
-            { data: 'CreditSettlement' },
-            { data: 'MonthlyProfitLoss' },
-            { data: 'PaymentReceived' },
-            { data: 'PaymentReceivedMode' },
-            { data: 'CreatedDisplay' },
-        ],
+        columns: columns,
         lengthMenu: [
             [25, 50, 100, -1],
             [25, 50, 100, 'All'],

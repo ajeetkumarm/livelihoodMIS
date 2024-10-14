@@ -1,10 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Forms/Livelihood.master" AutoEventWireup="true" CodeFile="RptEnrollment.aspx.cs" Inherits="Forms_RptEnrollment" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <script type="text/javascript">
+        var UserCategory = <%= UserCategory %>;
+    </script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="/assets/js/angular/angular.min.js"></script>
 
     <script src="/assets/js/angular/ReportEnrollment.js"></script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="pagetitle">
@@ -36,16 +40,23 @@
                                             <th>Block</th>
                                             <th>Village</th>
                                             <th>Project</th>
+                                            <% if (UserCategory != 9)
+                                                { %>
                                             <th>UserName (FE)</th>
-
+                                            <% } %>
                                             <th>Enrollment Status</th>
                                             <th>Replacement Employee Id</th>
                                             <th>Replacement Beneficiary Code</th>
                                             <th>Cohort</th>
+
+                                            <% if (UserCategory != 9)
+                                                { %>
                                             <th>Women Name</th>
                                             <th>Husband/Father Name</th>
                                             <th>Mother Name</th>
                                             <th>Phone No.</th>
+                                            <% } %>
+
                                             <th>Theme Code</th>
                                             <th>Cast</th>
                                             <th>Economic Status</th>

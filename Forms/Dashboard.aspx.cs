@@ -91,16 +91,34 @@ public partial class Dashboard : System.Web.UI.Page
                 obj_ML_Dashboard.FromDate = null;
                 obj_ML_Dashboard.ToDate = null;
             }
-            DataSet DS = obj_BL_Dashboard.BL_DashboardCount(obj_ML_Dashboard);
+            //DataSet DS = obj_BL_Dashboard.BL_DashboardCount(obj_ML_Dashboard);
 
-
+            var DashboardCountModel = obj_BL_Dashboard.BL_DashboardCount(obj_ML_Dashboard);
+            if(DashboardCountModel != null)
+            {
+                lblTotalEnrollment.Text = DashboardCountModel.TotalEnrollment.ToString();
+                lblTotalEDPTraining.Text = DashboardCountModel.TotalEDPTraining.ToString();
+                lblTotalEnterprisesSetup.Text = DashboardCountModel.TotalEnterpriesTraining.ToString();
+                lblTotalBusinessProgress.Text = DashboardCountModel.TotalBusinessProgress.ToString();
+                lblNewBusiness.Text = DashboardCountModel.TotalBusinessNew.ToString();
+                lblUpgradeBusiness.Text = DashboardCountModel.TotalBusinessUpgrade.ToString();
+                lblInnovativeBusiness.Text = DashboardCountModel.TotalBusinessInnovative.ToString();
+                lblFinancialLiteracyTraining.Text = DashboardCountModel.TotalFinancialLiteracyTraining.ToString();
+                lblTotalBusinessProgressActive.Text = DashboardCountModel.TotalBusinessProgressActive.ToString();
+                lblTotalBusinessProgressHold.Text = DashboardCountModel.TotalBusinessProgressHold.ToString();
+                lblTotalBusinessProgressClose.Text = DashboardCountModel.TotalBusinessProgressClose.ToString();
+            }
 
             // if (DT.Rows.Count > 0)
             //{
-            lblTotalEnrollment.Text = DS.Tables[0].Rows[0]["TotalEnrollment"].ToString();
-            lblTotalEDPTraining.Text = DS.Tables[1].Rows[0]["TotalEDPTraining"].ToString();
-            lblTotalEnterprisesSetup.Text = DS.Tables[2].Rows[0]["TotalEnterpriesTraining"].ToString();
-            lblTotalBusinessProgress.Text = DS.Tables[3].Rows[0]["TotalBusinessProgress"].ToString();
+            //lblTotalEnrollment.Text = DS.Tables[0].Rows[0]["TotalEnrollment"].ToString();
+            //lblTotalEDPTraining.Text = DS.Tables[1].Rows[0]["TotalEDPTraining"].ToString();
+            //lblTotalEnterprisesSetup.Text = DS.Tables[2].Rows[0]["TotalEnterpriesTraining"].ToString();
+            //lblTotalBusinessProgress.Text = DS.Tables[3].Rows[0]["TotalBusinessProgress"].ToString();
+            //lblNewBusiness.Text = DS.Tables[4].Rows[0]["TotalBusinessNew"].ToString();
+            //lblUpgradeBusiness.Text = DS.Tables[5].Rows[0]["TotalBusinessUpgrade"].ToString();
+            //lblInnovativeBusiness.Text = DS.Tables[6].Rows[0]["TotalBusinessInnovative"].ToString();
+            //lblFinancialLiteracyTraining.Text = DS.Tables[7].Rows[0]["FinancialLiteracyTraining"].ToString();
             //}
             //{
             //    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", " alert('Data not found !');", true);

@@ -133,6 +133,149 @@
                 </div>
                 <!-- End Customers Card -->
 
+                <!-- New Business Card -->
+                <div class="col-xxl-4 col-xl-12">
+                    <div class="card  bg-success bg-opacity-50 info-card business-card">
+                        <div class="card-body">
+                            <h5 class="card-title">New Business<span>| No. of Users</span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="bi bi-people"></i></div>
+                                <div class="ps-3">
+                                    <h6>
+                                        <asp:Label ID="lblNewBusiness" runat="server" Text="0"></asp:Label>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End New Business Card -->
+
+                <!-- New Existing/Upgrade Business -->
+                <div class="col-xxl-4 col-xl-12">
+                    <div class="card  bg-success bg-opacity-50 info-card business-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Existing/Upgrade Business<span>| No. of Users</span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="bi bi-people"></i></div>
+                                <div class="ps-3">
+                                    <h6>
+                                        <asp:Label ID="lblUpgradeBusiness" runat="server" Text="0"></asp:Label>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Existing/Upgrade Business -->
+
+                <!-- Start Innovative Business -->
+                <div class="col-xxl-4 col-xl-12">
+                    <div class="card bg-info bg-opacity-50 info-card business-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Innovative Business<span>| No. of Users</span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="bi bi-people"></i></div>
+                                <div class="ps-3">
+                                    <h6>
+                                        <asp:Label ID="lblInnovativeBusiness" runat="server" Text="0"></asp:Label>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Innovative Business -->
+
+                <!-- Start Financial Literacy Training -->
+                <div class="col-xxl-4 col-xl-12">
+                    <div class="card  bg-success bg-opacity-50 info-card business-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Financial Literacy Training<span>| No. of Users</span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="bi bi-people"></i></div>
+                                <div class="ps-3">
+                                    <h6>
+                                        <asp:Label ID="lblFinancialLiteracyTraining" runat="server" Text="0"></asp:Label>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Financial Literacy Training -->
+
+                <!-- Start Financial Literacy Training -->
+                <div class="col-xxl-4 col-xl-12" style="display: none;">
+                    <div class="card  bg-success bg-opacity-50 info-card business-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Dropout/Closed Business/ Hold Business<span>| No. of Users</span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="bi bi-people"></i></div>
+                                <div class="ps-3">
+                                    <h6>
+                                        <asp:Label ID="lblDropoutClosedHoldBusiness" runat="server" Text="0"></asp:Label>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Financial Literacy Training -->
+
+                <!-- Start Business Progress Active -->
+                <div class="col-xxl-4 col-xl-12">
+                    <div class="card bg-info bg-opacity-50 info-card business-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Business Progress Active<span>| No. of Users</span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="bi bi-people"></i></div>
+                                <div class="ps-3">
+                                    <h6>
+                                        <asp:Label ID="lblTotalBusinessProgressActive" runat="server" Text="0"></asp:Label>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Business Progress Active -->
+
+                <!-- Start Business Progress Hold -->
+                <div class="col-xxl-4 col-xl-12">
+                    <div class="card  bg-warning bg-opacity-50 info-card business-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Business Progress Hold<span>| No. of Users</span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="bi bi-people"></i></div>
+                                <div class="ps-3">
+                                    <h6>
+                                        <asp:Label ID="lblTotalBusinessProgressHold" runat="server" Text="0"></asp:Label>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Business Progress Hold -->
+
+                <!-- Start Business Progress Hold -->
+                <div class="col-xxl-4 col-xl-12">
+                    <div class="card  bg-danger bg-opacity-50 info-card business-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Business Progress Closed<span>| No. of Users</span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="bi bi-people"></i></div>
+                                <div class="ps-3">
+                                    <h6>
+                                        <asp:Label ID="lblTotalBusinessProgressClose" runat="server" Text="0"></asp:Label>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Business Progress Hold -->
             </div>
         </section>
     </div>

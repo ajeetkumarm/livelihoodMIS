@@ -437,11 +437,18 @@
                             </div>
                         </div>
 
+                        <div class="mb-3 row m-1" style="border: dashed; background-color: aliceblue">
 
+                            <label class="col-sm-12 text-center ">
+                                <span style="color: red;">*</span><b>
+                                    <asp:CheckBox ID="chkcondition" runat="server" ValidationGroup="1" OnCheckedChanged="chkcondition_CheckedChanged" AutoPostBack="true" Class="chkcnd" />
+                                    I hereby declare that I have obtained consent from the beneficiary for the collection, use, and processing of their personal data, and that I have thoroughly explained the purpose, storage mechanism, control, sharing policy, and beneficiary rights to them</b></label>
+                            
+                        </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <div class="col-sm-10">
-                                    <asp:Button ID="Btn_SubmitForm" runat="server" CssClass="btn btn-primary" Text="Submit Form" OnClick="Btn_SubmitForm_Click" ValidationGroup="Submit" />
+                                    <asp:Button ID="Btn_SubmitForm" runat="server" CssClass="btn btn-primary" Enabled="false" Text="Submit Form" OnClick="Btn_SubmitForm_Click" ValidationGroup="Submit" />
                                     &nbsp;
                                     <asp:Button ID="Btn_Cancel" runat="server" CssClass="btn btn-secondary" Text="Cancel" OnClick="Btn_Cancel_Click" />
                                 </div>
@@ -455,6 +462,7 @@
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="Btn_SubmitForm" />
+            <asp:AsyncPostBackTrigger ControlID="chkcondition" />
         </Triggers>
     </asp:UpdatePanel>
 </asp:Content>

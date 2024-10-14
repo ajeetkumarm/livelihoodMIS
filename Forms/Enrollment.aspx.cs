@@ -510,6 +510,8 @@ public partial class Forms_Enrollment : System.Web.UI.Page
         rfvReplacementBeneficiaryCode.Enabled = false;
         rfvReplacementEmployeeId.Enabled = false;
         ddlCohort.SelectedValue = "";
+        chkcondition.Checked = false;
+        Btn_SubmitForm.Enabled = false;
 
 
     }
@@ -691,5 +693,16 @@ public partial class Forms_Enrollment : System.Web.UI.Page
 
         }
 
+    }
+    protected void chkcondition_CheckedChanged(object sender, EventArgs e)
+    {
+        if (chkcondition.Checked)
+        {
+            Btn_SubmitForm.Enabled = true;
+        }
+        else
+        {
+            Btn_SubmitForm.Enabled = false;
+        }
     }
 }
