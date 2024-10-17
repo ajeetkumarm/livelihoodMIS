@@ -46,7 +46,7 @@
                                                     <th>Block</th>
                                                     <th>Village</th>
                                                     <th>Registration Date</th>
-                                                    <th>Are you Interested in EDP Training ?</th>
+                                                    <th>Are you Interested in Training ?</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -117,7 +117,7 @@
         <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="text-center fs-5" style="margin: auto;">EDP Training not interested reasons</h5>
+                    <h5 class="text-center fs-5" style="margin: auto;">Training not interested reasons</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -131,6 +131,9 @@
                                 <asp:ListItem Value="Household Chores">Household Chores</asp:ListItem>
                                 <asp:ListItem Value="May be Migrating Soon">May be Migrating Soon</asp:ListItem>
                                 <asp:ListItem Value="Family is Not Allowing">Family is Not Allowing</asp:ListItem>
+                                <asp:ListItem Value="Marriage">Marriage</asp:ListItem>
+                                <asp:ListItem Value="Health Issues">Health Issues</asp:ListItem>
+                                <asp:ListItem Value="Died">Died</asp:ListItem>
                                 <asp:ListItem Value="Others">Others</asp:ListItem>
                             </asp:DropDownList>
                         </div>

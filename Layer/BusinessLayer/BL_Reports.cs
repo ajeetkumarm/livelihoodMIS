@@ -73,6 +73,7 @@ namespace BusinessLayer
             dt.Columns.Add("SHG Name", typeof(string));
             dt.Columns.Add("SHG Date", typeof(string));
             dt.Columns.Add("SHG Type", typeof(string));
+            dt.Columns.Add("SHG Id", typeof(string));
             dt.Columns.Add("Education", typeof(string));
             dt.Columns.Add("PwD", typeof(string));
             dt.Columns.Add("PwD Specify", typeof(string));
@@ -131,6 +132,7 @@ namespace BusinessLayer
                 dr["SHG Name"] = TypeConversionUtility.ToStringWithNull(item.SHGName);
                 dr["SHG Date"] = TypeConversionUtility.ToStringWithNull(item.SHGDateDisplay);
                 dr["SHG Type"] = TypeConversionUtility.ToStringWithNull(item.SHGType);
+                dr["SHG Id"] = TypeConversionUtility.ToStringWithNull(item.SHGId);
                 dr["Education"] = TypeConversionUtility.ToStringWithNull(item.Education);
                 dr["PwD"] = TypeConversionUtility.ToStringWithNull(item.PwD);
                 dr["PwD Specify"] = TypeConversionUtility.ToStringWithNull(item.PwDSpecify);
@@ -448,6 +450,7 @@ namespace BusinessLayer
             dt.Columns.Add("SHG Name", typeof(string));
             dt.Columns.Add("SHG Date", typeof(string));
             dt.Columns.Add("SHG Type", typeof(string));
+            dt.Columns.Add("SHG Id", typeof(string));
             dt.Columns.Add("Education", typeof(string));
             dt.Columns.Add("PwD", typeof(string));
             dt.Columns.Add("PwD Specify", typeof(string));
@@ -556,6 +559,8 @@ namespace BusinessLayer
                 dr["SHG Name"] = TypeConversionUtility.ToStringWithNull(item.SHGName);
                 dr["SHG Date"] = TypeConversionUtility.ToStringWithNull(item.SHGDateDisplay);
                 dr["SHG Type"] = TypeConversionUtility.ToStringWithNull(item.SHGType);
+                dr["SHG Id"] = TypeConversionUtility.ToStringWithNull(item.SHGId);
+
                 dr["Education"] = TypeConversionUtility.ToStringWithNull(item.Education);
                 dr["PwD"] = TypeConversionUtility.ToStringWithNull(item.PwD);
                 dr["PwD Specify"] = TypeConversionUtility.ToStringWithNull(item.PwDSpecify);

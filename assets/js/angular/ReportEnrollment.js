@@ -52,6 +52,7 @@ app.controller('reportEnrollmentController', function ($scope, $http, $window) {
         { data: 'SHGName' },
         { data: 'SHGDateDisplay' },
         { data: 'SHGType' },
+        { data: 'SHGId' },
         { data: 'EducationName' },
         { data: 'PwD' },
         { data: 'PwDSpecify' },

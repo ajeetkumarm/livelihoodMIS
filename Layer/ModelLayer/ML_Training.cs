@@ -24,5 +24,11 @@ namespace ModelLayer
         public string EDPTCDate { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
+
+        public string InductionTrainingDay1 { get; set; }
+        public string InductionTrainingDay2 { get; set; }
+        public string DigitalSkillTrainingDay1 { get; set; }
+        public string DigitalSkillTrainingDay2 { get; set; }
+        public string DigitalSkillTrainingDay3 { get; set; }
     }
 }

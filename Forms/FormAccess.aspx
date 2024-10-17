@@ -48,7 +48,7 @@
                                 <asp:CheckBoxList ID="chkForms" runat="server" RepeatDirection="Horizontal" RepeatColumns="1" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="chkForms_SelectedIndexChanged">
                                     <asp:ListItem Value="1">1. Forms - Enrollment</asp:ListItem>
                                     <asp:ListItem Value="2">2. Forms - Enrollment List</asp:ListItem>
-                                    <asp:ListItem Value="3">3. Forms - EDP Training</asp:ListItem>
+                                    <asp:ListItem Value="3">3. Forms - Training</asp:ListItem>
                                     <asp:ListItem Value="4">4. Forms - Enterprise Setup</asp:ListItem>
                                     <asp:ListItem Value="5">5. Forms - Business Progress</asp:ListItem>
                                 </asp:CheckBoxList>

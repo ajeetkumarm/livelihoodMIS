@@ -29,7 +29,12 @@ namespace DataLayer
                                   new SqlParameter("@MMTCDate", obj_ML_Training.MMTCDate),
                                   new SqlParameter("@EDPTCDate", obj_ML_Training.EDPTCDate),
                                   new SqlParameter("@CreatedBy", obj_ML_Training.CreatedBy),
-                                  new SqlParameter("@UpdateBy", obj_ML_Training.UpdatedBy)
+                                  new SqlParameter("@UpdateBy", obj_ML_Training.UpdatedBy),
+                                  new SqlParameter("@InductionTrainingDay1", obj_ML_Training.InductionTrainingDay1),
+                                  new SqlParameter("@InductionTrainingDay2", obj_ML_Training.InductionTrainingDay2),
+                                  new SqlParameter("@DigitalSkillTrainingDay1", obj_ML_Training.DigitalSkillTrainingDay1),
+                                  new SqlParameter("@DigitalSkillTrainingDay2", obj_ML_Training.DigitalSkillTrainingDay2),
+                                  new SqlParameter("@DigitalSkillTrainingDay3", obj_ML_Training.DigitalSkillTrainingDay3)
                                };
             return SqlHelper.ExecuteNonQuery(con, "USP_InsUpdTraining", par);
         }

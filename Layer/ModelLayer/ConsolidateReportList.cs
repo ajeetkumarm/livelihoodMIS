@@ -34,6 +34,7 @@ namespace ModelLayer
         public string PartSHG { get; set; }
         public string SHGName { get; set; }
         public int SHGType { get; set; }
+        public int SHGId { get; set; }
         public string RegistrationDate { get; set; }
         public string RegistrationDateDisplay => RegistrationDate != null ? TypeConversionUtility.ToDateTime(RegistrationDate).ToString("dd/MM/yyyy") : string.Empty;
         public string SHGDate { get; set; }

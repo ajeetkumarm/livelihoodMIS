@@ -58,6 +58,7 @@ namespace DataLayer
                                   new SqlParameter("@ReplacementBeneficiaryCode", obj_ML_Enrollment.ReplacementBeneficiaryCode),
                                   new SqlParameter("@EnrollmentStatus", obj_ML_Enrollment.EnrollmentStatus),
                                   new SqlParameter("@CohortValue", obj_ML_Enrollment.CohortValue),
+                                  new SqlParameter("@SHGId", obj_ML_Enrollment.SHGId),
                                };
             return SqlHelper.ExecuteNonQuery(con, "USP_InsEnrollmentForm", par);
         }

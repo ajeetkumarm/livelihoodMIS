@@ -37,6 +37,11 @@ public partial class Forms_Training : System.Web.UI.Page
                 txtBMTCDate.Text = DT.Rows[0]["BMTCDate"].ToString();
                 txtMMTCDate.Text = DT.Rows[0]["MMTCDate"].ToString();
                 txtEDPTCDate.Text = DT.Rows[0]["EDPTCDate"].ToString();
+                txtInductionTraingDay1.Text = DT.Rows[0]["InductionTrainingDay1"].ToString();
+                txtInductionTraingDay2.Text = DT.Rows[0]["InductionTrainingDay2"].ToString();
+                txtDigitalSkillTrainingDay1.Text = DT.Rows[0]["DigitalSkillTrainingDay1"].ToString();
+                txtDigitalSkillTrainingDay2.Text = DT.Rows[0]["DigitalSkillTrainingDay2"].ToString();
+                txtDigitalSkillTrainingDay3.Text = DT.Rows[0]["DigitalSkillTrainingDay3"].ToString();
                 Btn_Submit.Text = "Update";
                 if (rblIsLifeSkills.SelectedValue == "Yes")
                 {
@@ -67,6 +72,14 @@ public partial class Forms_Training : System.Web.UI.Page
         {
             DataTable DT = Session["UserDetails"] as DataTable;
             string UserCode = DT.Rows[0]["UserCode"].ToString();
+
+
+            obj_ML_Training.InductionTrainingDay1 = txtInductionTraingDay1.Text != "" ? txtInductionTraingDay1.Text : "";
+            obj_ML_Training.InductionTrainingDay2 = txtInductionTraingDay2.Text != "" ? txtInductionTraingDay2.Text : "";
+            obj_ML_Training.DigitalSkillTrainingDay1 = txtDigitalSkillTrainingDay1.Text != "" ? txtDigitalSkillTrainingDay1.Text : "";
+            obj_ML_Training.DigitalSkillTrainingDay2 = txtDigitalSkillTrainingDay2.Text != "" ? txtDigitalSkillTrainingDay2.Text : "";
+            obj_ML_Training.DigitalSkillTrainingDay3 = txtDigitalSkillTrainingDay3.Text != "" ? txtDigitalSkillTrainingDay3.Text : "";
+
             if (Btn_Submit.Text == "Submit")
             {
                 obj_ML_Training.EnrollmentId = Convert.ToInt32(Request.QueryString["EnrolId"]);
@@ -82,6 +95,9 @@ public partial class Forms_Training : System.Web.UI.Page
                 obj_ML_Training.MMTCDate = txtMMTCDate.Text != "" ? txtMMTCDate.Text : "";
                 obj_ML_Training.EDPTCDate = txtEDPTCDate.Text != "" ? txtEDPTCDate.Text : "";
                 obj_ML_Training.CreatedBy = UserCode;
+
+
+
                 int x = obj_BL_Training.BL_InsUpdTraining(obj_ML_Training);
                 if (x > 0)
                 {

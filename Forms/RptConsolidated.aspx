@@ -66,6 +66,8 @@
                                             <th>SHG Name</th>
                                             <th>SHG Date</th>
                                             <th>SHG Type</th>
+                                            <th>SHG Id</th>
+
                                             <th>Education</th>
                                             <th>PwD</th>
                                             <th>PwD Specify</th>

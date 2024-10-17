@@ -53,6 +53,7 @@ app.controller('reportConsolidatedAppController', function ($scope, $http, $wind
         { data: 'SHGName' },
         { data: 'SHGDateDisplay' },
         { data: 'SHGType' },
+        { data: 'SHGId' },
         { data: 'EducationName' },
         { data: 'PwD' },
         { data: 'PwDSpecify' },

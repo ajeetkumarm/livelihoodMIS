@@ -4,19 +4,19 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="pagetitle">
-        <h1>EDP Training List</h1>
+        <h1>Training List</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item">Forms</li>
-                <li class="breadcrumb-item active">EDP Training List</li>
+                <li class="breadcrumb-item active">Training List</li>
             </ol>
         </nav>
     </div>
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">EDP Training List</h5>
+                <h5 class="card-title">Training List</h5>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card radius-10 mb-2 p-2">

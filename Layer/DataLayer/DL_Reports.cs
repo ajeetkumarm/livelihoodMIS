@@ -122,6 +122,7 @@ namespace DataLayer
                             enrollmentInfo.ReplacementBeneficiaryCode = TypeConversionUtility.ToStringWithNull(dr["ReplacementBeneficiaryCode"]);
                             enrollmentInfo.EnrollmentStatus = TypeConversionUtility.ToStringWithNull(dr["EnrollmentStatus"]);
                             enrollmentInfo.CohortValue = TypeConversionUtility.ToStringWithNull(dr["CohortValue"]);
+                            enrollmentInfo.SHGId = TypeConversionUtility.ToStringWithNull(dr["SHGId"]);
                             enrollmentList.Add(enrollmentInfo);
                         }
                     }
@@ -470,7 +471,7 @@ namespace DataLayer
                             enrollmentInfo.ReplacementBeneficiaryCode = TypeConversionUtility.ToStringWithNull(dr["ReplacementBeneficiaryCode"]);
                             enrollmentInfo.EnrollmentStatus = TypeConversionUtility.ToStringWithNull(dr["EnrollmentStatus"]);
                             enrollmentInfo.CohortValue = TypeConversionUtility.ToStringWithNull(dr["CohortValue"]);
-
+                            enrollmentInfo.SHGId = TypeConversionUtility.ToInteger(dr["SHGId"]);
                             #endregion
 
                             #region "EDP Training Details"

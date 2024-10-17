@@ -96,6 +96,38 @@
                             <span style="color: #0026ff; font-weight: bold;">* Enterprise Development Training Component</span>
 
                             <div class="mb-3 row m-1">
+                                <label class="col-sm-3 col-form-label">Day 1: Induction Training</label>
+                                <div class="col-sm-6">
+                                    <asp:TextBox ID="txtInductionTraingDay1" runat="server" class="form-control" type="date" AutoComplete="off"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="mb-3 row m-1">
+                                <label class="col-sm-3 col-form-label">Day 2: Induction Training</label>
+                                <div class="col-sm-6">
+                                    <asp:TextBox ID="txtInductionTraingDay2" runat="server" class="form-control" type="date" AutoComplete="off"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="mb-3 row m-1">
+                                <label class="col-sm-3 col-form-label">Day 1: Digital Skill Training</label>
+                                <div class="col-sm-6">
+                                    <asp:TextBox ID="txtDigitalSkillTrainingDay1" runat="server" class="form-control" type="date" AutoComplete="off"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="mb-3 row m-1">
+                                <label class="col-sm-3 col-form-label">Day 2: Digital Skill Training</label>
+                                <div class="col-sm-6">
+                                    <asp:TextBox ID="txtDigitalSkillTrainingDay2" runat="server" class="form-control" type="date" AutoComplete="off"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="mb-3 row m-1">
+                                <label class="col-sm-3 col-form-label">Day 3: Digital Skill Training</label>
+                                <div class="col-sm-6">
+                                    <asp:TextBox ID="txtDigitalSkillTrainingDay3" runat="server" class="form-control" type="date" AutoComplete="off"></asp:TextBox>
+                                </div>
+                            </div>
+                            
+
+                            <div class="mb-3 row m-1">
                                 <label class="col-sm-3 col-form-label">Enterprise Development Training Starting Date</label>
                                 <div class="col-sm-6">
                                     <asp:TextBox ID="txtEDTSDate" runat="server" class="form-control" type="date" AutoComplete="off"></asp:TextBox>
@@ -126,7 +158,7 @@
                                 </div>
                             </div>
                             <div class="mb-3 row m-1">
-                                <label class="col-sm-3 col-form-label">EDP Training Completion Date</label>
+                                <label class="col-sm-3 col-form-label">Training Completion Date</label>
                                 <div class="col-sm-6">
                                     <asp:TextBox ID="txtEDPTCDate" runat="server" class="form-control" type="date" AutoComplete="off"></asp:TextBox>
                                 </div>

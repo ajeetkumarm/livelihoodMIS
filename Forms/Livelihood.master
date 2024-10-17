@@ -153,7 +153,7 @@
                     <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li id="li_1" runat="server" visible="false"><a href="Enrollment.aspx"><i class="bi bi-circle"></i><span>Enrollment</span> </a></li>
                         <li id="li_2" runat="server" visible="false"><a href="EnrollmentList.aspx"><i class="bi bi-circle"></i><span>Enrollment List</span> </a></li>
-                        <li id="li_3" runat="server" visible="false"><a href="TrainingList.aspx"><i class="bi bi-circle"></i><span>EDP Training</span> </a></li>
+                        <li id="li_3" runat="server" visible="false"><a href="TrainingList.aspx"><i class="bi bi-circle"></i><span>Training</span> </a></li>
                         <li id="li_4" runat="server" visible="false"><a href="EnterpriesSetup.aspx"><i class="bi bi-circle"></i><span>Enterprise Setup</span> </a></li>
                         <li id="li_5" runat="server" visible="false"><a href="BusinessProgressList.aspx"><i class="bi bi-circle"></i><span>Business Progress</span> </a></li>
                     </ul>
@@ -164,7 +164,7 @@
                 <li class="nav-item" id="liReportSection" runat="server"><a class="nav-link collapsed" data-bs-target="#forms-rept" data-bs-toggle="collapse" href="#"><i class="bi bi-journal-text"></i><span>Reports</span><i class="bi bi-chevron-down ms-auto"></i> </a>
                     <ul id="forms-rept" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li id="li_R1" runat="server" visible="false"><a href="RptEnrollment.aspx"><i class="bi bi-circle"></i><span>Enrollment</span> </a></li>
-                        <li id="li_R2" runat="server" visible="false"><a href="RptTraining.aspx"><i class="bi bi-circle"></i><span>EDP Training</span> </a></li>
+                        <li id="li_R2" runat="server" visible="false"><a href="RptTraining.aspx"><i class="bi bi-circle"></i><span>Training</span> </a></li>
                         <li id="li_R3" runat="server" visible="false"><a href="RptEnterpriesSetup.aspx"><i class="bi bi-circle"></i><span>Enterprise Setup</span> </a></li>
                         <li id="li_R4" runat="server" visible="false"><a href="RptBusinessProgress.aspx"><i class="bi bi-circle"></i><span>Business Progress</span> </a></li>
                         <li id="li_R5" runat="server" visible="false"><a href="RptConsolidated.aspx"><i class="bi bi-circle"></i><span>Consolidated Report</span> </a></li>

@@ -83,7 +83,7 @@
                 <div class="col-xxl-4 col-md-6">
                     <div class="card bg-primary bg-opacity-25 info-card revenue-card">
                         <div class="card-body">
-                            <h5 class="card-title">EDP Training <span>| No. of Users</span></h5>
+                            <h5 class="card-title">Training <span>| No. of Users</span></h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="bi bi-people"></i></div>
                                 <div class="ps-3">
@@ -227,7 +227,7 @@
                 <div class="col-xxl-4 col-xl-12">
                     <div class="card bg-info bg-opacity-50 info-card business-card">
                         <div class="card-body">
-                            <h5 class="card-title">Business Progress Active<span>| No. of Users</span></h5>
+                            <h5 class="card-title">Business Active<span>| No. of Users</span></h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="bi bi-people"></i></div>
                                 <div class="ps-3">
@@ -245,7 +245,7 @@
                 <div class="col-xxl-4 col-xl-12">
                     <div class="card  bg-warning bg-opacity-50 info-card business-card">
                         <div class="card-body">
-                            <h5 class="card-title">Business Progress Hold<span>| No. of Users</span></h5>
+                            <h5 class="card-title">Business Hold<span>| No. of Users</span></h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="bi bi-people"></i></div>
                                 <div class="ps-3">
@@ -263,7 +263,7 @@
                 <div class="col-xxl-4 col-xl-12">
                     <div class="card  bg-danger bg-opacity-50 info-card business-card">
                         <div class="card-body">
-                            <h5 class="card-title">Business Progress Closed<span>| No. of Users</span></h5>
+                            <h5 class="card-title">Business Closed<span>| No. of Users</span></h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="bi bi-people"></i></div>
                                 <div class="ps-3">

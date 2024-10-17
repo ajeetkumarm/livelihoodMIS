@@ -257,12 +257,23 @@
                                     ValidationGroup="Submit" ForeColor="Red" Display="Dynamic" SetFocusOnError="true"></asp:RequiredFieldValidator>
                             </div>
                         </div>
-                        <div id="div_SHGType" runat="server" class="mb-3 row m-1" visible="false">
-                            <label class="col-sm-3 col-form-label">Type of SHG</label>
-                            <div class="col-sm-6">
-                                <asp:DropDownList ID="ddlShgType" runat="server" CssClass="form-select"></asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="rfvShgType" runat="server" ErrorMessage="Please Enter Type of SHG!" ControlToValidate="ddlShgType"
-                                    ValidationGroup="Submit" ForeColor="Red" Display="Dynamic" SetFocusOnError="true"></asp:RequiredFieldValidator>
+                        <div id="div_SHGType" runat="server" visible="false">
+                            <div class="mb-3 row m-1">
+                                <label class="col-sm-3 col-form-label">Type of SHG <span style="color: red;">*</span></label>
+                                <div class="col-sm-6">
+                                    <asp:DropDownList ID="ddlShgType" runat="server" CssClass="form-select"></asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="rfvShgType" runat="server" ErrorMessage="Please Enter Type of SHG!" ControlToValidate="ddlShgType" InitialValue="--Select SHG--"
+                                        ValidationGroup="Submit" ForeColor="Red" Display="Dynamic" SetFocusOnError="true"></asp:RequiredFieldValidator>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row m-1">
+                                <label class="col-sm-3 col-form-label">SHG Id <span style="color: red;">*</span></label>
+                                <div class="col-sm-6">
+                                    <asp:TextBox ID="txtSHGId" runat="server" class="form-control" AutoComplete="off" MaxLength="25"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvSHGId" runat="server" ErrorMessage="Please Enter SHG ID!" ControlToValidate="txtSHGId" 
+                                        ValidationGroup="Submit" ForeColor="Red" Display="Dynamic" SetFocusOnError="true"></asp:RequiredFieldValidator>
+                                </div>
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
@@ -443,7 +454,7 @@
                                 <span style="color: red;">*</span><b>
                                     <asp:CheckBox ID="chkcondition" runat="server" ValidationGroup="1" OnCheckedChanged="chkcondition_CheckedChanged" AutoPostBack="true" Class="chkcnd" />
                                     I hereby declare that I have obtained consent from the beneficiary for the collection, use, and processing of their personal data, and that I have thoroughly explained the purpose, storage mechanism, control, sharing policy, and beneficiary rights to them</b></label>
-                            
+
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">

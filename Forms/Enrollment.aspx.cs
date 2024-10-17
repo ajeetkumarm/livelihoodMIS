@@ -424,11 +424,10 @@ public partial class Forms_Enrollment : System.Web.UI.Page
                 obj_ML_Enrollment.EnrollmentStatus = TypeConversionUtility.ToStringWithNull(ddlEnrollmentStatus.SelectedValue);
                 obj_ML_Enrollment.ReplacementEmployeeId = TypeConversionUtility.ToStringWithNull(txtReplacementEmployeeId.Text).Trim();
                 obj_ML_Enrollment.ReplacementBeneficiaryCode = TypeConversionUtility.ToStringWithNull(txtReplacementBeneficiaryCode.Text).Trim();
+               obj_ML_Enrollment.SHGId = TypeConversionUtility.ToStringWithNull(txtSHGId.Text).Trim();
                 int x = obj_BL_Enrollment.BL_InsEnrollment(obj_ML_Enrollment);
                 if (x > 0)
                 {
-                    
-                    
                     if (EnrollmentId > 0)
                     {
                         Response.Redirect("EnrollmentList.aspx?Message=Success");
@@ -512,7 +511,7 @@ public partial class Forms_Enrollment : System.Web.UI.Page
         ddlCohort.SelectedValue = "";
         chkcondition.Checked = false;
         Btn_SubmitForm.Enabled = false;
-
+        txtSHGId.Text = "";
 
     }
     protected void rblSHG_SelectedIndexChanged(object sender, EventArgs e)
