@@ -34,7 +34,7 @@ namespace ModelLayer
         public string PartSHG { get; set; }
         public string SHGName { get; set; }
         public int SHGType { get; set; }
-        public int SHGId { get; set; }
+        public string SHGId { get; set; }
         public string RegistrationDate { get; set; }
         public string RegistrationDateDisplay => RegistrationDate != null ? TypeConversionUtility.ToDateTime(RegistrationDate).ToString("dd/MM/yyyy") : string.Empty;
         public string SHGDate { get; set; }
@@ -82,6 +82,18 @@ namespace ModelLayer
         public string MMTCDate { get; set; }
         public string EDPTCDate { get; set; }
         public int IsTrainingCompleted { get; set; }
+        public string IsInductionTraining { get; set; }	
+        public string IsDigitalSkillTraining { get; set; }
+        public string InductionTrainingDay1 { get; set; }
+        public string InductionTrainingDay2 { get; set; }
+        public string DigitalSkillTrainingDay1 { get; set; }
+        public string DigitalSkillTrainingDay2 { get; set; }
+        public string DigitalSkillTrainingDay3 { get; set; }
+        public string EDPIntroDay1 { get; set; }
+        public string BusinessPlanDay2 { get; set; }
+        public string FinancialLiteracyDay3 { get; set; }
+        public string FinancialTermsDay4 { get; set; }
+        public string BusinessManagementDay5 { get; set; }
 
         // Add Enterpries Training Report
         public string StartBusiness { get; set; }

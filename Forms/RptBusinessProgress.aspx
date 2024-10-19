@@ -49,7 +49,7 @@
                                             <th>No Repeated Customer</th>
                                             <th>Services Offered Type</th>
                                             <th>Services Provided Details</th>
-                                            <th>Gov Customer Services</th>
+                                            <th>Total Villages Covered</th>
                                             <th>G2C Services</th>
                                             <th>Income from Sell</th>
                                             <th>Cash Sell Amount</th>

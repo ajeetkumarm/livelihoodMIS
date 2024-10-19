@@ -87,6 +87,7 @@ namespace BusinessLayer
                         businessProgressCustomer.PaymentModeNoneDigital = true;
                     }
                     businessProgressCustomer.PaymentReceivedMode = TypeConversionUtility.ToStringWithNull(dtBusinessProgress.Rows[0]["PaymentReceivedMode"]);
+                    businessProgressCustomer.TotalVillagesCovered = TypeConversionUtility.ToInteger(dtBusinessProgress.Rows[0]["TotalVillagesCovered"]);
                 }
 
                 if (dtBusinessProgressCategories.Rows.Count > 0)

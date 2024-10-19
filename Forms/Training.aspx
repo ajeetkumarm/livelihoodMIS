@@ -92,9 +92,17 @@
                             </div>
                         </div>
 
-                        <div id="divEdt" runat="server" class="row">
-                            <span style="color: #0026ff; font-weight: bold;">* Enterprise Development Training Component</span>
-
+                        <div class="mb-3 row m-1" id="divInductionTraining" runat="server">
+                            <label class="col-sm-3 col-form-label">Is Induction Training a part of the programme</label>
+                            <div class="col-sm-6">
+                                <asp:RadioButtonList ID="rblIsInductionTraining" runat="server" RepeatDirection="Horizontal" AutoPostBack="true"
+                                    OnSelectedIndexChanged="rblIsInductionTraining_SelectedIndexChanged">
+                                    <asp:ListItem Value="Yes">Yes</asp:ListItem>
+                                    <asp:ListItem Value="No">No</asp:ListItem>
+                                </asp:RadioButtonList>
+                            </div>
+                        </div>
+                        <div id="divInductionTrainingDay" runat="server" class="row" visible="false">
                             <div class="mb-3 row m-1">
                                 <label class="col-sm-3 col-form-label">Day 1: Induction Training</label>
                                 <div class="col-sm-6">
@@ -107,6 +115,17 @@
                                     <asp:TextBox ID="txtInductionTraingDay2" runat="server" class="form-control" type="date" AutoComplete="off"></asp:TextBox>
                                 </div>
                             </div>
+                        </div>
+                        <div class="mb-3 row m-1" id="divDigitalSkillTraining" runat="server">
+                            <label class="col-sm-3 col-form-label">Is Digital Skill Training a part of the programme</label>
+                            <div class="col-sm-6">
+                                <asp:RadioButtonList ID="rblIsDigitalSkillTraining" runat="server" RepeatDirection="Horizontal" AutoPostBack="true" OnSelectedIndexChanged="rblIsDigitalSkillTraining_SelectedIndexChanged">
+                                    <asp:ListItem Value="Yes">Yes</asp:ListItem>
+                                    <asp:ListItem Value="No">No</asp:ListItem>
+                                </asp:RadioButtonList>
+                            </div>
+                        </div>
+                        <div id="divDigitalSkillTrainingDay" runat="server" class="row" visible="false">
                             <div class="mb-3 row m-1">
                                 <label class="col-sm-3 col-form-label">Day 1: Digital Skill Training</label>
                                 <div class="col-sm-6">
@@ -125,7 +144,11 @@
                                     <asp:TextBox ID="txtDigitalSkillTrainingDay3" runat="server" class="form-control" type="date" AutoComplete="off"></asp:TextBox>
                                 </div>
                             </div>
-                            
+                        </div>
+
+
+                        <div id="divEdt" runat="server" class="row">
+                            <span style="color: #0026ff; font-weight: bold;">* Enterprise Development Training Component</span>
 
                             <div class="mb-3 row m-1">
                                 <label class="col-sm-3 col-form-label">Enterprise Development Training Starting Date</label>
@@ -161,6 +184,41 @@
                                 <label class="col-sm-3 col-form-label">Training Completion Date</label>
                                 <div class="col-sm-6">
                                     <asp:TextBox ID="txtEDPTCDate" runat="server" class="form-control" type="date" AutoComplete="off"></asp:TextBox>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="divEdpDetails" runat="server" class="row" visible="false">
+                            <span style="color: #0026ff; font-weight: bold;">* Enterprise Development Training Component</span>
+
+                            <div class="mb-3 row m-1">
+                                <label class="col-sm-3 col-form-label">Day 1: Enterprise Development Programme – An Introduction</label>
+                                <div class="col-sm-6">
+                                    <asp:TextBox ID="txtEDPIntroDay1" runat="server" class="form-control" type="date" AutoComplete="off"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="mb-3 row m-1">
+                                <label class="col-sm-3 col-form-label">Day 2: Business Plan and Resource Management</label>
+                                <div class="col-sm-6">
+                                    <asp:TextBox ID="txtBusinessPlanDay2" runat="server" class="form-control" type="date" AutoComplete="off"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="mb-3 row m-1">
+                                <label class="col-sm-3 col-form-label">Day 3: Financial Literacy Training</label>
+                                <div class="col-sm-6">
+                                    <asp:TextBox ID="txtFinancialLiteracyDay3" runat="server" class="form-control" type="date" AutoComplete="off"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="mb-3 row m-1">
+                                <label class="col-sm-3 col-form-label">Day 4: Important Financial Terms and Special Customer Services</label>
+                                <div class="col-sm-6">
+                                    <asp:TextBox ID="txtFinancialTermsDay4" runat="server" class="form-control" type="date" AutoComplete="off"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="mb-3 row m-1">
+                                <label class="col-sm-3 col-form-label">Day 5: Business Management</label>
+                                <div class="col-sm-6">
+                                    <asp:TextBox ID="txtBusinessManagementDay5" runat="server" class="form-control" type="date" AutoComplete="off"></asp:TextBox>
                                 </div>
                             </div>
                         </div>

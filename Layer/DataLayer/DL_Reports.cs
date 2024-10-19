@@ -227,6 +227,49 @@ namespace DataLayer
                             {
                                 trainingInfo.UpdatedOn = TypeConversionUtility.ToDateTime(dr["UpdatedOn"]);
                             }
+
+                            trainingInfo.IsInductionTraining = TypeConversionUtility.ToStringWithNull(dr["IsInductionTraining"]);
+                            if(!string.IsNullOrEmpty(trainingInfo.InductionTrainingDay1))
+                            {
+                                trainingInfo.InductionTrainingDay1 = TypeConversionUtility.ToDateTime(trainingInfo.InductionTrainingDay1).ToString("dd/MM/yyyy");
+                            }
+                            if(!string.IsNullOrEmpty(trainingInfo.InductionTrainingDay2))
+                            {
+                                trainingInfo.InductionTrainingDay2 = TypeConversionUtility.ToDateTime(trainingInfo.InductionTrainingDay2).ToString("dd/MM/yyyy");
+                            }
+                            trainingInfo.IsDigitalSkillTraining = TypeConversionUtility.ToStringWithNull(dr["IsDigitalSkillTraining"]);
+                            if(!string.IsNullOrEmpty(trainingInfo.DigitalSkillTrainingDay1))
+                            {
+                                trainingInfo.DigitalSkillTrainingDay1 = TypeConversionUtility.ToDateTime(trainingInfo.DigitalSkillTrainingDay1).ToString("dd/MM/yyyy");
+                            }
+                            if(!string.IsNullOrEmpty(trainingInfo.DigitalSkillTrainingDay2))
+                            {
+                                trainingInfo.DigitalSkillTrainingDay2 = TypeConversionUtility.ToDateTime(trainingInfo.DigitalSkillTrainingDay2).ToString("dd/MM/yyyy");
+                            }
+                            if(!string.IsNullOrEmpty(trainingInfo.DigitalSkillTrainingDay3))
+                            {
+                                trainingInfo.DigitalSkillTrainingDay3 = TypeConversionUtility.ToDateTime(trainingInfo.DigitalSkillTrainingDay3).ToString("dd/MM/yyyy");
+                            }
+                            if(!string.IsNullOrEmpty(trainingInfo.EDPIntroDay1))
+                            {
+                                trainingInfo.EDPIntroDay1 = TypeConversionUtility.ToDateTime(trainingInfo.EDPIntroDay1).ToString("dd/MM/yyyy");
+                            }
+                            if(!string.IsNullOrEmpty(trainingInfo.BusinessPlanDay2))
+                            {
+                                trainingInfo.BusinessPlanDay2 = TypeConversionUtility.ToDateTime(trainingInfo.BusinessPlanDay2).ToString("dd/MM/yyyy");
+                            }
+                            if(!string.IsNullOrEmpty(trainingInfo.FinancialLiteracyDay3))
+                            {
+                                trainingInfo.FinancialLiteracyDay3 = TypeConversionUtility.ToDateTime(trainingInfo.FinancialLiteracyDay3).ToString("dd/MM/yyyy");
+                            }
+                            if(!string.IsNullOrEmpty(trainingInfo.FinancialTermsDay4))
+                            {
+                                trainingInfo.FinancialTermsDay4 = TypeConversionUtility.ToDateTime(trainingInfo.FinancialTermsDay4).ToString("dd/MM/yyyy");
+                            }
+                            if(!string.IsNullOrEmpty(trainingInfo.BusinessManagementDay5))
+                            {
+                                trainingInfo.BusinessManagementDay5 = TypeConversionUtility.ToDateTime(trainingInfo.BusinessManagementDay5).ToString("dd/MM/yyyy");
+                            }
                             trainingList.Add(trainingInfo);
                         }
                         
@@ -380,6 +423,7 @@ namespace DataLayer
                             {
                                 enterpriesTrainingInfo.UpdatedOn = TypeConversionUtility.ToDateTime(dr["UpdatedOn"]);
                             }
+                            enterpriesTrainingInfo.TotalVillagesCovered = TypeConversionUtility.ToInteger(dr["TotalVillagesCovered"]);
                             enterpriesTrainingList.Add(enterpriesTrainingInfo);
                         }
                     }
@@ -471,7 +515,7 @@ namespace DataLayer
                             enrollmentInfo.ReplacementBeneficiaryCode = TypeConversionUtility.ToStringWithNull(dr["ReplacementBeneficiaryCode"]);
                             enrollmentInfo.EnrollmentStatus = TypeConversionUtility.ToStringWithNull(dr["EnrollmentStatus"]);
                             enrollmentInfo.CohortValue = TypeConversionUtility.ToStringWithNull(dr["CohortValue"]);
-                            enrollmentInfo.SHGId = TypeConversionUtility.ToInteger(dr["SHGId"]);
+                            enrollmentInfo.SHGId = TypeConversionUtility.ToStringWithNull(dr["SHGId"]);
                             #endregion
 
                             #region "EDP Training Details"
@@ -530,6 +574,49 @@ namespace DataLayer
                                 enrollmentInfo.EDPTCDate = TypeConversionUtility.ToDateTime(enrollmentInfo.EDPTCDate).ToString("dd/MM/yyyy");
                             }
                             enrollmentInfo.IsTrainingCompleted = TypeConversionUtility.ToInteger(dr["IsTrainingCompleted"]);
+                            enrollmentInfo.IsInductionTraining = TypeConversionUtility.ToStringWithNull(dr["IsInductionTraining"]);
+                            enrollmentInfo.IsDigitalSkillTraining = TypeConversionUtility.ToStringWithNull(dr["IsDigitalSkillTraining"]);   
+                            if(TypeConversionUtility.ToStringWithNull(dr["InductionTrainingDay1"])!="")
+                            {
+                                enrollmentInfo.InductionTrainingDay1 = TypeConversionUtility.ToDateTime(dr["InductionTrainingDay1"]).ToString("dd/MM/yyyy");
+                            }
+                            if(TypeConversionUtility.ToStringWithNull(dr["InductionTrainingDay2"])!=""  )
+                            {
+                                enrollmentInfo.InductionTrainingDay2 = TypeConversionUtility.ToDateTime(dr["InductionTrainingDay2"]).ToString("dd/MM/yyyy");
+                            }
+                            if(TypeConversionUtility.ToStringWithNull(dr["DigitalSkillTrainingDay1"])!="")  
+                            {
+                                enrollmentInfo.DigitalSkillTrainingDay1 = TypeConversionUtility.ToDateTime(dr["DigitalSkillTrainingDay1"]).ToString("dd/MM/yyyy");
+                            }
+                            if(TypeConversionUtility.ToStringWithNull(dr["DigitalSkillTrainingDay2"])!="")
+                            {
+                                enrollmentInfo.DigitalSkillTrainingDay2 = TypeConversionUtility.ToDateTime(dr["DigitalSkillTrainingDay2"]).ToString("dd/MM/yyyy");
+                            }
+                            if(TypeConversionUtility.ToStringWithNull(dr["DigitalSkillTrainingDay3"])!="")
+                            {
+                                enrollmentInfo.DigitalSkillTrainingDay3 = TypeConversionUtility.ToDateTime(dr["DigitalSkillTrainingDay3"]).ToString("dd/MM/yyyy");
+                            }
+                            
+                            if(TypeConversionUtility.ToStringWithNull(dr["EDPIntroDay1"])!="")
+                            {
+                                enrollmentInfo.EDPIntroDay1 = TypeConversionUtility.ToDateTime(dr["EDPIntroDay1"]).ToString("dd/MM/yyyy");
+                            }
+                            if(TypeConversionUtility.ToStringWithNull(dr["BusinessPlanDay2"])!="")
+                            {
+                                enrollmentInfo.BusinessPlanDay2 = TypeConversionUtility.ToDateTime(dr["BusinessPlanDay2"]).ToString("dd/MM/yyyy");
+                            }
+                            if(TypeConversionUtility.ToStringWithNull(dr["FinancialLiteracyDay3"])!="")
+                            {
+                                enrollmentInfo.FinancialLiteracyDay3 = TypeConversionUtility.ToDateTime(dr["FinancialLiteracyDay3"]).ToString("dd/MM/yyyy");
+                            }
+                            if(TypeConversionUtility.ToStringWithNull(dr["FinancialTermsDay4"])!="")
+                            {
+                                enrollmentInfo.FinancialTermsDay4 = TypeConversionUtility.ToDateTime(dr["FinancialTermsDay4"]).ToString("dd/MM/yyyy");
+                            }
+                            if(TypeConversionUtility.ToStringWithNull(dr["BusinessManagementDay5"])!="")
+                            {
+                                enrollmentInfo.BusinessManagementDay5 = TypeConversionUtility.ToDateTime(dr["BusinessManagementDay5"]).ToString("dd/MM/yyyy");
+                            }
                             #endregion
 
                             #region "Enterprise Training Details"

@@ -60,7 +60,7 @@ app.controller('businessProgressCustomerListController', function ($scope, $http
             { data: 'NoRepeatedCustomer' },
             { data: 'ServicesOfferedType' },
             { data: 'ServicesProvidedDetails' },
-            { data: 'GovCustomerServices' },
+            { data: 'TotalVillagesCovered' },
             { data: 'G2CServices' },
             { data: 'IncomefromSell' },
             { data: 'CashSellAmount' },

@@ -43,12 +43,24 @@
                                             <th>WRPC Date</th>
                                             <th>HNC Date</th>
                                             <th>FLC Date</th>
+                                            <th>Is Induction Training</th>
+                                            <th>Induction Training - Day 1</th>
+                                            <th>Induction Training - Day 2</th>
+                                            <th>Is Digital Skill Training</th>
+                                            <th>Digital Skill Training - Day 1</th>
+                                            <th>Digital Skill Training - Day 2</th>
+                                            <th>Digital Skill Training - Day 3</th>
                                             <th>EDTS Date</th>
                                             <th>LEAP Date</th>
                                             <th>ESIS Date</th>
                                             <th>BMTC Date</th>
                                             <th>MMTC Date</th>
                                             <th>EDPT CDate</th>
+                                            <th>EDP Introduction - Day 1</th>
+                                            <th>BPRM - Day 2</th>
+                                            <th>FLT - Day 3</th>
+                                            <th>IFTS - Day 4</th>
+                                            <th>BMT - Day 5</th>
                                             <th>Submited On</th>
                                         </tr>
                                     </thead>

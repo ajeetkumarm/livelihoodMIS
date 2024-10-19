@@ -50,6 +50,7 @@ namespace ModelLayer
         public bool PaymentModeDigital { get; set; }
         public bool PaymentModeNoneDigital { get; set; }
         public List<BPCDigitalCategory> DigitalCategories { get; set; }
+        public int TotalVillagesCovered { get; set; }
     }
     [Serializable]
     public class BPCDigitalCategory

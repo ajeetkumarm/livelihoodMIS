@@ -44,6 +44,7 @@ namespace ModelLayer
         public DateTime UpdatedOn { get; set; }
         public int TotalCount { get; set; }
         public int RowNum { get; set; }
+        public int TotalVillagesCovered { get; set; }
     }
 
     public class BusinessProgessCustomerResponse

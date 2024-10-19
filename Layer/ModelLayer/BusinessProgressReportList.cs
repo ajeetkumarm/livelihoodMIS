@@ -45,7 +45,7 @@ namespace ModelLayer
         public DateTime? UpdatedOn { get; set; }
         public string UpdatedDisplay => UpdatedOn != null ? TypeConversionUtility.ToDateTime(UpdatedOn).ToString("dd/MM/yyyy") : string.Empty;
         
-
+        public int TotalVillagesCovered { get; set; }
 
      //   StartingBusinessDate,[Year],[Month],NoNewCustomer,NoRepeatedCustomer,
      //ServicesOfferedType,ServicesProvidedDetails,GovCustomerServices,G2CServices,IncomefromSell,CashSellAmount,

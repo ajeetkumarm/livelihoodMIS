@@ -85,7 +85,7 @@
                                             <th>No Repeated Customer</th>
                                             <th>Services Offered Type</th>
                                             <th>Services Provided Details</th>
-                                            <th>Gov CustomerServices</th>
+                                            <th>Total Villages Covered</th>
                                             <th>G2CServices</th>
                                             <th>Income from Sell</th>
                                             <th>Cash Sell Amount</th>

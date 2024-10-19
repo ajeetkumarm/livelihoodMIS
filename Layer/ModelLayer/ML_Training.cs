@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ModelLayer
+﻿namespace ModelLayer
 {
     public class ML_Training
     {
@@ -30,5 +24,12 @@ namespace ModelLayer
         public string DigitalSkillTrainingDay1 { get; set; }
         public string DigitalSkillTrainingDay2 { get; set; }
         public string DigitalSkillTrainingDay3 { get; set; }
+        public string IsInductionTraining { get; set; }
+        public string IsDigitalSkillTraining { get; set; }
+        public string EDPIntroDay1 { get; set; }
+        public string BusinessPlanDay2 { get; set; }
+        public string FinancialLiteracyDay3 { get; set; }
+        public string FinancialTermsDay4 { get; set; }
+        public string BusinessManagementDay5 { get; set; }
     }
 }

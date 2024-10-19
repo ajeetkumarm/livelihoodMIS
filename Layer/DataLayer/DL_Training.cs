@@ -34,7 +34,14 @@ namespace DataLayer
                                   new SqlParameter("@InductionTrainingDay2", obj_ML_Training.InductionTrainingDay2),
                                   new SqlParameter("@DigitalSkillTrainingDay1", obj_ML_Training.DigitalSkillTrainingDay1),
                                   new SqlParameter("@DigitalSkillTrainingDay2", obj_ML_Training.DigitalSkillTrainingDay2),
-                                  new SqlParameter("@DigitalSkillTrainingDay3", obj_ML_Training.DigitalSkillTrainingDay3)
+                                  new SqlParameter("@DigitalSkillTrainingDay3", obj_ML_Training.DigitalSkillTrainingDay3),
+                                  new SqlParameter("@IsInductionTraining", obj_ML_Training.IsInductionTraining),
+                                  new SqlParameter("@IsDigitalSkillTraining", obj_ML_Training.IsDigitalSkillTraining),
+                                  new SqlParameter("@EDPIntroDay1", obj_ML_Training.EDPIntroDay1),
+                                  new SqlParameter("@BusinessPlanDay2", obj_ML_Training.BusinessPlanDay2),
+                                  new SqlParameter("@FinancialLiteracyDay3", obj_ML_Training.FinancialLiteracyDay3),
+                                  new SqlParameter("@FinancialTermsDay4", obj_ML_Training.FinancialTermsDay4),
+                                  new SqlParameter("@BusinessManagementDay5", obj_ML_Training.BusinessManagementDay5)
                                };
             return SqlHelper.ExecuteNonQuery(con, "USP_InsUpdTraining", par);
         }

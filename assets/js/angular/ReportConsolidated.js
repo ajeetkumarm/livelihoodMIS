@@ -80,12 +80,24 @@ app.controller('reportConsolidatedAppController', function ($scope, $http, $wind
         { data: 'WRPCDate' },
         { data: 'HNCDate' },
         { data: 'FLCDate' },
+        { data: 'IsInductionTraining' },
+        { data: 'InductionTrainingDay1' },
+        { data: 'InductionTrainingDay2' },
+        { data: 'IsDigitalSkillTraining' },
+        { data: 'DigitalSkillTrainingDay1' },
+        { data: 'DigitalSkillTrainingDay2' },
+        { data: 'DigitalSkillTrainingDay3' },
         { data: 'EDTSDate' },
         { data: 'LEAPDate' },
         { data: 'ESISDate' },
         { data: 'BMTCDate' },
         { data: 'MMTCDate' },
         { data: 'EDPTCDate' },
+        { data: 'EDPIntroDay1' },
+        { data: 'BusinessPlanDay2' },
+        { data: 'FinancialLiteracyDay3' },
+        { data: 'FinancialTermsDay4' },
+        { data: 'BusinessManagementDay5' },
 
         { data: 'StartBusiness' },
         { data: 'BusinessReasons' },
@@ -114,7 +126,9 @@ app.controller('reportConsolidatedAppController', function ($scope, $http, $wind
         { data: 'DigitalInclusionDate' },
         { data: 'OwnSmartPhone' },
         { data: 'UseSmartPhone' },
-        { data: 'SupplyChain' });
+        { data: 'SupplyChain' },
+        
+    );
 
     var dataTable = $('#reportConsolidatedTable').DataTable({
         serverSide: true,

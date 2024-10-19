@@ -230,6 +230,12 @@
                             </div>
                         </div>
                         <div class="mb-3 row m-1">
+                            <label class="col-sm-3 col-form-label">Total Number of Villages Covered by Entrepreneurs</label>
+                            <div class="col-sm-6">
+                                <input type="text" id="txtTotalVillagesCovered" class="form-control" ng-model="BusinessProgressModel.TotalVillagesCovered" onkeypress="return isNumberKey(event)" maxlength="5" />
+                            </div>
+                        </div>
+                        <div class="mb-3 row m-1" style="display: none;">
                             <label class="col-sm-3 col-form-label">If related to government to customer services mention the number</label>
                             <div class="col-sm-6">
                                 <input type="text" id="txtGovCustServices" class="form-control" ng-model="BusinessProgressModel.GovCustomerServices" onkeypress="return isNumberKey(event)" maxlength="9" />

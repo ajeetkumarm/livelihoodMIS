@@ -83,6 +83,7 @@ namespace DataLayer
                     sqlcmd.Parameters.AddWithValue("@JsonServiceLine", jsonServiceLine);
                     sqlcmd.Parameters.AddWithValue("@IsCategoryAdded", isCategoryAdded);
                     sqlcmd.Parameters.AddWithValue("@IsServiceLineAdded", isServiceLineAdded);
+                    sqlcmd.Parameters.AddWithValue("@TotalVillagesCovered", obj_ML_BusinessProgress.TotalVillagesCovered);
 
                     var businessProgressId = sqlcmd.ExecuteScalar();
                     obj_ML_BusinessProgress.BusinessProgressId = TypeConversionUtility.ToInteger(businessProgressId);
@@ -152,6 +153,7 @@ namespace DataLayer
                             objBusinessProgressCustomer.UpdatedOn = TypeConversionUtility.ToDateTime(dr["UpdatedOn"]);
                             objBusinessProgressCustomer.TotalCount = TypeConversionUtility.ToInteger(dr["TotalCount"]);
                             objBusinessProgressCustomer.RowNum = TypeConversionUtility.ToInteger(dr["RowNum"]);
+                            objBusinessProgressCustomer.TotalVillagesCovered = TypeConversionUtility.ToInteger(dr["TotalVillagesCovered"]);
                             lstBusinessProgressCustomer.Add(objBusinessProgressCustomer);
 
                         }

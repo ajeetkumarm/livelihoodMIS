@@ -181,12 +181,26 @@ namespace BusinessLayer
             dt.Columns.Add("WRPC Date", typeof(string));
             dt.Columns.Add("HNC Date", typeof(string));
             dt.Columns.Add("FLC Date", typeof(string));
+
+            dt.Columns.Add("Is Induction Training", typeof(string));
+            dt.Columns.Add("Induction Training - Day 1", typeof(string));
+            dt.Columns.Add("Induction Training - Day 2", typeof(string));
+            dt.Columns.Add("Is Digital Skill Training", typeof(string));
+            dt.Columns.Add("Digital Skill Training - Day 1", typeof(string));
+            dt.Columns.Add("Digital Skill Training - Day 2", typeof(string));
+            dt.Columns.Add("Digital Skill Training - Day 3", typeof(string));
             dt.Columns.Add("EDTS Date", typeof(string));
             dt.Columns.Add("LEAP Date", typeof(string));
             dt.Columns.Add("ESIS Date", typeof(string));
             dt.Columns.Add("BMTC Date", typeof(string));
             dt.Columns.Add("MMTC Date", typeof(string));
             dt.Columns.Add("EDPT CDate", typeof(string));
+            
+            dt.Columns.Add("EDP Introduction - Day 1", typeof(string));
+            dt.Columns.Add("BPRM - Day 2", typeof(string));
+            dt.Columns.Add("FLT - Day 3", typeof(string));
+            dt.Columns.Add("IFTS - Day 4", typeof(string));
+            dt.Columns.Add("BMT - Day 5", typeof(string));
             dt.Columns.Add("Submited On", typeof(string));
 
             foreach (var item in data)
@@ -206,12 +220,24 @@ namespace BusinessLayer
                 dr["WRPC Date"] = TypeConversionUtility.ToStringWithNull(item.WRPCDate);
                 dr["HNC Date"] = TypeConversionUtility.ToStringWithNull(item.HNCDate);
                 dr["FLC Date"] = TypeConversionUtility.ToStringWithNull(item.FLCDate);
+                dr["Is Induction Training"] = TypeConversionUtility.ToStringWithNull(item.IsInductionTraining);
+                dr["Induction Training - Day 1"] = TypeConversionUtility.ToStringWithNull(item.InductionTrainingDay1);
+                dr["Induction Training - Day 2"] = TypeConversionUtility.ToStringWithNull(item.InductionTrainingDay2);
+                dr["Is Digital Skill Training"] = TypeConversionUtility.ToStringWithNull(item.IsDigitalSkillTraining);
+                dr["Digital Skill Training - Day 1"] = TypeConversionUtility.ToStringWithNull(item.DigitalSkillTrainingDay1);
+                dr["Digital Skill Training - Day 2"] = TypeConversionUtility.ToStringWithNull(item.DigitalSkillTrainingDay2);
+                dr["Digital Skill Training - Day 3"] = TypeConversionUtility.ToStringWithNull(item.DigitalSkillTrainingDay3);
                 dr["EDTS Date"] = TypeConversionUtility.ToStringWithNull(item.EDTSDate);
                 dr["LEAP Date"] = TypeConversionUtility.ToStringWithNull(item.LEAPDate);
                 dr["ESIS Date"] = TypeConversionUtility.ToStringWithNull(item.ESISDate);
                 dr["BMTC Date"] = TypeConversionUtility.ToStringWithNull(item.BMTCDate);
                 dr["MMTC Date"] = TypeConversionUtility.ToStringWithNull(item.MMTCDate);
                 dr["EDPT CDate"] = TypeConversionUtility.ToStringWithNull(item.EDPTCDate);
+                dr["EDP Introduction - Day 1"] = TypeConversionUtility.ToStringWithNull(item.EDPIntroDay1);
+                dr["BPRM - Day 2"] = TypeConversionUtility.ToStringWithNull(item.BusinessPlanDay2);
+                dr["FLT - Day 3"] = TypeConversionUtility.ToStringWithNull(item.FinancialLiteracyDay3);
+                dr["IFTS - Day 4"] = TypeConversionUtility.ToStringWithNull(item.FinancialTermsDay4);
+                dr["BMT - Day 5"] = TypeConversionUtility.ToStringWithNull(item.BusinessManagementDay5);
                 dr["Submited On"] = TypeConversionUtility.ToStringWithNull(item.CreatedDisplay);
 
                 dt.Rows.Add(dr);
@@ -342,7 +368,7 @@ namespace BusinessLayer
             dt.Columns.Add("No Repeated Customer", typeof(string));
             dt.Columns.Add("Services Offered Type", typeof(string));
             dt.Columns.Add("Services Provided Details", typeof(string));
-            dt.Columns.Add("Gov Customer Services", typeof(string));
+            dt.Columns.Add("Total Villages Covered", typeof(string));
             dt.Columns.Add("G2C Services", typeof(string));
             dt.Columns.Add("Income from Sell", typeof(string));
             dt.Columns.Add("Cash Sell Amount", typeof(string));
@@ -384,7 +410,7 @@ namespace BusinessLayer
                 dr["No Repeated Customer"] = TypeConversionUtility.ToStringWithNull(item.NoRepeatedCustomer);
                 dr["Services Offered Type"] = TypeConversionUtility.ToStringWithNull(item.ServicesOfferedType);
                 dr["Services Provided Details"] = TypeConversionUtility.ToStringWithNull(item.ServicesProvidedDetails);
-                dr["Gov Customer Services"] = TypeConversionUtility.ToStringWithNull(item.GovCustomerServices);
+                dr["Total Villages Covered"] = TypeConversionUtility.ToStringWithNull(item.TotalVillagesCovered);
                 dr["G2C Services"] = TypeConversionUtility.ToStringWithNull(item.G2CServices);
                 dr["Income from Sell"] = TypeConversionUtility.ToStringWithNull(item.IncomefromSell);
                 dr["Cash Sell Amount"] = TypeConversionUtility.ToStringWithNull(item.CashSellAmount);
@@ -479,12 +505,26 @@ namespace BusinessLayer
             dt.Columns.Add("WRPC Date", typeof(string));
             dt.Columns.Add("HNC Date", typeof(string));
             dt.Columns.Add("FLC Date", typeof(string));
+            dt.Columns.Add("Is Induction Training", typeof(string));
+            dt.Columns.Add("Induction Training - Day 1", typeof(string));
+            dt.Columns.Add("Induction Training - Day 2", typeof(string));
+            dt.Columns.Add("Is Digital Skill Training", typeof(string));
+            dt.Columns.Add("Digital Skill Training - Day 1", typeof(string));
+            dt.Columns.Add("Digital Skill Training - Day 2", typeof(string));
+            dt.Columns.Add("Digital Skill Training - Day 3", typeof(string));
             dt.Columns.Add("EDTS Date", typeof(string));
             dt.Columns.Add("LEAP Date", typeof(string));
             dt.Columns.Add("ESIS Date", typeof(string));
             dt.Columns.Add("BMTC Date", typeof(string));
             dt.Columns.Add("MMTC Date", typeof(string));
             dt.Columns.Add("EDPT CDate", typeof(string));
+            dt.Columns.Add("EDP Introduction - Day 1", typeof(string));
+            dt.Columns.Add("BPRM - Day 2", typeof(string));
+            dt.Columns.Add("FLT - Day 3", typeof(string));
+            dt.Columns.Add("IFTS - Day 4", typeof(string));
+            dt.Columns.Add("BMT - Day 5", typeof(string));
+            
+            
             #endregion
 
             #region "Enterpries Training Column"
@@ -589,12 +629,24 @@ namespace BusinessLayer
                 dr["WRPC Date"] = TypeConversionUtility.ToStringWithNull(item.WRPCDate);
                 dr["HNC Date"] = TypeConversionUtility.ToStringWithNull(item.HNCDate);
                 dr["FLC Date"] = TypeConversionUtility.ToStringWithNull(item.FLCDate);
+                dr["Is Induction Training"] = TypeConversionUtility.ToStringWithNull(item.IsInductionTraining);
+                dr["Induction Training - Day 1"] = TypeConversionUtility.ToStringWithNull(item.InductionTrainingDay1);
+                dr["Induction Training - Day 2"] = TypeConversionUtility.ToStringWithNull(item.InductionTrainingDay2);
+                dr["Is Digital Skill Training"] = TypeConversionUtility.ToStringWithNull(item.IsDigitalSkillTraining);
+                dr["Digital Skill Training - Day 1"] = TypeConversionUtility.ToStringWithNull(item.DigitalSkillTrainingDay1);
+                dr["Digital Skill Training - Day 2"] = TypeConversionUtility.ToStringWithNull(item.DigitalSkillTrainingDay2);
+                dr["Digital Skill Training - Day 3"] = TypeConversionUtility.ToStringWithNull(item.DigitalSkillTrainingDay3);
                 dr["EDTS Date"] = TypeConversionUtility.ToStringWithNull(item.EDTSDate);
                 dr["LEAP Date"] = TypeConversionUtility.ToStringWithNull(item.LEAPDate);
                 dr["ESIS Date"] = TypeConversionUtility.ToStringWithNull(item.ESISDate);
                 dr["BMTC Date"] = TypeConversionUtility.ToStringWithNull(item.BMTCDate);
                 dr["MMTC Date"] = TypeConversionUtility.ToStringWithNull(item.MMTCDate);
                 dr["EDPT CDate"] = TypeConversionUtility.ToStringWithNull(item.EDPTCDate);
+                dr["EDP Introduction - Day 1"] = TypeConversionUtility.ToStringWithNull(item.EDPIntroDay1);
+                dr["BPRM - Day 2"] = TypeConversionUtility.ToStringWithNull(item.BusinessPlanDay2);
+                dr["FLT - Day 3"] = TypeConversionUtility.ToStringWithNull(item.FinancialLiteracyDay3);
+                dr["IFTS - Day 4"] = TypeConversionUtility.ToStringWithNull(item.FinancialTermsDay4);
+                dr["BMT - Day 5"] = TypeConversionUtility.ToStringWithNull(item.BusinessManagementDay5);
                 #endregion
 
                 #region "Enterpries Training Data Binding"

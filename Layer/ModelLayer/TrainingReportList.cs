@@ -35,5 +35,17 @@ namespace ModelLayer
         public DateTime? CreatedOn { get; set; }
         public string CreatedDisplay => CreatedOn != null ? TypeConversionUtility.ToDateTime(CreatedOn).ToString("dd/MM/yyyy") : string.Empty;
         public DateTime? UpdatedOn { get; set; }
+        public string IsInductionTraining { get; set; }
+        public string InductionTrainingDay1 { get; set; }
+        public string InductionTrainingDay2 { get; set; }
+        public string IsDigitalSkillTraining { get; set; }
+        public string DigitalSkillTrainingDay1 { get; set; }
+        public string DigitalSkillTrainingDay2 { get; set; }
+        public string DigitalSkillTrainingDay3 { get; set; }
+        public string EDPIntroDay1 { get; set; }
+        public string BusinessPlanDay2 { get; set; }
+        public string FinancialLiteracyDay3 { get; set; }
+        public string FinancialTermsDay4 { get; set; }
+        public string BusinessManagementDay5 { get; set; }
     }
 }
